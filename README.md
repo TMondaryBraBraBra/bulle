@@ -4,6 +4,8 @@
 
 Pas de compte Bulle, pas de serveur, pas d'abonnement. GitHub héberge seulement le code.
 
+> **En ligne :** [tmondarybrabrabra.github.io/bulle](https://tmondarybrabrabra.github.io/bulle/) · **Dépôt :** [github.com/TMondaryBraBraBra/bulle](https://github.com/TMondaryBraBraBra/bulle)
+
 ---
 
 ## Ce que Bulle sait faire
@@ -180,4 +182,4 @@ scripts/stamp-version.mjs  synchronisation de version (CI)
 
 ---
 
-**Bulle v1.0.0** · faite pour les étagères qui débordent.
+**Bulle** · faite pour les étagères qui débordent.
