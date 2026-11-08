@@ -1,0 +1,66 @@
+{
+  "id": "./",
+  "name": "Bulle — Ma mangathèque & bédéthèque",
+  "short_name": "Bulle",
+  "description": "Tes mangas, BD et comics : possession, wishlist, lecture, notes, prix d'achat et valeur de revente. Ta collection reste sur ton téléphone.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./#/",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#08080d",
+  "theme_color": "#08080d",
+  "categories": ["books", "lifestyle", "entertainment"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ma librairie",
+      "short_name": "Librairie",
+      "description": "Tous les titres que tu possèdes, veux ou lis",
+      "url": "./#/library",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Explorer le catalogue",
+      "short_name": "Explorer",
+      "description": "Chercher un manga ou une BD",
+      "url": "./#/explore",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mes statistiques",
+      "short_name": "Stats",
+      "description": "Budget, revente, notes et genres favoris",
+      "url": "./#/stats",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

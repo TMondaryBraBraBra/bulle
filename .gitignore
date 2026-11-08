@@ -1,0 +1,11 @@
+# Dossier de déploiement généré par GitHub Actions
+_site/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Journaux et fichiers temporaires
+*.log
+*.tmp

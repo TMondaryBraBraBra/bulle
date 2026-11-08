@@ -1,0 +1,5 @@
+[
+  { "id": "bd-franco", "title": "BD franco-belge cultes", "subtitle": "Les albums qui ont bercé nos dimanches", "cat": "franco", "max": 20 },
+  { "id": "bd-graphic", "title": "Romans graphiques", "subtitle": "Quand la BD prend le temps de raconter", "cat": "graphic", "max": 16 },
+  { "id": "bd-comics", "title": "Comics incontournables", "subtitle": "Super-héros, vertiges et chefs-d'œuvre", "cat": "comics", "max": 22 }
+]

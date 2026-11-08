@@ -1,0 +1,10 @@
+[
+  { "id": "manga-tendances", "title": "Tendances manga", "subtitle": "Ce que tout le monde dévore en ce moment", "sort": "TRENDING_DESC" },
+  { "id": "manga-action", "title": "Action & aventure", "subtitle": "Amitié, combat, dépassement de soi", "sort": "POPULARITY_DESC", "genre": "Action" },
+  { "id": "manga-drama", "title": "Drames intenses", "subtitle": "Pour les lecteurs qui aiment quand ça pique", "sort": "SCORE_DESC", "genre": "Drama" },
+  { "id": "manga-fantasy", "title": "Fantasy & isekai", "subtitle": "Mondes impossibles, destins épiques", "sort": "TRENDING_DESC", "genre": "Fantasy" },
+  { "id": "manga-romance", "title": "Romance & tranche de vie", "subtitle": "Des émotions en cases", "sort": "POPULARITY_DESC", "genre": "Romance" },
+  { "id": "manga-scifi", "title": "Science-fiction", "subtitle": "Futurs lointains et machines rêveuses", "sort": "SCORE_DESC", "genre": "Sci-Fi" },
+  { "id": "manga-thriller", "title": "Thriller & mystère", "subtitle": "Impossible de s'arrêter au tome 1", "sort": "POPULARITY_DESC", "genre": "Thriller" },
+  { "id": "manga-notes", "title": "Les mieux notés", "subtitle": "Le gratin du manga, par les lecteurs", "sort": "SCORE_DESC" }
+]
