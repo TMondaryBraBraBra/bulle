@@ -15,11 +15,11 @@ if (!/^\d+\.\d+\.\d+$/.test(version)) {
 
 function stamp(file, pattern, replacement) {
   const before = readFileSync(file, 'utf8');
-  const after = before.replace(pattern, replacement);
-  if (after === before) {
+  if (!pattern.test(before)) {
     console.error('Motif de version introuvable dans', file);
     process.exit(1);
   }
+  const after = before.replace(pattern, replacement);
   writeFileSync(file, after, 'utf8');
 }
 
