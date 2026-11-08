@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "released": "2026-11-08",
-  "notes": "Première version de Bulle : catalogue, librairie, wishlist, notes, prix, statistiques et lecture hors-ligne."
+  "notes": "Vérification de la mise à jour intégrée : bannière « Mettre à jour », cache hors-ligne et correctifs d'affichage."
 }
