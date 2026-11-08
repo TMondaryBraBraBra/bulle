@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "released": "2026-11-08",
-  "notes": "Vérification de la mise à jour intégrée : bannière « Mettre à jour », cache hors-ligne et correctifs d'affichage."
+  "notes": "Mise à jour plus fiable : le service worker récupère toujours les nouveaux fichiers sans rester bloqué sur l'ancien cache."
 }

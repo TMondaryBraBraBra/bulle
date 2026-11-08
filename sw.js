@@ -43,7 +43,9 @@ const COVER_HOSTS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL_CACHE)
-      .then((cache) => cache.addAll(PRECACHE))
+      // cache: 'reload' contourne le cache HTTP du navigateur : indispensable
+      // pour que la nouvelle version soit réellement récupérée après un déploiement.
+      .then((cache) => cache.addAll(PRECACHE.map((url) => new Request(url, { cache: 'reload' }))))
       .catch((err) => console.warn('[Bulle SW] Précache partiel :', err))
   );
   // Pas de skipWaiting ici : l'app affiche « Mettre à jour » et l'utilisateur décide.
@@ -93,7 +95,7 @@ async function cacheFirstCover(request) {
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(SHELL_CACHE);
   const hit = await cache.match(request, { ignoreSearch: true });
-  const network = fetch(request)
+  const network = fetch(request, { cache: 'no-store' })
     .then((response) => {
       if (response && response.ok) cache.put(request, response.clone()).catch(() => {});
       return response;
@@ -105,7 +107,7 @@ async function staleWhileRevalidate(request) {
 async function navigationHandler(request) {
   const cache = await caches.open(SHELL_CACHE);
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, { cache: 'no-store' });
     if (!response || !response.ok) throw new Error('HTTP ' + (response ? response.status : 'inconnu'));
     cache.put('./index.html', response.clone()).catch(() => {});
     return response;
