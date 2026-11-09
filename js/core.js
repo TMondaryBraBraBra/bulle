@@ -77,11 +77,12 @@
   seedRows.forEach((row) => {
     (row.items || []).forEach((item) => {
       if (!item || !item.id) return;
+      const enriched = Store.applyFrCover(item);
       CATALOG_BY_ID.set(item.id, {
-        ...item,
-        kind: item.kind === 'bd' ? 'bd' : 'manga',
-        genres: toArr(item.genres),
-        description: Store.cleanText(item.description)
+        ...enriched,
+        kind: enriched.kind === 'bd' ? 'bd' : 'manga',
+        genres: toArr(enriched.genres),
+        description: Store.cleanText(enriched.description)
       });
     });
   });
@@ -122,7 +123,7 @@
     const next = theme === 'light' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', next === 'light' ? '#f4f1ea' : '#08080d');
+    if (meta) meta.setAttribute('content', next === 'light' ? '#f4f1ea' : '#12121b');
     $$('.icon-theme use').forEach((use) => {
       use.setAttribute('href', next === 'light' ? '#i-sun' : '#i-moon');
     });
@@ -256,10 +257,32 @@
     return { unread: 'À lire', reading: 'En cours', read: 'Lu', dropped: 'Abandonné' }[status] || 'À lire';
   }
 
+  function ownedVolumeList(item) {
+    if (!item) return [];
+    return Store.normalizeOwnedVolumes(item.ownedVolumes, item.volumesOwned);
+  }
+
+  function volumeTotal(item) {
+    const declared = Number(item && item.volumes);
+    if (declared > 0) return Math.round(declared);
+    const covers = item && item.volumeCovers;
+    if (covers && typeof covers === 'object') {
+      const keys = Object.keys(covers).map((key) => parseInt(key, 10)).filter((number) => number > 0);
+      if (keys.length) return Math.max(...keys);
+    }
+    return 0;
+  }
+
+  function volumeCover(item, number) {
+    const covers = item && item.volumeCovers;
+    if (!covers || typeof covers !== 'object') return '';
+    return covers[String(number)] || covers[number] || '';
+  }
+
   function volumeProgress(item) {
-    const owned = Number(item.volumesOwned);
-    const total = Number(item.volumes);
-    if (owned > 0 && total > 0) return 'Tome ' + owned + '/' + total;
+    const owned = ownedVolumeList(item).length;
+    const total = volumeTotal(item);
+    if (owned > 0 && total > 0) return owned + ' / ' + total + ' ' + plural(total, 'tome');
     if (total > 0) return total + ' ' + plural(total, 'tome');
     if (owned > 0) return owned + ' ' + plural(owned, 'tome');
     return '';
@@ -370,7 +393,14 @@
     });
     return Array.from(map.values())
       .filter((item) => {
-        const hay = norm([item.title, item.author, item.subtype, (item.genres || []).join(' ')].join(' '));
+        const hay = norm([
+          item.title,
+          item.altTitle,
+          item.author,
+          item.publisher,
+          item.subtype,
+          (item.genres || []).join(' ')
+        ].join(' '));
         return tokens.every((token) => hay.includes(token));
       })
       .sort((a, b) => (b.score || 0) - (a.score || 0) || String(a.title).localeCompare(String(b.title), 'fr'));
@@ -462,6 +492,9 @@
     subtitleFor,
     statusLabel,
     volumeProgress,
+    ownedVolumeList,
+    volumeTotal,
+    volumeCover,
     coverHTML,
     posterCard,
     rowHTML,

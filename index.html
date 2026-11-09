@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Bulle — Ta mangathèque & bédéthèque</title>
   <meta name="description" content="Bulle réunit tes mangas, BD et comics : possession, wishlist, lecture, notes, prix d'achat et valeur de revente. Ta collection, ton style.">
-  <meta name="theme-color" content="#08080d">
+  <meta name="theme-color" content="#12121b">
   <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/favicon-32.png" sizes="32x32" type="image/png">
@@ -125,6 +125,17 @@
     </header>
 
     <main class="main" id="main">
+      <div class="topbar">
+        <div class="searchbar searchbar--global" role="search">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+          <input id="global-search" type="search" placeholder="Rechercher un manga, une BD, un auteur…"
+            autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Rechercher dans tout Bulle">
+          <kbd class="searchbar__hint" id="global-search-hint">Ctrl K</kbd>
+          <button class="searchbar__clear" id="global-search-clear" data-action="clear-search" type="button" aria-label="Effacer la recherche" hidden>
+            <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+          </button>
+        </div>
+      </div>
       <div class="view" id="view">
         <div class="boot">
           <span class="boot__mark"></span>
@@ -160,6 +171,7 @@
   <div id="toast-root" class="toast-root" role="status" aria-live="polite"></div>
 
   <script src="./data/seed.js"></script>
+  <script src="./data/covers-fr.js"></script>
   <script src="./js/store.js"></script>
   <script src="./js/api.js"></script>
   <script src="./js/core.js"></script>

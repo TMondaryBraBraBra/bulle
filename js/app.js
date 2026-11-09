@@ -24,10 +24,19 @@
 
     if (B.ui.screen === 'explore' && B.ui.explore.focusSearch) {
       B.ui.explore.focusSearch = false;
-      const input = $('#explore-search');
+      const input = $('#global-search');
       if (input) {
         input.focus();
         try { input.setSelectionRange(input.value.length, input.value.length); } catch (err) { /* noop */ }
+      }
+    }
+
+    syncGlobalSearch();
+
+    if (B.ui.screen === 'explore') {
+      const query = B.ui.explore.q.trim();
+      if (query.length >= 2 && B.ui.explore.searchedFor !== query && !B.ui.explore.loading) {
+        scheduleSearch(0);
       }
     }
 
@@ -121,22 +130,40 @@
     }
   }
 
-  function onExploreInput(value) {
+  function syncGlobalSearch() {
+    const input = $('#global-search');
+    if (!input) return;
+    if (document.activeElement !== input && input.value !== B.ui.explore.q) {
+      input.value = B.ui.explore.q;
+    }
+    const clear = $('#global-search-clear');
+    if (clear) clear.hidden = !input.value;
+  }
+
+  function onGlobalInput(value) {
     B.ui.explore.q = value;
     B.ui.explore.limit = 28;
     clearTimeout(searchTimer);
-    renderExploreResults();
 
-    if (value.trim().length >= 2) {
-      scheduleSearch(450);
-    } else {
+    const query = value.trim();
+    if (query.length < 2) {
       searchSeq += 1;
       B.ui.explore.loading = false;
       B.ui.explore.searchedFor = '';
       B.ui.explore.items = [];
       B.ui.explore.errors = [];
+    }
+
+    if (B.ui.screen !== 'explore') {
+      if (location.hash === '#/explore') renderCurrentScreen({ preserveScroll: true });
+      else location.hash = '#/explore';
+    } else {
       renderExploreResults();
     }
+
+    syncGlobalSearch();
+
+    if (query.length >= 2) scheduleSearch(450);
   }
 
   function setExploreKind(kind) {
@@ -171,18 +198,11 @@
   }
 
   function focusSearch() {
-    if (B.ui.screen === 'explore') {
-      const input = $('#explore-search');
-      if (input) input.focus();
-      return;
-    }
-    B.ui.explore.focusSearch = true;
-    if (location.hash === '#/explore') {
-      renderCurrentScreen({ preserveScroll: true });
-      afterRender();
-    } else {
-      location.hash = '#/explore';
-    }
+    if (document.body.classList.contains('sheet-open')) return;
+    const input = $('#global-search');
+    if (!input) return;
+    input.focus();
+    try { input.setSelectionRange(input.value.length, input.value.length); } catch (err) { /* noop */ }
   }
 
   function refreshAfterLibraryChange() {
@@ -256,13 +276,14 @@
         searchSeq += 1;
         clearTimeout(searchTimer);
         {
-          const input = $('#explore-search');
+          const input = $('#global-search');
           if (input) {
             input.value = '';
             input.focus();
           }
+          syncGlobalSearch();
         }
-        renderExploreResults();
+        if (B.ui.screen === 'explore') renderExploreResults();
         break;
 
       case 'retry-search':
@@ -327,6 +348,18 @@
         Sheet.setRating(Number(target.dataset.index), half);
         break;
       }
+
+      case 'toggle-volume':
+        Sheet.toggleVolume(Number(target.dataset.volume));
+        break;
+
+      case 'volumes-all':
+        Sheet.setAllVolumes('all');
+        break;
+
+      case 'volumes-none':
+        Sheet.setAllVolumes('none');
+        break;
 
       case 'focus-search':
         focusSearch();
@@ -642,7 +675,7 @@
     });
 
     document.addEventListener('input', (event) => {
-      if (event.target.id === 'explore-search') onExploreInput(event.target.value);
+      if (event.target.id === 'global-search') onGlobalInput(event.target.value);
       else if (event.target.id === 'sheet-notes') Sheet.setNotes(event.target.value);
     });
 

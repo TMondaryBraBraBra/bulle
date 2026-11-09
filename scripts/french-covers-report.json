@@ -1,0 +1,3119 @@
+﻿[
+    {
+        "id":  "anilist:30003",
+        "title":  "20th Century Boys",
+        "expectedVolumes":  22,
+        "status":  "matched",
+        "matchedTitle":  "20th Century Boys",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/20th-century-boys",
+        "cover":  "https://www.manga-news.com/public/images/series/.20th_01_large.webp",
+        "volumeCovers":  22,
+        "candidates":  [
+                           {
+                               "title":  "20th Century Boys",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/20th-century-boys",
+                               "score":  100
+                           },
+                           {
+                               "title":  "21st Century Boys",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/21th-Century-Boys",
+                               "score":  67
+                           },
+                           {
+                               "title":  "20th century boys - Spin off",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/20th-century-boys-Spin-off",
+                               "score":  58
+                           },
+                           {
+                               "title":  "Switch Boys",
+                               "author":  "YEODAT",
+                               "url":  "https://www.manga-news.com/index.php/serie/Switch-Boys",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:85135",
+        "title":  "A Silent Voice",
+        "expectedVolumes":  7,
+        "status":  "matched",
+        "matchedTitle":  "A Silent Voice",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/A-Silent-Voice",
+        "cover":  "https://www.manga-news.com/public/images/series/.a-silent-voice-1-ki-oon_large.webp",
+        "volumeCovers":  7,
+        "candidates":  [
+                           {
+                               "title":  "A Silent Voice",
+                               "author":  "OIMA Yoshitoki - OHIMA Yoshitoki",
+                               "url":  "https://www.manga-news.com/index.php/serie/A-Silent-Voice",
+                               "score":  100
+                           },
+                           {
+                               "title":  "A Silent Voice - Roman",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/A-Silent-Voice-Roman",
+                               "score":  58
+                           },
+                           {
+                               "title":  "Silent Noise",
+                               "author":  "Ichi ICHIKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Silent-noise",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Silent Love",
+                               "author":  "TAKANAGA Hinako",
+                               "url":  "https://www.manga-news.com/index.php/serie/Silent-Love",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30664",
+        "title":  "Akira",
+        "expectedVolumes":  6,
+        "status":  "matched",
+        "matchedTitle":  "Akira",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Akira",
+        "cover":  "https://www.manga-news.com/public/images/series/akira_01.webp",
+        "volumeCovers":  31,
+        "candidates":  [
+                           {
+                               "title":  "Akira",
+                               "author":  "Katsuhiro OTOMO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Akira",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Choc Akira (le) - Une [r]évolution du manga",
+                               "author":  "TERADA Katsuya",
+                               "url":  "https://www.manga-news.com/index.php/serie/Le-choc-Akira-Une-%5Br%5Devolution-du-manga",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Akira Toriyama le maitre du manga",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Akira-Toriyama-le-dieu-vivant-du-manga",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Treat me gently, please - Akira story",
+                               "author":  "NEKOTA Yonezou / NEKOTA Yonezô",
+                               "url":  "https://www.manga-news.com/index.php/serie/Treat-me-gently-please-Akira-story",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:63031",
+        "title":  "Alice in Borderland",
+        "expectedVolumes":  18,
+        "status":  "matched",
+        "matchedTitle":  "Alice in Borderland",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Alice-in-borderland",
+        "cover":  "https://www.manga-news.com/public/images/series/.alice-in-borderland-1-delcourt_large.webp",
+        "volumeCovers":  18,
+        "candidates":  [
+                           {
+                               "title":  "Alice in Borderland",
+                               "author":  "ASÔ Haro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Alice-in-borderland",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Alice in Borderland Retry",
+                               "author":  "ASÔ Haro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Alice-in-Borderland-Retry",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Alice in Mechaland",
+                               "author":  "Hambuck - XIAO Nai-Chung",
+                               "url":  "https://www.manga-news.com/index.php/serie/Alice-in-Mechaland",
+                               "score":  67
+                           },
+                           {
+                               "title":  "Alice in Murderland",
+                               "author":  "Kaori YUKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kakei-no-Alice",
+                               "score":  67
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:161493",
+        "title":  "All My Neighbors are Convinced the Female Knight from My Rice Field Is My Wife",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+
+                       ]
+    },
+    {
+        "id":  "anilist:137714",
+        "title":  "Are You a Landmine, Chihara-san?",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Un monde sans toi",
+                               "author":  "BAMMANYEO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Un-monde-sans-toi",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Tokyo Sanpo",
+                               "author":  "CHAVOUET Florent",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Sanpo",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Sans aller à l\u0027école, je suis devenu mangaka",
+                               "author":  "TANAZONO Shouichi / Shoichi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Sans-aller-a-l-ecole-je-suis-devenu-mangaka",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Baiser du Sang (Le)",
+                               "author":  "TATENO Makoto",
+                               "url":  "https://www.manga-news.com/index.php/serie/Baiser-du-Sang-Le",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30081",
+        "title":  "Aria",
+        "expectedVolumes":  12,
+        "status":  "matched",
+        "matchedTitle":  "Aria",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Aria",
+        "cover":  "https://www.manga-news.com/public/images/series/.ARIA-The-Masterpiece-1-ki-oon_large.webp",
+        "volumeCovers":  7,
+        "candidates":  [
+                           {
+                               "title":  "Aria",
+                               "author":  "Kozue AMANO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Aria",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Mariage blanc (Un)",
+                               "author":  "TAKAHASHI Saemi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Mariage-blanc-Un",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Un mariage arrangé, vous dites ?!",
+                               "author":  "Kazura KINOSAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Un-mariage-arrange-vous-dites",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Maria",
+                               "author":  "Kazuo KAMIMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Maria",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:31303",
+        "title":  "Ashita no Joe: Fighting for Tomorrow",
+        "expectedVolumes":  20,
+        "status":  "matched",
+        "matchedTitle":  "Ashita no Joe",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Ashita-no-Joe",
+        "cover":  "https://www.manga-news.com/public/images/series/.ashita-no-joe-glenat-1_large.webp",
+        "volumeCovers":  13,
+        "candidates":  [
+                           {
+                               "title":  "Ashita no Joe",
+                               "author":  "CHIBA Tetsuya",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ashita-no-Joe",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Tomorrow Maybe Love",
+                               "author":  "YAMASHITA Machi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tomorrow-Maybe-Love",
+                               "score":  17
+                           },
+                           {
+                               "title":  "Let\u0027s Kiss in Secret Tomorrow",
+                               "author":  "Uri SUGATA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Lets-Kiss-in-Secret-Tomorrow",
+                               "score":  17
+                           },
+                           {
+                               "title":  "See You Tomorrow At The Foodcourt",
+                               "author":  "Shinichirô NARIIE",
+                               "url":  "https://www.manga-news.com/index.php/serie/See-You-Tomorrow-At-The-Foodcourt",
+                               "score":  17
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30756",
+        "title":  "Banana Fish",
+        "expectedVolumes":  19,
+        "status":  "matched",
+        "matchedTitle":  "Banana Fish",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Banana-fish",
+        "cover":  "https://www.manga-news.com/public/images/series/.banana-fish-perfect-1-panini_large.webp",
+        "volumeCovers":  19,
+        "candidates":  [
+                           {
+                               "title":  "Banana Fish",
+                               "author":  "Akimi YOSHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Banana-fish",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Banana story",
+                               "author":  "PARK Kyung-Eun",
+                               "url":  "https://www.manga-news.com/index.php/serie/Banana-story",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Rumble Fish",
+                               "author":  "KAWASHITA Kanji",
+                               "url":  "https://www.manga-news.com/index.php/serie/Rumble-fish",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Banana Sioule",
+                               "author":  "SANLAVILLE Michaël",
+                               "url":  "https://www.manga-news.com/index.php/serie/Banana-Sioule",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30002",
+        "title":  "Berserk",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Berserk",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Berserk-2Ed",
+        "cover":  "https://www.manga-news.com/public/images/series/.berserk-2016-1-glenat_large.webp",
+        "volumeCovers":  43,
+        "candidates":  [
+                           {
+                               "title":  "Berserk",
+                               "author":  "Kentarô MIURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Berserk-2Ed",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Berserk - A l\u0027encre des ténèbres",
+                               "author":  "Kentarô MIURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Berserk-A-lencre-des-tenebres",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Berserk of Gluttony",
+                               "author":  "Daisuke TAKINO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Berserk-of-Gluttony",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Berserk - Roman",
+                               "author":  "Kentarô MIURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Berserk-Roman",
+                               "score":  58
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:41054",
+        "title":  "Billy Bat",
+        "expectedVolumes":  20,
+        "status":  "matched",
+        "matchedTitle":  "Billy Bat",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Billy-Bat",
+        "cover":  "https://www.manga-news.com/public/images/series/.billy-bat-1-pika_large.webp",
+        "volumeCovers":  20,
+        "candidates":  [
+                           {
+                               "title":  "Billy Bat",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Billy-Bat",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Billy the Kid 21",
+                               "author":  "ROKUDA Noboru",
+                               "url":  "https://www.manga-news.com/index.php/serie/Billy-the-Kid-21",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Battle Rabbits",
+                               "author":  "ICHIHARA Yukino",
+                               "url":  "https://www.manga-news.com/index.php/serie/Battle-Rabbits",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Superhuman Battlefield",
+                               "author":  "Plan A",
+                               "url":  "https://www.manga-news.com/index.php/serie/Superhuman-Battlefield",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30012",
+        "title":  "Bleach",
+        "expectedVolumes":  74,
+        "status":  "matched",
+        "matchedTitle":  "Bleach",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Bleach",
+        "cover":  "https://www.manga-news.com/public/images/series/bleach_01-2.webp",
+        "volumeCovers":  74,
+        "candidates":  [
+                           {
+                               "title":  "Bleach",
+                               "author":  "Tite KUBO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bleach",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Bleach - Anime comics",
+                               "author":  "Tite KUBO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bleach-Anime-comics",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Bleach - Romans",
+                               "author":  "Tite KUBO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bleach-Roman",
+                               "score":  58
+                           },
+                           {
+                               "title":  "Black Board",
+                               "author":  "Fuyuki IZUMIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Black-Board",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:86218",
+        "title":  "Bloom Into You",
+        "expectedVolumes":  8,
+        "status":  "matched",
+        "matchedTitle":  "Bloom into you",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Bloom-into-you",
+        "cover":  "https://www.manga-news.com/public/images/series/.bloom-into-you-1-kana_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "Bloom into you",
+                               "author":  "NAKATANI Nio",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bloom-into-you",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Bloom",
+                               "author":  "Saka MIKAMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bloom",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Inside Full Bloom",
+                               "author":  "Wakame KUKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Inside-Full-Bloom",
+                               "score":  33
+                           },
+                           {
+                               "title":  "You\u0027re my Soulmate",
+                               "author":  "ANASHIN",
+                               "url":  "https://www.manga-news.com/index.php/serie/Unmei-no-Hito-ni-Deau-Hanashi",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:106130",
+        "title":  "Blue Lock",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Blue Lock",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Blue-Lock",
+        "cover":  "https://www.manga-news.com/public/images/series/.blue-lock-1-pika_large.webp",
+        "volumeCovers":  36,
+        "candidates":  [
+                           {
+                               "title":  "Blue Lock",
+                               "author":  "Yûsuke NOMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Blue-Lock",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Blue Lock - Episode Nagi",
+                               "author":  "Kôta SANNOMIYA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Blue-Lock-Episode-Nagi",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Saru Lock",
+                               "author":  "SERIZAWA Naoki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Saru-Lock",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Danzai Lock",
+                               "author":  "NONOYAMA Saki - NONOYA Masaki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Danzai-Lock",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:168468",
+        "title":  "Boruto: Two Blue Vortex",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Boruto - Two Blue Vortex",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Boruto-Two-Blue-Vortex",
+        "cover":  "https://www.manga-news.com/public/images/series/.Boruto_-_Two_Blue_Vortex_-_Tome_1_Kana_large.webp",
+        "volumeCovers":  7,
+        "candidates":  [
+                           {
+                               "title":  "Boruto - Two Blue Vortex",
+                               "author":  "Mikio IKEMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Boruto-Two-Blue-Vortex",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tokyo Blue",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Blue",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Blue\u0027s Maruna",
+                               "author":  "MARUNA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Blues-Maruna",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Blue Wolves",
+                               "author":  "Tsuyoshi YASUDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ao-no-Miburo",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:105778",
+        "title":  "Chainsaw Man",
+        "expectedVolumes":  24,
+        "status":  "matched",
+        "matchedTitle":  "Chainsaw Man",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Chainsaw-Man",
+        "cover":  "https://www.manga-news.com/public/images/series/.chainsaw-man-1-kaze_large.webp",
+        "volumeCovers":  23,
+        "candidates":  [
+                           {
+                               "title":  "Chainsaw Man",
+                               "author":  "Tatsuki FUJIMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Chainsaw-Man",
+                               "score":  100
+                           },
+                           {
+                               "title":  "No man\u0027s land",
+                               "author":  "ROSERO Jennyson Allan",
+                               "url":  "https://www.manga-news.com/index.php/serie/No-mans-land",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Bloody Delinquent Girl Chainsaw",
+                               "author":  "Rei MIKAMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bloody-Delinquent-Gir-Chainsaw",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Castlevania - Le Manuscrit Maudit",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Castlevania-Le-Manuscrit-Maudit",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:132029",
+        "title":  "Dandadan",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Dandadan",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Dandadan",
+        "cover":  "https://www.manga-news.com/public/images/series/.Dandadan_1_crunchyroll_large.webp",
+        "volumeCovers":  24,
+        "candidates":  [
+                           {
+                               "title":  "Dandadan",
+                               "author":  "Yukinobu TATSU",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dandadan",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Hana Nochi Hare",
+                               "author":  "KAMIO Yôko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Hana-Nochi-Hare",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Dandara",
+                               "author":  "KIRA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dandara",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30021",
+        "title":  "Death Note",
+        "expectedVolumes":  12,
+        "status":  "matched",
+        "matchedTitle":  "Death Note",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Death-note",
+        "cover":  "https://www.manga-news.com/public/images/series/death_note_01.webp",
+        "volumeCovers":  12,
+        "candidates":  [
+                           {
+                               "title":  "Death Note",
+                               "author":  "Takeshi OBATA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Death-note",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Death Note : 20 ans d\u0027anime",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Death-Note-:-20-ans-danime",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Death Note - Écrire un nouveau monde",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Death-Note-Ecrire-un-nouveau-monde",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Death note - Roman",
+                               "author":  "Takeshi OBATA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Death-note-Roman",
+                               "score":  58
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:100664",
+        "title":  "Don\u0027t Toy With Me, Miss Nagatoro",
+        "expectedVolumes":  20,
+        "status":  "matched",
+        "matchedTitle":  "Arrête de me chauffer Nagatoro",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Miss-Nagatoro",
+        "cover":  "https://www.manga-news.com/public/images/series/.Arrete_de_me_chauffer_Nagatoro_1_noeve_large.webp",
+        "volumeCovers":  20,
+        "candidates":  [
+                           {
+                               "title":  "Arrête de me chauffer Nagatoro",
+                               "author":  "NANASHI - 774 House",
+                               "url":  "https://www.manga-news.com/index.php/serie/Miss-Nagatoro",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Nectar \u0026 libido",
+                               "author":  "SHIGAOKA Tôki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Nectar-libido",
+                               "score":  0
+                           },
+                           {
+                               "title":  "The Necromancer",
+                               "author":  "JI Sung Woong",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Necromancer",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Smoky Nectar Renew",
+                               "author":  "MINAZUKI Akira",
+                               "url":  "https://www.manga-news.com/index.php/serie/Smoky-Nectar-Renew",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30042",
+        "title":  "Dragon Ball",
+        "expectedVolumes":  42,
+        "status":  "matched",
+        "matchedTitle":  "Dragon Ball",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Dragon-ball",
+        "cover":  "https://www.manga-news.com/public/images/series/.Dragon_Ball_Ed_originale_1_gle_nat_large.webp",
+        "volumeCovers":  85,
+        "candidates":  [
+                           {
+                               "title":  "Dragon Ball",
+                               "author":  "Akira TORIYAMA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragon-ball",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Dragon Ball - Le livre hommage",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragon-Ball-Le-livre-hommage",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Dragon Ball Super",
+                               "author":  "TOYOTARÔ",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragon-Ball-Super",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Dragon Ball Super - Films",
+                               "author":  "TOEI Animation",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragon-Ball-Super-Films",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:69325",
+        "title":  "Erased",
+        "expectedVolumes":  9,
+        "status":  "matched",
+        "matchedTitle":  "Erased",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Erased",
+        "cover":  "https://www.manga-news.com/public/images/series/.erased-1-ki-oon_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "Erased",
+                               "author":  "Kei SANBE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Erased",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Erased Re",
+                               "author":  "Kei SANBE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Erased-Re",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Petite faiseuse de livres (la) - Partie 2",
+                               "author":  "SUZUKA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Petite-faiseuse-de-livres-la-Partie-2",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Spiral (Ring)",
+                               "author":  "Mizuki SAKURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Spiral-Ring",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:87170",
+        "title":  "Fire Punch",
+        "expectedVolumes":  8,
+        "status":  "matched",
+        "matchedTitle":  "Fire Punch",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Fire-Punch",
+        "cover":  "https://www.manga-news.com/public/images/series/.fire-punch-1-kaze_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "Fire Punch",
+                               "author":  "Tatsuki FUJIMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fire-Punch",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Fire !",
+                               "author":  "Hideko MIZUNO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fire",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Punch Lady",
+                               "author":  "MI rae ju",
+                               "url":  "https://www.manga-news.com/index.php/serie/Punch-Lady",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Fire Ball",
+                               "author":  "Yukinobu TATSU",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fire-Ball",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30025",
+        "title":  "Fullmetal Alchemist",
+        "expectedVolumes":  27,
+        "status":  "matched",
+        "matchedTitle":  "FullMetal Alchemist",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/FullMetal-Alchemist",
+        "cover":  "https://www.manga-news.com/public/images/series/fullmetal_01.webp",
+        "volumeCovers":  27,
+        "candidates":  [
+                           {
+                               "title":  "FullMetal Alchemist",
+                               "author":  "Hiromu ARAKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/FullMetal-Alchemist",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Fullmetal Alchemist - Derrière la porte de la vérité",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fullmetal-Alchemist-Derriere-la-porte-de-la-verite",
+                               "score":  88
+                           },
+                           {
+                               "title":  "FullMetal Alchemist - Roman",
+                               "author":  "Hiromu ARAKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/FullMetal-Alchemist-Roman",
+                               "score":  58
+                           },
+                           {
+                               "title":  "The Fake Alchemist",
+                               "author":  "Umemaru - Maru UME",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Fake-Alchemist",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30584",
+        "title":  "Future Diary",
+        "expectedVolumes":  12,
+        "status":  "matched",
+        "matchedTitle":  "Mirai Nikki - Le journal du futur",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Mirai-Nikki-Le-journal-du-futur",
+        "cover":  "https://www.manga-news.com/public/images/series/.mirai-nikki-01_large.webp",
+        "volumeCovers":  12,
+        "candidates":  [
+                           {
+                               "title":  "Demon\u0027s Diary",
+                               "author":  "KARA - 카라",
+                               "url":  "https://www.manga-news.com/index.php/serie/Demons-Diary",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Future Photography",
+                               "author":  "JU Bu Pang",
+                               "url":  "https://www.manga-news.com/index.php/serie/Future-Photography",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Country Diary",
+                               "author":  "ISHINO Aya",
+                               "url":  "https://www.manga-news.com/index.php/serie/Country-Diary",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Kamakura Diary",
+                               "author":  "Akimi YOSHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kamakura-Diary",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30044",
+        "title":  "Gin Tama",
+        "expectedVolumes":  77,
+        "status":  "matched",
+        "matchedTitle":  "Gintama",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Gintama",
+        "cover":  "https://www.manga-news.com/public/images/series/gintama_01.webp",
+        "volumeCovers":  77,
+        "candidates":  [
+                           {
+                               "title":  "Gintama",
+                               "author":  "Hideaki SORACHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Gintama",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Appel des montagnes (l\u0027)",
+                               "author":  "UTSUGI Tetsuo",
+                               "url":  "https://www.manga-news.com/index.php/serie/Appel-des-montagnes-l",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Ami et amant",
+                               "author":  "SOMA Jinko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ami-et-amant",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Petit ami trop parfait (un)",
+                               "author":  "HOSHINO Mizuki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Petit-ami-trop-parfait-un",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:85412",
+        "title":  "Girls\u0027 Last Tour",
+        "expectedVolumes":  6,
+        "status":  "matched",
+        "matchedTitle":  "Girls\u0027 Last Tour",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Girls-Last-Tour",
+        "cover":  "https://www.manga-news.com/public/images/series/.girls-last-tour-1-omake_large.webp",
+        "volumeCovers":  6,
+        "candidates":  [
+                           {
+                               "title":  "Girls\u0027 Last Tour",
+                               "author":  "TSUKUMIZU",
+                               "url":  "https://www.manga-news.com/index.php/serie/Girls-Last-Tour",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Last Pretender",
+                               "author":  "Yoshiyuki MIWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Last-Pretender",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Last Heart",
+                               "author":  "MOLINA Marvyn",
+                               "url":  "https://www.manga-news.com/index.php/serie/Last-Heart",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Last fantasy",
+                               "author":  "KWON Yong-Wan",
+                               "url":  "https://www.manga-news.com/index.php/serie/Last-fantasy",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:87395",
+        "title":  "Grand Blue Dreaming",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Grand Blue",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Grand-Blue4",
+        "cover":  "https://www.manga-news.com/public/images/series/.grand-blue-1-meian_large.webp",
+        "volumeCovers":  24,
+        "candidates":  [
+                           {
+                               "title":  "Grand Blue",
+                               "author":  "Kimitake YOSHIOKA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Grand-Blue4",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Blue Hole / Trou bleu (le)",
+                               "author":  "Yukinobu HOSHINO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Trou-bleu-le",
+                               "score":  20
+                           },
+                           {
+                               "title":  "Lotto Blues",
+                               "author":  "BYUN Ki-Hyun",
+                               "url":  "https://www.manga-news.com/index.php/serie/Lotto-Blues",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Grands Noms du Jeu Vidéo (les)",
+                               "author":  "COLLECTIF",
+                               "url":  "https://www.manga-news.com/index.php/serie/Grands-Noms-du-Jeu-Video-les",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:65243",
+        "title":  "Haikyu!!",
+        "expectedVolumes":  45,
+        "status":  "matched",
+        "matchedTitle":  "Haikyu !! - Les as du volley ball",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Haikyu-Les-as-du-volley-ball",
+        "cover":  "https://www.manga-news.com/public/images/series/.haikyu-1-kaze_large.webp",
+        "volumeCovers":  46,
+        "candidates":  [
+                           {
+                               "title":  "Haikyu !! - Les as du volley ball",
+                               "author":  "Haruichi FURUDATE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Haikyu-Les-as-du-volley-ball",
+                               "score":  88
+                           },
+                           {
+                               "title":  "High School D×D - Spin off",
+                               "author":  "MIYAMA Zero",
+                               "url":  "https://www.manga-news.com/index.php/serie/High-School-DD-Spin-off",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Real bout highschool",
+                               "author":  "INOUE Sora",
+                               "url":  "https://www.manga-news.com/index.php/serie/Real-bout-highschool",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Moon Ballad",
+                               "author":  "LUMI Niemi - Siviero Francesca",
+                               "url":  "https://www.manga-news.com/index.php/serie/Moon-Ballad",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:201773",
+        "title":  "Haimiya Is Scary Cute",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "My Cute Beast",
+                               "author":  "Haesol",
+                               "url":  "https://www.manga-news.com/index.php/serie/My-Cute-Beast",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Scary Town",
+                               "author":  "Nokuto KOIKE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Scary-Town",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Scary Lessons",
+                               "author":  "ISHIKAWA Emi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Scary-Lessons",
+                               "score":  25
+                           },
+                           {
+                               "title":  "The Cutest is Amamiya",
+                               "author":  "tokiwa.",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Cutest-is-Amamiya",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:180739",
+        "title":  "Hero Organization",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Hero Organization",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Hero-Organization",
+        "cover":  "https://www.manga-news.com/public/images/series/.Hero_Organization_-_Tome_01_-_Glenat_large.webp",
+        "volumeCovers":  3,
+        "candidates":  [
+                           {
+                               "title":  "Hero Organization",
+                               "author":  "Akira TAKAHASHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Hero-Organization",
+                               "score":  100
+                           },
+                           {
+                               "title":  "I am a Hero",
+                               "author":  "Kengo HANAZAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/I-am-a-Hero",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Voie du heros (La)",
+                               "author":  "MING Fa IP",
+                               "url":  "https://www.manga-news.com/index.php/serie/Voie-du-heros-La",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Dynamic Heroes",
+                               "author":  "OCHI Kazuhiro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dynamic-Heroes",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:66413",
+        "title":  "Hinamatsuri",
+        "expectedVolumes":  19,
+        "status":  "matched",
+        "matchedTitle":  "Hinamatsuri",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Hinamatsuri",
+        "cover":  "https://www.manga-news.com/public/images/series/.Hinamatsuri_1_meian_large.webp",
+        "volumeCovers":  19,
+        "candidates":  [
+                           {
+                               "title":  "Hinamatsuri",
+                               "author":  "Masao ÔTAKE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Hinamatsuri",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Himatsuri Village",
+                               "author":  "enem",
+                               "url":  "https://www.manga-news.com/index.php/serie/Himatsuri-Village",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:72451",
+        "title":  "Horimiya",
+        "expectedVolumes":  17,
+        "status":  "matched",
+        "matchedTitle":  "Horimiya",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Horimiya",
+        "cover":  "https://www.manga-news.com/public/images/series/.horimiya-1-pika_large.webp",
+        "volumeCovers":  17,
+        "candidates":  [
+                           {
+                               "title":  "Horimiya",
+                               "author":  "Daisuke HAGIWARA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Horimiya",
+                               "score":  100
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30026",
+        "title":  "Hunter x Hunter",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Hunter X Hunter",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Hunter-X-hunter",
+        "cover":  "https://www.manga-news.com/public/images/series/.Hunter-X-Hunter-t1-kana_large.webp",
+        "volumeCovers":  39,
+        "candidates":  [
+                           {
+                               "title":  "City Hunter",
+                               "author":  "Tsukasa HÔJÔ",
+                               "url":  "https://www.manga-news.com/index.php/serie/City-Hunter-Ultime",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Metal hunter D",
+                               "author":  "TAGAMI Yoshihisa",
+                               "url":  "https://www.manga-news.com/index.php/serie/Metal-hunter-D",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Vampire Hunter D",
+                               "author":  "TAKAKI Saiko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vampire-Hunter-D",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Marine Hunter",
+                               "author":  "ÔTSUKA Shirô",
+                               "url":  "https://www.manga-news.com/index.php/serie/Marine-Hunter",
+                               "score":  100
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:180752",
+        "title":  "Ichi the Witch",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Ichi the Witch",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Ichi-the-Witch",
+        "cover":  "https://www.manga-news.com/public/images/series/.Ichi_the_Witch_T01_-_Ki-oon_large.webp",
+        "volumeCovers":  5,
+        "candidates":  [
+                           {
+                               "title":  "Ichi the Witch",
+                               "author":  "Shiro USAZAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ichi-the-Witch",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Ichi The Killer",
+                               "author":  "YAMAMOTO Hideo",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ichi-The-Killer",
+                               "score":  67
+                           },
+                           {
+                               "title":  "Burn The Witch",
+                               "author":  "Tite KUBO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Burn-the-Witch",
+                               "score":  67
+                           },
+                           {
+                               "title":  "Ravina the witch ?",
+                               "author":  "MIZUNO Junko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ravina",
+                               "score":  67
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:66267",
+        "title":  "Inside Mari",
+        "expectedVolumes":  9,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Devil Inside",
+                               "author":  "OGAWA Makoto",
+                               "url":  "https://www.manga-news.com/index.php/serie/Devil-Inside",
+                               "score":  50
+                           },
+                           {
+                               "title":  "The Killer Inside",
+                               "author":  "ITÔ Shôta",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-killer-inside",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Inside Full Bloom",
+                               "author":  "Wakame KUKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Inside-Full-Bloom",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Elle ne rentre pas, celle de mon mari",
+                               "author":  "GOTÔ Yukiko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Elle-nentre-pas-celle-de-mon-mari",
+                               "score":  12
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:31706",
+        "title":  "JoJo\u0027s Bizarre Adventure: Part 7–Steel Ball Run",
+        "expectedVolumes":  24,
+        "status":  "matched",
+        "matchedTitle":  "Jojo\u0027s Bizarre Adventure - Saison 7 - Steel Ball Run",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Jojos-bizarre-adventure-Steel-Ball-Run",
+        "cover":  "https://www.manga-news.com/public/images/series/.steel-ball-run-1-tonkam_large.webp",
+        "volumeCovers":  24,
+        "candidates":  [
+                           {
+                               "title":  "Jojo\u0027s bizarre adventure",
+                               "author":  "Hirohiko ARAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jojos-bizarre-adventure",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Jojo\u0027s Bizarre Adventure - Saison 7 - Steel Ball Run",
+                               "author":  "Hirohiko ARAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jojos-bizarre-adventure-Steel-Ball-Run",
+                               "score":  86
+                           },
+                           {
+                               "title":  "Jojo\u0027s Bizarre Adventure - Saison 2 - Battle Tendency",
+                               "author":  "Hirohiko ARAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jojos-bizarre-adventure-Saison-2-Battle-Tendency",
+                               "score":  43
+                           },
+                           {
+                               "title":  "Jojo\u0027s Bizarre Adventure - Saison 1 - Phantom Blood",
+                               "author":  "Hirohiko ARAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jojos-bizarre-adventure-Saison-1-Phantom-Blood",
+                               "score":  43
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:101517",
+        "title":  "Jujutsu Kaisen",
+        "expectedVolumes":  30,
+        "status":  "matched",
+        "matchedTitle":  "Jujutsu Kaisen",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Jujutsu-Kaisen",
+        "cover":  "https://www.manga-news.com/public/images/series/.Jujutsu-Kaisen-1-ki-oon_large.webp",
+        "volumeCovers":  30,
+        "candidates":  [
+                           {
+                               "title":  "Jujutsu Kaisen",
+                               "author":  "Gege AKUTAMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jujutsu-Kaisen",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Jujutsu Kaisen Modulo",
+                               "author":  "Yûji IWASAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jujutsu-Kaisen-Modulo",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Jujutsu Kaisen - Light Novel",
+                               "author":  "Gege AKUTAMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Jujutsu-Kaisen-Light-Novel",
+                               "score":  58
+                           },
+                           {
+                               "title":  "Baiser Sous Le Gui (Un)",
+                               "author":  "MURATA Junko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Baiser-Sous-Le-Gui-Un",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:169355",
+        "title":  "Kagurabachi",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Kagurabachi",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Kagurabachi",
+        "cover":  "https://www.manga-news.com/public/images/series/.Kagurabachi_1_kana_large.webp",
+        "volumeCovers":  11,
+        "candidates":  [
+                           {
+                               "title":  "Kagurabachi",
+                               "author":  "Takeru HOKAZONO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kagurabachi",
+                               "score":  100
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:86635",
+        "title":  "Kaguya-sama: Love is War",
+        "expectedVolumes":  28,
+        "status":  "matched",
+        "matchedTitle":  "Kaguya-sama - Love is War",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Kaguya-sama-Love-is-War",
+        "cover":  "https://www.manga-news.com/public/images/series/.Kaguya-sama-Love_is_War-1-pika_large.webp",
+        "volumeCovers":  28,
+        "candidates":  [
+                           {
+                               "title":  "Kaguya-sama - Love is War",
+                               "author":  "Aka AKASAKA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kaguya-sama-Love-is-War",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Love is...",
+                               "author":  "TAKUMI Yû",
+                               "url":  "https://www.manga-news.com/index.php/serie/Love-is",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Library Wars - Love \u0026 War",
+                               "author":  "YUMI Kiiro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Toshokan-Senso-Love-War",
+                               "score":  40
+                           },
+                           {
+                               "title":  "Love is All",
+                               "author":  "TORIUMI Youko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Love-is-All",
+                               "score":  40
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:46765",
+        "title":  "Kingdom",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Kingdom",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Kingdom",
+        "cover":  "https://www.manga-news.com/public/images/series/.kingdom-1-meian_large.webp",
+        "volumeCovers":  77,
+        "candidates":  [
+                           {
+                               "title":  "Kingdom",
+                               "author":  "Yasuhisa HARA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kingdom",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Kingdom of the Queen",
+                               "author":  "KIM Min Ji",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kingdom-of-the-Queen-",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Légende Kingdom Hearts (la)",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Legende-Kingdom-Hearts-la",
+                               "score":  88
+                           },
+                           {
+                               "title":  "The Kingdoms of Ruin",
+                               "author":  "YORUHASHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Kingdoms-of-ruin",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:97852",
+        "title":  "Komi Can\u0027t Communicate",
+        "expectedVolumes":  37,
+        "status":  "matched",
+        "matchedTitle":  "Komi cherche ses mots",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Komi-cherche-ses-mots",
+        "cover":  "https://www.manga-news.com/public/images/series/.Komi_cherche_ses_mots_1_pika_large.webp",
+        "volumeCovers":  28,
+        "candidates":  [
+                           {
+                               "title":  "Ao-chan Can\u0027t Study!",
+                               "author":  "Ren KAWAHARA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ao-Chan-ca-netudie-pas",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Komi cherche ses mots",
+                               "author":  "Tomohito ODA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Komi-cherche-ses-mots",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Senpai, this can’t be love !",
+                               "author":  "Shinta HAREKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Senpai-this-cant-be-love",
+                               "score":  20
+                           },
+                           {
+                               "title":  "Senpai, this can\u0027t be love ! Brush up",
+                               "author":  "Shinta HAREKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Senpai-this-cant-be-love-Brush-up",
+                               "score":  14
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:174790",
+        "title":  "Learning to Love My Cat-like Classmate",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Street Fighting Cat",
+                               "author":  "SP Nakatema",
+                               "url":  "https://www.manga-news.com/index.php/serie/Street-Fighting-Cat",
+                               "score":  14
+                           },
+                           {
+                               "title":  "Love Hotel entre filles",
+                               "author":  "Kafka SAKAMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Love-Hotel-entre-filles",
+                               "score":  14
+                           },
+                           {
+                               "title":  "Quatre filles du Docteur March (les)",
+                               "author":  "Nev",
+                               "url":  "https://www.manga-news.com/index.php/serie/Quatre-filles-du-Docteur-March",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Filled by Twilight",
+                               "author":  "Yukiaki UNO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Filled-by-twillight",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:86551",
+        "title":  "Made in Abyss",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Made In Abyss",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Made-In-Abyss",
+        "cover":  "https://www.manga-news.com/public/images/series/.made-in-abyss-1-ototo_large.webp",
+        "volumeCovers":  14,
+        "candidates":  [
+                           {
+                               "title":  "Made In Abyss",
+                               "author":  "Akihito TSUKUSHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Made-In-Abyss",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Abyss",
+                               "author":  "NAGATA Ryûhaku",
+                               "url":  "https://www.manga-news.com/index.php/serie/Abyss",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Made in heaven",
+                               "author":  "YASHIKI Yukari",
+                               "url":  "https://www.manga-news.com/index.php/serie/Made-in-heaven",
+                               "score":  67
+                           },
+                           {
+                               "title":  "Made in Gainax",
+                               "author":  "COLLECTIF",
+                               "url":  "https://www.manga-news.com/index.php/serie/Made-in-Gainax",
+                               "score":  67
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:86303",
+        "title":  "Miss Kobayashi\u0027s Dragon Maid",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Miss Kobayashi\u0027s Dragon Maid",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Kobayashis-Dragon-Maid",
+        "cover":  "https://www.manga-news.com/public/images/series/.miss-kobayashi-1-noeve_large.webp",
+        "volumeCovers":  11,
+        "candidates":  [
+                           {
+                               "title":  "Miss Kobayashi\u0027s Dragon Maid",
+                               "author":  "COOL Kyôshinsha - Coolkyousinnjya",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kobayashis-Dragon-Maid",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Miss Kobayashi\u0027s Dragon Maid - Kanna\u0027s Daily Life",
+                               "author":  "Mitsuhiro KIMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Miss-Kobayashis-Dragon-Maid-Kannas-Daily-Life",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Dragon\u0027s Crown",
+                               "author":  "YUZTAN",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragons-Crown",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Dragon\u0027s Host",
+                               "author":  "DZU Usagi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dragons-Host",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30001",
+        "title":  "Monster",
+        "expectedVolumes":  18,
+        "status":  "matched",
+        "matchedTitle":  "Monster",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Monster",
+        "cover":  "https://www.manga-news.com/public/images/series/monster_01.webp",
+        "volumeCovers":  18,
+        "candidates":  [
+                           {
+                               "title":  "Monster",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Monster",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Summer Monster",
+                               "author":  "Lala NOMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Summer-Monster",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Monster X Monster",
+                               "author":  "Nikiichi TOBITA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Monster-X-Monster",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Monster Musume - Everyday Life with Monster Girls",
+                               "author":  "OKAYADO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Monster-Musume",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:106867",
+        "title":  "My Dearest Self With Malice Aforethought",
+        "expectedVolumes":  11,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Mario Goodies Collection",
+                               "author":  "COLLECTIF",
+                               "url":  "https://www.manga-news.com/index.php/serie/Mario-Goodies-Collection",
+                               "score":  0
+                           },
+                           {
+                               "title":  "The Capricious Love is Moderate",
+                               "author":  "NOHAGI Aki",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Capricious-Love-is-Moderate",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Flower of evil",
+                               "author":  "LEE Hyeon-Sook",
+                               "url":  "https://www.manga-news.com/index.php/serie/Flower-of-evil",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Flowers for Vincent",
+                               "author":  "CHERRIUKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Flowers-for-Vincent",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:101583",
+        "title":  "My Dress-Up Darling",
+        "expectedVolumes":  15,
+        "status":  "matched",
+        "matchedTitle":  "Sexy Cosplay Doll",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Sexy-Cosplay-Doll",
+        "cover":  "https://www.manga-news.com/public/images/series/.sexy-cosplay-doll-1-kana_large.webp",
+        "volumeCovers":  15,
+        "candidates":  [
+                           {
+                               "title":  "Sexy Cosplay Doll",
+                               "author":  "Shinichi FUKUDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Sexy-Cosplay-Doll",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Cosplay",
+                               "author":  "JULIA Andy",
+                               "url":  "https://www.manga-news.com/index.php/serie/Cosplay",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Vampire Doll",
+                               "author":  "KARI Erika",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vampire-Doll",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Sexy Holidays",
+                               "author":  "YUNAGI Kahoru",
+                               "url":  "https://www.manga-news.com/index.php/serie/Sexy-Holidays",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:85486",
+        "title":  "My Hero Academia",
+        "expectedVolumes":  42,
+        "status":  "matched",
+        "matchedTitle":  "My Hero Academia",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/My-Hero-Academia",
+        "cover":  "https://www.manga-news.com/public/images/series/.my-hero-academia-ki-oon_large.webp",
+        "volumeCovers":  42,
+        "candidates":  [
+                           {
+                               "title":  "My Hero Academia",
+                               "author":  "Kôhei HORIKOSHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/My-Hero-Academia",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Vigilante – My Hero Academia Illegals",
+                               "author":  "BETTEN Court",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vigilante-My-Hero-Academia-Illegals",
+                               "score":  88
+                           },
+                           {
+                               "title":  "My Hero Academia - Les dossiers secrets de UA",
+                               "author":  "Kôhei HORIKOSHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/My-Hero-Academia-Les-dossiers-secrets-de-UA",
+                               "score":  88
+                           },
+                           {
+                               "title":  "My Hero Academia - Team Up Mission",
+                               "author":  "Yoko AKIYAMA",
+                               "url":  "https://www.manga-news.com/index.php/serie/MY-Hero-Academia-Team-Up-Mission",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30028",
+        "title":  "Nana",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Nana",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Nana",
+        "cover":  "https://www.manga-news.com/public/images/series/nana_01.webp",
+        "volumeCovers":  21,
+        "candidates":  [
+                           {
+                               "title":  "Nana",
+                               "author":  "Ai YAZAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Nana",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Blue - Kiriko Nananan",
+                               "author":  "Kiriko NANANAN",
+                               "url":  "https://www.manga-news.com/index.php/serie/Blue",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Ryû no Kawaii Nanatsu no Ko",
+                               "author":  "Ryôko KUI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ryu-no-Kawaii-Nanatsu-no-Ko",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Love Nana",
+                               "author":  "NAKAMOTO Ryu",
+                               "url":  "https://www.manga-news.com/index.php/serie/Love-Nana",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30651",
+        "title":  "Nausicaä of the Valley of the Wind",
+        "expectedVolumes":  7,
+        "status":  "matched",
+        "matchedTitle":  "Nausicaa",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Nausicaa",
+        "cover":  "https://www.manga-news.com/public/images/series/.nausicaa-1ed-1-glenat_large.webp",
+        "volumeCovers":  7,
+        "candidates":  [
+                           {
+                               "title":  "Nausicaa",
+                               "author":  "Hayao MIYAZAKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Nausicaa",
+                               "score":  100
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30698",
+        "title":  "Neon Genesis Evangelion",
+        "expectedVolumes":  14,
+        "status":  "matched",
+        "matchedTitle":  "Neon Genesis Evangelion",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Evangelion-Neon-genesis",
+        "cover":  "https://www.manga-news.com/public/images/series/evangelion_01.webp",
+        "volumeCovers":  14,
+        "candidates":  [
+                           {
+                               "title":  "Neon Genesis Evangelion",
+                               "author":  "Yoshiyuki SADAMOTO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Evangelion-Neon-genesis",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Neon Genesis Evangelion - Plan de Complémentarité Shinji Ikari",
+                               "author":  "Osamu TAKAHASHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Evangelion-Shinji",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Genesis",
+                               "author":  "Kôji MORI - Kouji MORI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Genesis",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Neon Genesis Evangelion - Gakuen Datenroku",
+                               "author":  "MING Ming",
+                               "url":  "https://www.manga-news.com/index.php/serie/Evangelion-Gakuen-Datenroku",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30013",
+        "title":  "One Piece",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "One Piece",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/One-piece-Edition-originale",
+        "cover":  "https://www.manga-news.com/public/images/series/.one-piece-manga-1-glenat_large.webp",
+        "volumeCovers":  114,
+        "candidates":  [
+                           {
+                               "title":  "One Piece",
+                               "author":  "Eiichirô ODA",
+                               "url":  "https://www.manga-news.com/index.php/serie/One-piece-Edition-originale",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Sur les mers de One Piece - Les trésors de l\u0027aventure",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Sur-les-mers-de-One-Piece-Les-tresors-de-laventure",
+                               "score":  88
+                           },
+                           {
+                               "title":  "One Piece - Le cherche et trouve",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/One-Piece-Le-cherche-et-trouve",
+                               "score":  88
+                           },
+                           {
+                               "title":  "One Piece - La volonté d\u0027Oda",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/One-Piece-La-volonte-dOda",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:74347",
+        "title":  "One-Punch Man",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "One-Punch Man",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/One-Punch-Man",
+        "cover":  "https://www.manga-news.com/public/images/series/.one-punch-man-1-kurokawa_large.webp",
+        "volumeCovers":  35,
+        "candidates":  [
+                           {
+                               "title":  "One-Punch Man",
+                               "author":  "Yûsuke MURATA",
+                               "url":  "https://www.manga-news.com/index.php/serie/One-Punch-Man",
+                               "score":  100
+                           },
+                           {
+                               "title":  "One-Punch Girl",
+                               "author":  "CHOGORI",
+                               "url":  "https://www.manga-news.com/index.php/serie/One-Punch-Girl",
+                               "score":  67
+                           },
+                           {
+                               "title":  "Only One",
+                               "author":  "Yû MOEGI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Only-one",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Punch Drunk Love",
+                               "author":  "Okdong",
+                               "url":  "https://www.manga-news.com/index.php/serie/Punch-Drunk-Love",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:31325",
+        "title":  "Phoenix",
+        "expectedVolumes":  16,
+        "status":  "matched",
+        "matchedTitle":  "Phénix - L\u0027oiseau de feu",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Phenix-Loiseau-de-feu",
+        "cover":  "https://www.manga-news.com/public/images/series/.phenix-oiseau-de-feu-integrale-1-delcourt_large.webp",
+        "volumeCovers":  11,
+        "candidates":  [
+                           {
+                               "title":  "Phénix - L\u0027oiseau de feu",
+                               "author":  "Osamu TEZUKA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Phenix-Loiseau-de-feu",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Voyage du phoenix (le)",
+                               "author":  "Sik Jun JUNG",
+                               "url":  "https://www.manga-news.com/index.php/serie/Voyage-du-phoenix-le",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Team Phoenix",
+                               "author":  "RUIZ Kenny",
+                               "url":  "https://www.manga-news.com/index.php/serie/Team-Phoenix",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Dark Angel - Phoenix Resurrection",
+                               "author":  "Kia ASAMIYA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dark-Angel-Phoenix-Resurrection",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30745",
+        "title":  "Pluto",
+        "expectedVolumes":  8,
+        "status":  "matched",
+        "matchedTitle":  "Pluto",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Pluto",
+        "cover":  "https://www.manga-news.com/public/images/series/.Pluto-kana-1_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "Pluto",
+                               "author":  "Naoki URASAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Pluto",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tue-moi plutôt sous un cerisier",
+                               "author":  "SAKURADA Hina",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tue-moi-plutot-sous-un-cerisier",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Joyau De Sa Couronne (Le)",
+                               "author":  "ARISAWA Ryô",
+                               "url":  "https://www.manga-news.com/index.php/serie/Joyau-De-Sa-Couronne-Le",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30657",
+        "title":  "Real",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Real",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Real",
+        "cover":  "https://www.manga-news.com/public/images/series/real_01.webp",
+        "volumeCovers":  16,
+        "candidates":  [
+                           {
+                               "title":  "Real",
+                               "author":  "Takehiko INOUE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Real",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tsugai - Daemons of the Shadow Realm",
+                               "author":  "Hiromu ARAKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tsugai-Daemons-of-the-Shadow-Realm",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Mon ami de jeu en ligne est en réalité mon patron tyrannique",
+                               "author":  "NMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Mon-ami-de-jeu-en-ligne-est-en-realite-mon-patron-tyrannique",
+                               "score":  88
+                           },
+                           {
+                               "title":  "55 réalisations mangas étape par étape",
+                               "author":  "Atelier Tuti Frutti",
+                               "url":  "https://www.manga-news.com/index.php/serie/55-realisations-mangas-etape-par-etape",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:176270",
+        "title":  "Sekai Saikyou no Majo, Hajimemashita: Watashi dake \"Kouryaku Site\" wo Mireru Sekai de Jiyuu ni Ikimasu",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+
+                       ]
+    },
+    {
+        "id":  "anilist:30051",
+        "title":  "Slam Dunk",
+        "expectedVolumes":  31,
+        "status":  "matched",
+        "matchedTitle":  "Slam dunk",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Slam-dunk",
+        "cover":  "https://www.manga-news.com/public/images/series/slam_dunk_01.webp",
+        "volumeCovers":  31,
+        "candidates":  [
+                           {
+                               "title":  "Slam dunk",
+                               "author":  "Takehiko INOUE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Slam-dunk",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Goblin Slayer",
+                               "author":  "Kôsuke KUROSE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Goblin-Slayer",
+                               "score":  0
+                           },
+                           {
+                               "title":  "The Dungeon of Black Company",
+                               "author":  "Yôhei YASUMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Dungeon-Black-Company",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Slave Wife Mariko",
+                               "author":  "ONIKUBO Hirohisa",
+                               "url":  "https://www.manga-news.com/index.php/serie/Slave-Wife-Mariko",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:147149",
+        "title":  "Smoking Behind the Supermarket with You",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Smoking behind the Supermarket with You",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Super-no-ura-de-yani-suu-futari",
+        "cover":  "https://www.manga-news.com/public/images/series/.smoking-supermarket-1-kana_large.webp",
+        "volumeCovers":  7,
+        "candidates":  [
+                           {
+                               "title":  "Smoking behind the Supermarket with You",
+                               "author":  "JINUSHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Super-no-ura-de-yani-suu-futari",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Smoking",
+                               "author":  "Benjamin BACHELIER",
+                               "url":  "https://www.manga-news.com/index.php/serie/Smoking",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Beyond the Clouds",
+                               "author":  "NICKE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Beyond-the-Clouds",
+                               "score":  17
+                           },
+                           {
+                               "title":  "Leveling Beyond the Max",
+                               "author":  "KIMSANGLOK",
+                               "url":  "https://www.manga-news.com/index.php/serie/Leveling-Beyond-the-Max",
+                               "score":  17
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:44483",
+        "title":  "Space Brothers",
+        "expectedVolumes":  46,
+        "status":  "matched",
+        "matchedTitle":  "Space Brothers",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Space-Brothers",
+        "cover":  "https://www.manga-news.com/public/images/series/.space-brothers-1-pika_large.webp",
+        "volumeCovers":  45,
+        "candidates":  [
+                           {
+                               "title":  "Space Brothers",
+                               "author":  "Chûya KOYAMA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Space-Brothers",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Brothers",
+                               "author":  "TAJIMA Sho-U",
+                               "url":  "https://www.manga-news.com/index.php/serie/Brothers",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Brother",
+                               "author":  "OUGI Yuzuha / ÔGI Yuzuha",
+                               "url":  "https://www.manga-news.com/index.php/serie/Brother",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Space Travelers",
+                               "author":  "Kazue KATÔ",
+                               "url":  "https://www.manga-news.com/index.php/serie/Space-travelers",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:108556",
+        "title":  "SPY x FAMILY",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Spy X Family",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Spy-X-Family",
+        "cover":  "https://www.manga-news.com/public/images/series/.Spy-Family-1-kurokawa_large.webp",
+        "volumeCovers":  17,
+        "candidates":  [
+                           {
+                               "title":  "Spy X Family",
+                               "author":  "Tatsuya ENDÔ",
+                               "url":  "https://www.manga-news.com/index.php/serie/Spy-X-Family",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Doryeong\u0027s Family",
+                               "author":  "B.Mil Studio",
+                               "url":  "https://www.manga-news.com/index.php/serie/Doryeongs-Family",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Frankenstein Family",
+                               "author":  "YANAI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Frankenstein-Family",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Switch Family",
+                               "author":  "Marie SASANO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Switch-Family",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:203593",
+        "title":  "Streaming My Second Life",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Second Life Ranker",
+                               "author":  "Nong Nong",
+                               "url":  "https://www.manga-news.com/index.php/serie/Second-Life-Ranker",
+                               "score":  50
+                           },
+                           {
+                               "title":  "My Second Love, Hayami-kun",
+                               "author":  "Saki AIKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/My-Second-Love-Hayami-kun",
+                               "score":  40
+                           },
+                           {
+                               "title":  "5cm per Second",
+                               "author":  "SEIKE Yukiko",
+                               "url":  "https://www.manga-news.com/index.php/serie/5cm-par-Second",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Miss second rôle",
+                               "author":  "YUMYUM",
+                               "url":  "https://www.manga-news.com/index.php/serie/Miss-second-role",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:102989",
+        "title":  "Summertime Rendering",
+        "expectedVolumes":  13,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Shadow lady",
+                               "author":  "Masakazu KATSURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Shadow-lady",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Time Traveler",
+                               "author":  "UNSEOL",
+                               "url":  "https://www.manga-news.com/index.php/serie/Time-Traveler",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Milky Time",
+                               "author":  "Mochito BOTA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Milky-Time",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Black Shadow",
+                               "author":  "Takuya NAKAO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Black-Shadow",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:140475",
+        "title":  "The Fragrant Flower Blooms With Dignity",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Bloom",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Bloom",
+        "cover":  "https://www.manga-news.com/public/images/series/.bloom-1-nobi-nobi_large.webp",
+        "volumeCovers":  13,
+        "candidates":  [
+                           {
+                               "title":  "Bloom",
+                               "author":  "Saka MIKAMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Bloom",
+                               "score":  88
+                           },
+                           {
+                               "title":  "The flower Ring",
+                               "author":  "LIN Selena",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-flower-Ring",
+                               "score":  33
+                           },
+                           {
+                               "title":  "The song of flower",
+                               "author":  "LONDON Pariko",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-song-of-flower",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Flower and Bunny",
+                               "author":  "KASHIMA Chiaki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Flower-and-Bunny",
+                               "score":  17
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:149544",
+        "title":  "The Guy She Was Interested In Wasn\u0027t a Guy at All",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "She Wasn\u0027t a Guy",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/The-Guy-She-Was-Interested-in-Wasnt-a-Guy-at-All",
+        "cover":  "https://www.manga-news.com/public/images/series/.She_Wasn_t_a_Guy_T01_-_Mangetsu_large.webp",
+        "volumeCovers":  5,
+        "candidates":  [
+                           {
+                               "title":  "She Wasn\u0027t a Guy",
+                               "author":  "Sumiko ARAI",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Guy-She-Was-Interested-in-Wasnt-a-Guy-at-All",
+                               "score":  40
+                           },
+                           {
+                               "title":  "The Ice Guy \u0026 The Cool Girl",
+                               "author":  "Miyuki TONOGAYA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ice-Guy-the-Cool-Female-Colleague",
+                               "score":  30
+                           },
+                           {
+                               "title":  "All Guy\u0027s Mixer",
+                               "author":  "Nana AOKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/All-guys-mixer",
+                               "score":  30
+                           },
+                           {
+                               "title":  "The Ghost in the shell",
+                               "author":  "Masamune SHIROW",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ghost-in-the-shell-Perfect-Edition",
+                               "score":  20
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:122344",
+        "title":  "The Magical Revolution of the Reincarnated Princess and the Genius Young Lady",
+        "expectedVolumes":  9,
+        "status":  "matched",
+        "matchedTitle":  "Magical Revolution - La Princesse réincarnée et la jeune prodige",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Magical-Revolution-La-Princesse-reincarnee-et-la-jeune-prodige",
+        "cover":  "https://www.manga-news.com/public/images/series/.Magical_Revolution_T1_-_Crunchyroll_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "Ma Réincarnation ratée",
+                               "author":  "KÔJIMA Kazuto",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ma-Reincarnation-ratee",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Tengen Hero Wars",
+                               "author":  "Kubaru SAKANOICHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tengen-Hero-Wars",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Menteurs ! les vampires n\u0027existent pas !",
+                               "author":  "Racking",
+                               "url":  "https://www.manga-news.com/index.php/serie/Menteur-les-vampires-nexistent-pas",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Akumetsu",
+                               "author":  "YOGO Yûki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Akumetsu",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:87423",
+        "title":  "The Promised Neverland",
+        "expectedVolumes":  20,
+        "status":  "matched",
+        "matchedTitle":  "The Promised Neverland",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/The-Promised-Neverland",
+        "cover":  "https://www.manga-news.com/public/images/series/.promised-neverland-1-kaze_large.webp",
+        "volumeCovers":  20,
+        "candidates":  [
+                           {
+                               "title":  "The Promised Neverland",
+                               "author":  "Posuka DEMIZU",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Promised-Neverland",
+                               "score":  100
+                           },
+                           {
+                               "title":  "The Promised Neverland - Gag Manga",
+                               "author":  "MIYAZAKI Shûhei",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Promised-Neverland-Gag-Manga",
+                               "score":  58
+                           },
+                           {
+                               "title":  "The Promised Neverland - romans",
+                               "author":  "Posuka DEMIZU",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Promised-Neverland-romans",
+                               "score":  58
+                           },
+                           {
+                               "title":  "Gacha - The Crest\u0027s Adventure",
+                               "author":  "Weshika/Shogo",
+                               "url":  "https://www.manga-news.com/index.php/serie/Gacha-The-Crests-Adventure",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:100230",
+        "title":  "The Quintessential Quintuplets",
+        "expectedVolumes":  14,
+        "status":  "matched",
+        "matchedTitle":  "The Quintessential Quintuplets",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/The-Quintessential-Quintuplets",
+        "cover":  "https://www.manga-news.com/public/images/series/.The-quintescence-quintuplets-1-pika_large.webp",
+        "volumeCovers":  14,
+        "candidates":  [
+                           {
+                               "title":  "The Quintessential Quintuplets",
+                               "author":  "Negi HARUBA",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Quintessential-Quintuplets",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Pop the Cherry",
+                               "author":  "Azusa ITAKURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Pop-the-Cherry",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Lupin III The Third",
+                               "author":  "MONKEY Punch",
+                               "url":  "https://www.manga-news.com/index.php/serie/Lupin-The-3rd",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Cheese in the trap",
+                               "author":  "SOONKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Cheese-in-the-trap",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:144374",
+        "title":  "The Shiunji Family Children",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "The Shiunji Family Children",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/The-Shiunji-Family-Children",
+        "cover":  "https://www.manga-news.com/public/images/series/.The_Shiunji_Family_Children_T01_-_Panini_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "The Shiunji Family Children",
+                               "author":  "Reiji MIYAJIMA",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Shiunji-Family-Children",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Children",
+                               "author":  "MIURA Miu",
+                               "url":  "https://www.manga-news.com/index.php/serie/Children",
+                               "score":  88
+                           },
+                           {
+                               "title":  "From the Children\u0027s Country",
+                               "author":  "AKIYAMA Naoto",
+                               "url":  "https://www.manga-news.com/index.php/serie/From-the-Childrens-Country",
+                               "score":  50
+                           },
+                           {
+                               "title":  "The Falling Family and me !",
+                               "author":  "NU",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Falling-Family-and-me",
+                               "score":  40
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:138603",
+        "title":  "The Summer Hikaru Died",
+        "expectedVolumes":  10,
+        "status":  "matched",
+        "matchedTitle":  "The Summer Hikaru Died",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Ete-ou-Hikaru-est-mort-l",
+        "cover":  "https://www.manga-news.com/public/images/series/.The_summer_Hikaru_died_1_Pika_large.webp",
+        "volumeCovers":  8,
+        "candidates":  [
+                           {
+                               "title":  "The Summer Hikaru Died",
+                               "author":  "Mokumokuren - Ren MOKUMOKU",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ete-ou-Hikaru-est-mort-l",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Hikaru in the Light !",
+                               "author":  "Mai MATSUDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Hikaru-in-the-Light",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Tokyo Summer of The Dead",
+                               "author":  "KUGURA Shiichi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Summer-of-The-Dead",
+                               "score":  40
+                           },
+                           {
+                               "title":  "Summer Wars",
+                               "author":  "SUGIMOTO Iqura",
+                               "url":  "https://www.manga-news.com/index.php/serie/Summer-Wars",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:98842",
+        "title":  "Toilet-Bound Hanako-kun",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Toilet-Bound Hanako-kun",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Toilet-bound-Hanako-kun",
+        "cover":  "https://www.manga-news.com/public/images/series/.Toilet-Bound_Hanako-kun-1-pika_large.webp",
+        "volumeCovers":  25,
+        "candidates":  [
+                           {
+                               "title":  "Toilet-Bound Hanako-kun",
+                               "author":  "AIDAIRO / AIDA Iro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Toilet-bound-Hanako-kun",
+                               "score":  100
+                           },
+                           {
+                               "title":  "After-School Hanako-Kun",
+                               "author":  "AIDAIRO / AIDA Iro",
+                               "url":  "https://www.manga-news.com/index.php/serie/After-School-Hanako-Kun",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Masamune-kun\u0027s Revenge",
+                               "author":  "TIV",
+                               "url":  "https://www.manga-news.com/index.php/serie/Masamune-kuns-Revenge",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Mutant Hanako",
+                               "author":  "AIDA Makoto",
+                               "url":  "https://www.manga-news.com/index.php/serie/Mutant-Hanako",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:63327",
+        "title":  "Tokyo Ghoul",
+        "expectedVolumes":  14,
+        "status":  "matched",
+        "matchedTitle":  "Tokyo ghoul",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Tokyo-ghoul",
+        "cover":  "https://www.manga-news.com/public/images/series/.tokyo-ghoul-1-glenat_large.webp",
+        "volumeCovers":  14,
+        "candidates":  [
+                           {
+                               "title":  "Tokyo ghoul",
+                               "author":  "Sui ISHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-ghoul",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tokyo ghoul - Anime",
+                               "author":  "Sui ISHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-ghoul-anime",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Tokyo ghoul - Jack - Numérique",
+                               "author":  "Sui ISHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-ghoul-Jack-Numerique",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Tokyo ghoul : Re",
+                               "author":  "Sui ISHIDA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-ghoul-:-Re",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:102988",
+        "title":  "Tokyo Revengers",
+        "expectedVolumes":  31,
+        "status":  "matched",
+        "matchedTitle":  "Tokyo Revengers",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Tokyo-Revengers",
+        "cover":  "https://www.manga-news.com/public/images/series/.tokyo-revengers-1-glenat_large.webp",
+        "volumeCovers":  31,
+        "candidates":  [
+                           {
+                               "title":  "Tokyo Revengers",
+                               "author":  "Ken WAKUI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Revengers",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tokyo Revengers - Letter From Keisuke Baji",
+                               "author":  "Yukinori NATSUKAWAGUCHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Revengers-Letter-From-Keisuke-Baji",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Voyage à Tokyo",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Voyage-a-Tokyo",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Tokyo Yamimushi",
+                               "author":  "HONDA Yûki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tokyo-Yamimushi",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30912",
+        "title":  "Tomie",
+        "expectedVolumes":  1,
+        "status":  "matched",
+        "matchedTitle":  "Tomie",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Tomie",
+        "cover":  "https://www.manga-news.com/public/images/series/tomie_01.webp",
+        "volumeCovers":  3,
+        "candidates":  [
+                           {
+                               "title":  "Tomie",
+                               "author":  "Junji ITÔ - Junji ITOH",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tomie",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Tomber entre ses griffes",
+                               "author":  "Mataaki KURENO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Entre-tes-griffes",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Quand la méchante tombe amoureuse",
+                               "author":  "Daechidonggeonmulju",
+                               "url":  "https://www.manga-news.com/index.php/serie/Quand-la-mechante-tombe-amoureuse",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Aucune chance de tomber amoureux",
+                               "author":  "Sai ASAI / Nishi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Aucune-chance-de-tomber-amoureux",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:87225",
+        "title":  "Tsukimichi: Moonlit Fantasy",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Tsukimichi - Moonlit Fantasy",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Tsukimichi-Moonlit-Fantasy",
+        "cover":  "https://www.manga-news.com/public/images/series/.Tsukimichi_Moonlit_Fantasy_1_meian_large.webp",
+        "volumeCovers":  10,
+        "candidates":  [
+                           {
+                               "title":  "Tsukimichi - Moonlit Fantasy",
+                               "author":  "Kotora KINO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tsukimichi-Moonlit-Fantasy",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Ayle et le Fenrir",
+                               "author":  "Niina KEI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ayle-et-le-Fenrir",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:119247",
+        "title":  "Uma Musume: Cinderella Gray",
+        "expectedVolumes":  23,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Gray",
+                               "author":  "WOOLLEE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Gray",
+                               "score":  88
+                           },
+                           {
+                               "title":  "The Cinderella Solution",
+                               "author":  "SAGARA Kyoko",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Cinderella-Solution",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Promise Cinderella",
+                               "author":  "Oreco TACHIBANA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Promise-Cinderella",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Yokoshima Musume",
+                               "author":  "YOKOSHIMA Nikki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Yokoshima-Musume",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:64053",
+        "title":  "Umineko When They Cry Episode 8: Twilight of the Golden Witch",
+        "expectedVolumes":  9,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+
+                       ]
+    },
+    {
+        "id":  "anilist:201755",
+        "title":  "Unrivaled Spear Ghost",
+        "expectedVolumes":  null,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Summer Ghost",
+                               "author":  "INO Miyoshi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Summer-Ghost",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Ghost \u0026 Lady",
+                               "author":  "Kazuhirô FUJITA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ghost-Lady",
+                               "score":  33
+                           },
+                           {
+                               "title":  "07-Ghost",
+                               "author":  "ICHIHARA Yukino",
+                               "url":  "https://www.manga-news.com/index.php/serie/07-Ghost",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Ghost Spot",
+                               "author":  "Momi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ghost-Spot",
+                               "score":  33
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:39982",
+        "title":  "Usogui",
+        "expectedVolumes":  49,
+        "status":  "matched",
+        "matchedTitle":  "Usogui",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Usogui",
+        "cover":  "https://www.manga-news.com/public/images/series/.Usogui_t1_meian_large.webp",
+        "volumeCovers":  5,
+        "candidates":  [
+                           {
+                               "title":  "Usogui",
+                               "author":  "Toshio SAKO",
+                               "url":  "https://www.manga-news.com/index.php/serie/Usogui",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Slave Rabbit",
+                               "author":  "AKATSUKI Myuuto",
+                               "url":  "https://www.manga-news.com/index.php/serie/Slave-Rabbit",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Fou comme le chapelier",
+                               "author":  "BONNO Nuis",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fou-comme-le-chapelier",
+                               "score":  0
+                           },
+                           {
+                               "title":  "Flower and Bunny",
+                               "author":  "KASHIMA Chiaki",
+                               "url":  "https://www.manga-news.com/index.php/serie/Flower-and-Bunny",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30436",
+        "title":  "Uzumaki: Spiral into Horror",
+        "expectedVolumes":  3,
+        "status":  "matched",
+        "matchedTitle":  "Spirale",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Spirale",
+        "cover":  "https://www.manga-news.com/public/images/series/spirale_01-2.webp",
+        "volumeCovers":  3,
+        "candidates":  [
+                           {
+                               "title":  "Harem Spiral",
+                               "author":  "Yoshiyuki UBA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Harem-Spiral",
+                               "score":  25
+                           },
+                           {
+                               "title":  "King\u0027s Game Spiral",
+                               "author":  "KURIYAMA Renji",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kings-Game-Spiral",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Horror Collector",
+                               "author":  "LEE So-Young",
+                               "url":  "https://www.manga-news.com/index.php/serie/Horror-Collector",
+                               "score":  25
+                           },
+                           {
+                               "title":  "Spiral (Ring)",
+                               "author":  "Mizuki SAKURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Spiral-Ring",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30656",
+        "title":  "Vagabond",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Vagabond",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Vagabond",
+        "cover":  "https://www.manga-news.com/public/images/series/.vagabond_01_large.webp",
+        "volumeCovers":  37,
+        "candidates":  [
+                           {
+                               "title":  "Vagabond",
+                               "author":  "Takehiko INOUE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vagabond",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Kenshin - le vagabond - Restauration",
+                               "author":  "WATSUKI Nobuhiro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kenshin-le-vagabond-Restauration",
+                               "score":  88
+                           },
+                           {
+                               "title":  "San Mao - Le petit vagabond",
+                               "author":  "ZHANG Leping",
+                               "url":  "https://www.manga-news.com/index.php/serie/San-Mao",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Kenshin - le vagabond",
+                               "author":  "WATSUKI Nobuhiro",
+                               "url":  "https://www.manga-news.com/index.php/serie/Kenshin-le-vagabond",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30642",
+        "title":  "Vinland Saga",
+        "expectedVolumes":  29,
+        "status":  "matched",
+        "matchedTitle":  "Vinland Saga",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Vinland-Saga",
+        "cover":  "https://www.manga-news.com/public/images/series/.vinland_saga01_large.webp",
+        "volumeCovers":  29,
+        "candidates":  [
+                           {
+                               "title":  "Vinland Saga",
+                               "author":  "Makoto YUKIMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vinland-Saga",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Amon saga",
+                               "author":  "AMANO Yoshitaka",
+                               "url":  "https://www.manga-news.com/index.php/serie/Amon-saga",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Mermaid Saga",
+                               "author":  "Rumiko TAKAHASHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Mermaid-Forest",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Guin Saga",
+                               "author":  "SAWADA Hajime",
+                               "url":  "https://www.manga-news.com/index.php/serie/Guin-Saga",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:99324",
+        "title":  "Welcome to Demon School! Iruma-kun",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "Iruma à l’école des démons",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Iruma-a-lecole-des-demons",
+        "cover":  "https://www.manga-news.com/public/images/series/.iruma-ecole-des-demons-1-nobi_large.webp",
+        "volumeCovers":  37,
+        "candidates":  [
+                           {
+                               "title":  "Iruma à l’école des démons",
+                               "author":  "Osamu NISHI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Iruma-a-lecole-des-demons",
+                               "score":  100
+                           },
+                           {
+                               "title":  "Ecole des bestioles (l\u0027)",
+                               "author":  "JIANYU Zhuang",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ecole-des-bestioles-l",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Ecole des rêves (l\u0027)",
+                               "author":  "AKIYAMA Takayo",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ecole-des-reves-l",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Ecole démoniaque (l\u0027)",
+                               "author":  "MAEDA Toshio",
+                               "url":  "https://www.manga-news.com/index.php/serie/Demon-Beast-Invasion",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:30004",
+        "title":  "Yokohama Kaidashi Kikou",
+        "expectedVolumes":  14,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Yokohama Swimming Club",
+                               "author":  "Minetaro MOCHIZUKI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Yokohama-Swimming-Club",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Escale à Yokohama",
+                               "author":  "ASHINANO Hitoshi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Escale-a-Yokohama",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Yokohama Station Fable",
+                               "author":  "SHINKAWA Gonbe",
+                               "url":  "https://www.manga-news.com/index.php/serie/Yokohama-Station-Fable",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Café Gourmand",
+                               "author":  "TAKATSUKI Noboru",
+                               "url":  "https://www.manga-news.com/index.php/serie/Cafe-gourmand",
+                               "score":  0
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:97553",
+        "title":  "Three Days of Happiness",
+        "expectedVolumes":  3,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Happiness",
+                               "author":  "Shûzô ÔSHIMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Happiness",
+                               "score":  88
+                           },
+                           {
+                               "title":  "The half of happiness",
+                               "author":  "MATSUKAWA Yuriko",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-half-of-happiness",
+                               "score":  50
+                           },
+                           {
+                               "title":  "Days of Mimura et Kataragi",
+                               "author":  "LONDON Pariko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Days-of-Mimura-et-Kataragi",
+                               "score":  40
+                           },
+                           {
+                               "title":  "Our days together",
+                               "author":  "NANASE Hachi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Our-days-together",
+                               "score":  25
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:135129",
+        "title":  "Vagabond: Saigo no Manga-ten",
+        "expectedVolumes":  2,
+        "status":  "unmatched",
+        "matchedTitle":  "",
+        "matchedUrl":  "",
+        "cover":  "",
+        "volumeCovers":  0,
+        "candidates":  [
+                           {
+                               "title":  "Vagabond",
+                               "author":  "Takehiko INOUE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vagabond",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Vagabond (Le)",
+                               "author":  "Douji TOMITA / Dôji TOMITA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Vagabond-Le",
+                               "score":  20
+                           },
+                           {
+                               "title":  "Techniques du manga",
+                               "author":  "MATSUMOTO Takehiko",
+                               "url":  "https://www.manga-news.com/index.php/serie/Lequilibre-et-la-dynamique-des-corps-Anatomie-appliquee",
+                               "score":  20
+                           },
+                           {
+                               "title":  "San Mao - Le petit vagabond",
+                               "author":  "ZHANG Leping",
+                               "url":  "https://www.manga-news.com/index.php/serie/San-Mao",
+                               "score":  20
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:53390",
+        "title":  "Attack on Titan",
+        "expectedVolumes":  34,
+        "status":  "matched",
+        "matchedTitle":  "L\u0027Attaque Des Titans",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Attaque-Des-Titans-l",
+        "cover":  "https://www.manga-news.com/public/images/series/.attaque-des-titans-1-pika_large.webp",
+        "volumeCovers":  34,
+        "candidates":  [
+                           {
+                               "title":  "Attaque Des Titans (l\u0027) - Lost girls",
+                               "author":  "Ryôsuke FUJI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Attaque-Des-Titans-l-Lost-girls",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Attaque des Titans (l\u0027) - La Puissance du Mythe",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/LAttaque-des-Titans-La-Puissance-du-Mythe",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Attaque des Titans (l\u0027) - Les chaînes de la liberté",
+                               "author":  "",
+                               "url":  "https://www.manga-news.com/index.php/serie/Attaque-des-Titans-l-Les-chaines-de-la-libertee",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Attaque Des Titans (l\u0027) - Before the Fall",
+                               "author":  "SHIKI Satoshi",
+                               "url":  "https://www.manga-news.com/index.php/serie/Attaque-Des-Titans-l-Before-the-Fall",
+                               "score":  88
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:87216",
+        "title":  "Demon Slayer: Kimetsu no Yaiba",
+        "expectedVolumes":  23,
+        "status":  "matched",
+        "matchedTitle":  "Demon Slayer",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Rodeurs-de-la-nuit-les",
+        "cover":  "https://www.manga-news.com/public/images/series/.demon-slayers-1-panini_large.webp",
+        "volumeCovers":  23,
+        "candidates":  [
+                           {
+                               "title":  "Yaiba",
+                               "author":  "Gosho AOYAMA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Yaiba",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Demon Slayer",
+                               "author":  "Koyoharu GOTÔGE",
+                               "url":  "https://www.manga-news.com/index.php/serie/Rodeurs-de-la-nuit-les",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Demon Slayer - School Days",
+                               "author":  "Natsuki HOKAMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Demon-Slayer-School-Days",
+                               "score":  40
+                           },
+                           {
+                               "title":  "Demon Slave",
+                               "author":  "Yôhei TAKEMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Demon-Slave",
+                               "score":  20
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:74489",
+        "title":  "Land of the Lustrous",
+        "expectedVolumes":  13,
+        "status":  "matched",
+        "matchedTitle":  "L\u0027Ere des cristaux",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Ere-des-cristaux-l",
+        "cover":  "https://www.manga-news.com/public/images/series/.ere-des-cristaux-1-glenat_large.webp",
+        "volumeCovers":  13,
+        "candidates":  [
+                           {
+                               "title":  "Land",
+                               "author":  "Kazumi YAMASHITA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Land",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Ere des cristaux (l\u0027)",
+                               "author":  "Haruko ICHIKAWA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Ere-des-cristaux-l",
+                               "score":  88
+                           },
+                           {
+                               "title":  "The Land of Mud",
+                               "author":  "Hamachi YAMADA",
+                               "url":  "https://www.manga-news.com/index.php/serie/The-Land-of-Mud",
+                               "score":  75
+                           },
+                           {
+                               "title":  "In The Land of Leadale",
+                               "author":  "TSUKIMI Dashio",
+                               "url":  "https://www.manga-news.com/index.php/serie/In-The-Land-of-Leadale",
+                               "score":  60
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:54705",
+        "title":  "The Flowers of Evil",
+        "expectedVolumes":  11,
+        "status":  "matched",
+        "matchedTitle":  "Les Fleurs du mal",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Fleurs-du-mal",
+        "cover":  "https://www.manga-news.com/public/images/series/.les-fleurs-du-mal-1-ki-oon_large.webp",
+        "volumeCovers":  11,
+        "candidates":  [
+                           {
+                               "title":  "Fleurs du mal (les) - Kamimura",
+                               "author":  "Kazuo KAMIMURA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fleurs-du-mal-les-Kamimura",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Fleurs du mal (les)",
+                               "author":  "Shûzô ÔSHIMI",
+                               "url":  "https://www.manga-news.com/index.php/serie/Fleurs-du-mal",
+                               "score":  88
+                           },
+                           {
+                               "title":  "Lesson of the Evil",
+                               "author":  "KARASUYAMA Eiji",
+                               "url":  "https://www.manga-news.com/index.php/serie/Lesson-of-the-Evil",
+                               "score":  75
+                           },
+                           {
+                               "title":  "Tanya The Evil",
+                               "author":  "Chika TÔJÔ",
+                               "url":  "https://www.manga-news.com/index.php/serie/Tanya-The-Evil",
+                               "score":  50
+                           }
+                       ]
+    },
+    {
+        "id":  "anilist:98263",
+        "title":  "Witch Hat Atelier",
+        "expectedVolumes":  null,
+        "status":  "matched",
+        "matchedTitle":  "L\u0027Atelier des sorciers",
+        "matchedUrl":  "https://www.manga-news.com/index.php/serie/Atelier-des-sorciers-l",
+        "cover":  "https://www.manga-news.com/public/images/series/.atelier-des-sorciers-1-pika_large.webp",
+        "volumeCovers":  16,
+        "candidates":  [
+                           {
+                               "title":  "Witch \u0026 Cat",
+                               "author":  "KUROI Yodaka",
+                               "url":  "https://www.manga-news.com/index.php/serie/Witch-Cat",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Witch Hunter",
+                               "author":  "CHO Jung-man",
+                               "url":  "https://www.manga-news.com/index.php/serie/Witch-Hunter",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Straight F Witch",
+                               "author":  "JIAO Xiang Ting",
+                               "url":  "https://www.manga-news.com/index.php/serie/Straight-F-Witch",
+                               "score":  33
+                           },
+                           {
+                               "title":  "Witch Watch",
+                               "author":  "Kenta SHINOHARA",
+                               "url":  "https://www.manga-news.com/index.php/serie/Witch-Watch",
+                               "score":  33
+                           }
+                       ]
+    }
+]

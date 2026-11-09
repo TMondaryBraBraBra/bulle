@@ -202,7 +202,7 @@
     const e = B.ui.explore;
 
     const segment = (kind, label) => `<button class="segmented__btn ${e.kind === kind ? 'is-active' : ''}"
-      data-action="set-explore-kind" data-kind="${kind}" type="button">${esc(label)}</button>`;
+      data-action="set-explore-kind" data-kind="${kind}" type="button" aria-pressed="${e.kind === kind}">${esc(label)}</button>`;
 
     return `<section class="page">
       <div class="explore-head">
@@ -211,20 +211,14 @@
           <h1 class="page-title">Explorer</h1>
           <p class="page-sub">Des milliers de mangas et de BD, avec leurs couvertures. Cherche, découvre, puis garde ce qui te plaît.</p>
         </div>
-        <div class="segmented" role="tablist" aria-label="Type de titre">
+        <div class="segmented" role="group" aria-label="Type de titre">
           ${segment('all', 'Tout')}
           ${segment('manga', 'Mangas')}
           ${segment('bd', 'BD & comics')}
         </div>
       </div>
 
-      <div class="explore-tools">
-        <div class="searchbar">
-          ${icon('search')}
-          <input id="explore-search" type="search" value="${esc(e.q)}" placeholder="Titre, auteur, genre… (ex. Berserk, Thorgal)"
-            autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Rechercher un manga ou une BD">
-          ${e.q ? `<button class="searchbar__clear" data-action="clear-search" type="button" aria-label="Effacer la recherche">${icon('x')}</button>` : ''}
-        </div>
+      <div class="explore-tools explore-tools--sort">
         <select class="select" id="explore-sort" aria-label="Trier les résultats">
           <option value="relevance" ${e.sort === 'relevance' ? 'selected' : ''}>Sélection Bulle</option>
           <option value="score" ${e.sort === 'score' ? 'selected' : ''}>Mieux notés</option>

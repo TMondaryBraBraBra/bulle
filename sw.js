@@ -16,6 +16,7 @@ const PRECACHE = [
   './version.json',
   './css/styles.css',
   './data/seed.js',
+  './data/covers-fr.js',
   './js/store.js',
   './js/api.js',
   './js/core.js',
@@ -37,7 +38,8 @@ const COVER_HOSTS = [
   'covers.openlibrary.org',
   'books.google.com',
   'books.googleusercontent.com',
-  'lh3.googleusercontent.com'
+  'lh3.googleusercontent.com',
+  'www.manga-news.com'
 ];
 
 self.addEventListener('install', (event) => {

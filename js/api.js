@@ -7,7 +7,7 @@
   'use strict';
 
   const ANILIST_ENDPOINT = 'https://graphql.anilist.co';
-  const CACHE_PREFIX = 'bulle.search.v2:';
+  const CACHE_PREFIX = 'bulle.search.v3:';
   const CACHE_TTL = 6 * 60 * 60 * 1000;
   const CACHE_MAX = 80;
 
@@ -352,7 +352,9 @@
       }
     }
 
-    const merged = dedupe(items).slice(0, 42);
+    const merged = dedupe(items)
+      .slice(0, 42)
+      .map((item) => (window.Store && window.Store.applyFrCover ? window.Store.applyFrCover(item) : item));
     if (merged.length) cacheSet(key, merged);
 
     return { items: merged, errors };

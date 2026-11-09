@@ -6,8 +6,9 @@
 
   const KEY = 'bulle.store.v1';
   const SNAPSHOT_FIELDS = [
-    'id', 'source', 'kind', 'subtype', 'title', 'author', 'cover', 'banner',
-    'description', 'genres', 'year', 'volumes', 'chapters', 'score', 'siteUrl', 'accent'
+    'id', 'source', 'kind', 'subtype', 'title', 'altTitle', 'author', 'publisher',
+    'cover', 'banner', 'description', 'genres', 'year', 'volumes', 'chapters', 'score',
+    'siteUrl', 'frUrl', 'accent', 'volumeCovers'
   ];
 
   const DEFAULTS = {
@@ -18,6 +19,7 @@
     price: null,          // purchase price (EUR)
     salePrice: null,      // estimated resale value (EUR)
     volumesOwned: null,
+    ownedVolumes: [],
     condition: '',
     notes: '',
     favorite: false
@@ -66,32 +68,90 @@
     return Number.isFinite(n) ? n : null;
   }
 
+  /* ------------------------- French edition overrides ------------------------- */
+  function applyFrCover(base) {
+    if (!base || !base.id) return base;
+    const table = window.FR_COVERS;
+    const fr = table && table[base.id];
+    if (!fr) return base;
+
+    const out = { ...base };
+    const frTitle = cleanText(fr.title);
+    if (frTitle && frTitle !== cleanText(base.title)) {
+      if (!out.altTitle) out.altTitle = cleanText(base.title);
+      out.title = frTitle;
+    }
+    if (fr.altTitle) out.altTitle = cleanText(fr.altTitle);
+    if (fr.cover) out.cover = fr.cover;
+    if (fr.publisher) out.publisher = cleanText(fr.publisher);
+    if (fr.url) out.frUrl = fr.url;
+    if (fr.description) out.description = cleanText(fr.description);
+    if (Array.isArray(fr.genres) && fr.genres.length) out.genres = fr.genres.map(cleanText).filter(Boolean).slice(0, 8);
+    if (fr.year) out.year = num(fr.year);
+    if (fr.volumes && typeof fr.volumes === 'object') out.volumeCovers = { ...fr.volumes };
+    return out;
+  }
+
   function snapshot(base) {
+    const source = applyFrCover(base);
     const item = {};
     SNAPSHOT_FIELDS.forEach((field) => {
-      if (base[field] !== undefined) item[field] = base[field];
+      if (source[field] !== undefined) item[field] = source[field];
     });
-    item.id = String(base.id || makeId());
-    item.source = base.source || 'local';
-    item.kind = base.kind === 'bd' ? 'bd' : 'manga';
-    item.subtype = base.subtype || (item.kind === 'bd' ? 'BD' : 'Manga');
-    item.title = cleanText(base.title) || 'Sans titre';
-    item.author = cleanText(base.author);
-    item.cover = base.cover || '';
-    item.banner = base.banner || '';
-    item.description = cleanText(base.description);
-    item.genres = toArray(base.genres).map(cleanText).filter(Boolean).slice(0, 8);
-    item.year = num(base.year);
-    item.volumes = num(base.volumes);
-    item.chapters = num(base.chapters);
-    item.score = num(base.score);
-    item.siteUrl = base.siteUrl || '';
-    item.accent = base.accent || '';
+    item.id = String(source.id || makeId());
+    item.source = source.source || 'local';
+    item.kind = source.kind === 'bd' ? 'bd' : 'manga';
+    item.subtype = source.subtype || (item.kind === 'bd' ? 'BD' : 'Manga');
+    item.title = cleanText(source.title) || 'Sans titre';
+    item.altTitle = cleanText(source.altTitle);
+    item.author = cleanText(source.author);
+    item.publisher = cleanText(source.publisher);
+    item.cover = source.cover || '';
+    item.banner = source.banner || '';
+    item.description = cleanText(source.description);
+    item.genres = toArray(source.genres).map(cleanText).filter(Boolean).slice(0, 8);
+    item.year = num(source.year);
+    item.volumes = num(source.volumes);
+    item.chapters = num(source.chapters);
+    item.score = num(source.score);
+    item.siteUrl = source.siteUrl || '';
+    item.frUrl = source.frUrl || '';
+    item.accent = source.accent || '';
+    item.volumeCovers = source.volumeCovers && typeof source.volumeCovers === 'object' ? { ...source.volumeCovers } : {};
     return item;
+  }
+
+  /* ------------------------- owned volumes ------------------------- */
+  function normalizeOwnedVolumes(value, legacyCount) {
+    let raw = [];
+    if (Array.isArray(value)) raw = value;
+    else if (typeof value === 'string' && value.trim()) raw = value.split(',');
+
+    const numbers = raw
+      .map((entry) => parseInt(entry, 10))
+      .filter((number) => Number.isFinite(number) && number > 0)
+      .map((number) => Math.min(9999, Math.round(number)));
+
+    if (numbers.length) {
+      return [...new Set(numbers)].sort((a, b) => a - b);
+    }
+
+    const count = num(legacyCount);
+    if (count && count > 0) {
+      const max = Math.min(500, Math.round(count));
+      return Array.from({ length: max }, (_, index) => index + 1);
+    }
+    return [];
+  }
+
+  function ownedVolumeCount(item) {
+    if (!item) return 0;
+    return normalizeOwnedVolumes(item.ownedVolumes, item.volumesOwned).length;
   }
 
   function normalizeUserFields(item) {
     const statuses = ['unread', 'reading', 'read', 'dropped'];
+    const ownedVolumes = normalizeOwnedVolumes(item.ownedVolumes, item.volumesOwned);
     return {
       owned: Boolean(item.owned),
       wishlist: Boolean(item.wishlist),
@@ -99,7 +159,8 @@
       rating: Math.max(0, Math.min(5, Math.round((num(item.rating) || 0) * 2) / 2)),
       price: num(item.price),
       salePrice: num(item.salePrice),
-      volumesOwned: num(item.volumesOwned),
+      volumesOwned: ownedVolumes.length,
+      ownedVolumes,
       condition: CONDITIONS.includes(item.condition) ? item.condition : '',
       notes: typeof item.notes === 'string' ? item.notes.slice(0, 4000) : '',
       favorite: Boolean(item.favorite)
@@ -172,14 +233,19 @@
   function track(base, patch) {
     const existing = state.items[base.id];
     if (existing) {
-      const updated = { ...existing, ...normalizeUserFields({ ...existing, ...patch }), updatedAt: Date.now() };
+      const mergedPatch = { ...patch };
+      if (Object.prototype.hasOwnProperty.call(mergedPatch, 'ownedVolumes')) mergedPatch.volumesOwned = 0;
+      const updated = { ...existing, ...normalizeUserFields({ ...existing, ...mergedPatch }), updatedAt: Date.now() };
       state.items[existing.id] = updated;
       persist();
       return updated;
     }
     const item = snapshot(base);
     const user = normalizeUserFields({ ...DEFAULTS, ...patch });
-    if (user.owned && user.volumesOwned === null) user.volumesOwned = 1;
+    if (user.owned && !user.ownedVolumes.length) {
+      user.ownedVolumes = [1];
+      user.volumesOwned = 1;
+    }
     const tracked = { ...item, ...user, addedAt: Date.now(), updatedAt: Date.now() };
     state.items[tracked.id] = tracked;
     persist();
@@ -189,8 +255,9 @@
   function update(id, patch) {
     const existing = state.items[id];
     if (!existing) return null;
-    const next = { ...existing, ...patch, updatedAt: Date.now() };
-    if (next.owned && next.volumesOwned === null) next.volumesOwned = 1;
+    const mergedPatch = { ...patch };
+    if (Object.prototype.hasOwnProperty.call(mergedPatch, 'ownedVolumes')) mergedPatch.volumesOwned = 0;
+    const next = { ...existing, ...mergedPatch, updatedAt: Date.now() };
     Object.assign(next, normalizeUserFields(next));
     state.items[id] = next;
     persist();
@@ -217,10 +284,7 @@
     const read = items.filter((i) => i.readStatus === 'read');
     const dropped = items.filter((i) => i.readStatus === 'dropped');
 
-    const volumes = owned.reduce((sum, i) => {
-      const v = num(i.volumesOwned);
-      return sum + (v && v > 0 ? v : 1);
-    }, 0);
+    const volumes = owned.reduce((sum, i) => sum + ownedVolumeCount(i), 0);
 
     const spent = owned.reduce((sum, i) => sum + (num(i.price) || 0), 0);
     const resale = owned.reduce((sum, i) => sum + (num(i.salePrice) || 0), 0);
@@ -434,6 +498,9 @@
     toArray,
     cleanText,
     num,
+    applyFrCover,
+    normalizeOwnedVolumes,
+    ownedVolumeCount,
     normalizeUserFields
   };
 })();

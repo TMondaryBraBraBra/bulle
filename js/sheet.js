@@ -42,7 +42,7 @@
       (item.notes && item.notes.trim()) ||
       Number(item.price) > 0 ||
       Number(item.salePrice) > 0 ||
-      Number(item.volumesOwned) > 0 ||
+      window.Store.ownedVolumeCount(item) > 0 ||
       item.condition
     );
   }
@@ -55,12 +55,14 @@
     const isTracked = Store.has(item.id);
     const rating = Number(user.rating) || 0;
     const bg = item.banner || item.cover || '';
-    const total = Number(item.volumes);
-    const volumesOwned = Number(user.volumesOwned) || 0;
+    const total = B.volumeTotal(item);
+    const ownedVolumes = B.ownedVolumeList(user);
+    const ownedSet = new Set(ownedVolumes);
 
     const meta = [
       item.year ? String(item.year) : '',
       total ? total + ' ' + plural(total, 'tome') : '',
+      item.publisher ? item.publisher : '',
       item.chapters ? item.chapters + ' chapitres' : '',
       item.score ? item.score + '/100 sur ' + B.sourceLabel(item) : ''
     ].filter(Boolean);
@@ -81,8 +83,40 @@
       ['dropped', 'Abandonné']
     ].map(([value, label]) => `<option value="${value}" ${user.readStatus === value ? 'selected' : ''}>${label}</option>`).join('');
 
-    const sourceUrl = item.siteUrl || '';
-    const source = B.sourceLabel(item);
+    const sourceUrl = item.frUrl || item.siteUrl || '';
+    const source = item.frUrl ? 'Manga-News' : B.sourceLabel(item);
+
+    const volumeTiles = total ? Array.from({ length: total }, (_, index) => {
+      const number = index + 1;
+      const cover = B.volumeCover(item, number);
+      const isOwned = ownedSet.has(number);
+      return `<button class="volume ${isOwned ? 'is-owned' : ''}" data-action="toggle-volume" data-volume="${number}"
+        aria-pressed="${isOwned}" aria-label="Tome ${number}${isOwned ? ', possédé' : ', non possédé'}" type="button">
+        <span class="volume__art">
+          ${cover
+            ? `<img src="${esc(cover)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
+            : `<span class="volume__fallback" aria-hidden="true">${number}</span>`}
+          <span class="volume__check">${icon('check')}</span>
+        </span>
+        <span class="volume__label">T.${number}</span>
+      </button>`;
+    }).join('') : '';
+
+    const volumeSection = `<div class="sheet__volumes">
+      <div class="sheet__volumes-head">
+        <div>
+          <div class="sheet__section-title">${icon('layers')} Mes tomes</div>
+          <p class="volume-summary">${total
+            ? `<strong>${ownedVolumes.length}</strong> ${plural(ownedVolumes.length, 'tome')} possédé${ownedVolumes.length > 1 ? 's' : ''} sur ${total}`
+            : 'Le nombre de tomes n’est pas connu pour ce titre.'}</p>
+        </div>
+        ${total ? `<div class="volume-actions">
+          <button class="btn btn--small" data-action="volumes-all" type="button">Tout posséder</button>
+          <button class="btn btn--small btn--ghost" data-action="volumes-none" type="button">Aucun</button>
+        </div>` : ''}
+      </div>
+      ${total ? `<div class="volume-grid">${volumeTiles}</div>` : ''}
+    </div>`;
 
     return `<div class="sheet-backdrop" data-action="backdrop-close">
       <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1">
@@ -95,6 +129,7 @@
               <div class="sheet__info">
                 <div class="sheet__kind">${badges.join('')}</div>
                 <h2 class="sheet__title" id="sheet-title">${esc(item.title)}</h2>
+                ${item.altTitle ? `<p class="sheet__alt">${esc(item.altTitle)}</p>` : ''}
                 ${item.author ? `<p class="sheet__author">${esc(item.author)}</p>` : ''}
                 <div class="sheet__meta">
                   ${meta.map((part, index) => `${index ? '<span class="dot"></span>' : ''}<span>${esc(part)}</span>`).join('')}
@@ -105,6 +140,8 @@
               </div>
             </div>
           </div>
+
+          ${volumeSection}
 
           <div class="sheet__body">
             <div class="sheet__col">
@@ -168,19 +205,9 @@
 
               <div class="sheet__section">
                 <div class="sheet__section-title">${icon('layers')} Mon exemplaire</div>
-                <div class="price-grid">
-                  <div class="field">
-                    <label for="sheet-volumes">Tomes possédés</label>
-                    <div class="input-with-unit">
-                      <input class="input" id="sheet-volumes" data-sheet-field="volumesOwned" inputmode="numeric" type="number" min="0" step="1"
-                        value="${volumesOwned || ''}" placeholder="${user.owned ? '1' : '0'}">
-                      <span class="input-with-unit__unit input-with-unit__unit--wide">${total ? '/ ' + total : 'tomes'}</span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label for="sheet-condition">État</label>
-                    <select class="select" id="sheet-condition" data-sheet-field="condition" style="width:100%">${conditionOptions}</select>
-                  </div>
+                <div class="field">
+                  <label for="sheet-condition">État</label>
+                  <select class="select" id="sheet-condition" data-sheet-field="condition" style="width:100%">${conditionOptions}</select>
                 </div>
                 <div class="autosave" id="sheet-autosave"><span class="dot"></span>${isTracked ? 'Enregistré automatiquement' : 'Rien n’est encore enregistré'}</div>
                 ${isTracked && user.addedAt ? `<p class="sheet-note">Ajouté à ta librairie le ${fmtDate(user.addedAt)}</p>` : ''}
@@ -303,7 +330,9 @@
 
     if (flag === 'owned') {
       patch.owned = !user.owned;
-      if (patch.owned && !(Number(user.volumesOwned) > 0)) patch.volumesOwned = 1;
+      patch.ownedVolumes = patch.owned
+        ? (B.ownedVolumeList(user).length ? B.ownedVolumeList(user) : [1])
+        : [];
     } else if (flag === 'wishlist') {
       patch.wishlist = !user.wishlist;
     } else if (flag === 'read') {
@@ -321,6 +350,45 @@
     if (flag === 'owned') B.toast(patch.owned ? 'Ajouté à ta librairie' : 'Retiré des possédés');
     if (flag === 'wishlist') B.toast(patch.wishlist ? 'Ajouté à ta wishlist' : 'Retiré de la wishlist');
     if (flag === 'read') B.toast(patch.readStatus === 'read' ? 'Marqué comme lu' : 'Remis dans les non-lus');
+  }
+
+  function toggleVolume(number) {
+    if (!current) return;
+    const B = window.B;
+    const volume = Math.max(1, Math.round(Number(number) || 0));
+    if (!volume) return;
+    flushNotes();
+    const user = userFor(current);
+    const list = B.ownedVolumeList(user);
+    const had = list.includes(volume);
+    const next = had ? list.filter((entry) => entry !== volume) : [...list, volume].sort((a, b) => a - b);
+    const saved = window.Store.track(current, {
+      ownedVolumes: next,
+      owned: next.length > 0
+    });
+    current = saved;
+    tracked = true;
+    refresh(`[data-volume="${volume}"]`);
+    B.refreshChrome();
+    B.toast(had ? 'Tome ' + volume + ' retiré' : 'Tome ' + volume + ' ajouté');
+  }
+
+  function setAllVolumes(mode) {
+    if (!current) return;
+    const B = window.B;
+    const total = B.volumeTotal(current);
+    if (!total) return;
+    flushNotes();
+    const next = mode === 'all' ? Array.from({ length: total }, (_, index) => index + 1) : [];
+    const saved = window.Store.track(current, {
+      ownedVolumes: next,
+      owned: next.length > 0
+    });
+    current = saved;
+    tracked = true;
+    refresh(mode === 'all' ? '[data-action="volumes-all"]' : '[data-action="volumes-none"]');
+    B.refreshChrome();
+    B.toast(mode === 'all' ? 'Tous les tomes sont marqués comme possédés' : 'Aucun tome possédé');
   }
 
   function setStatus(status) {
@@ -358,11 +426,16 @@
     if (!current) return;
     const B = window.B;
     flushNotes();
+    let key = field;
     let value = rawValue;
     if (field === 'price' || field === 'salePrice') value = parseDecimal(rawValue);
-    if (field === 'volumesOwned') value = parseVolume(rawValue);
+    if (field === 'volumesOwned') {
+      const count = parseVolume(rawValue) || 0;
+      key = 'ownedVolumes';
+      value = Array.from({ length: Math.min(500, count) }, (_, index) => index + 1);
+    }
     if (field === 'condition') value = String(rawValue || '');
-    const saved = window.Store.track(current, { [field]: value });
+    const saved = window.Store.track(current, { [key]: value });
     current = saved;
     markSaved();
     B.refreshChrome();
@@ -414,6 +487,8 @@
     close,
     refresh,
     toggle,
+    toggleVolume,
+    setAllVolumes,
     setStatus,
     setRating,
     setField,

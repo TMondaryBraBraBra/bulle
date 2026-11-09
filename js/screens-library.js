@@ -79,10 +79,7 @@
     };
     filtered = filtered.slice().sort(sorters[sort] || sorters.recent);
 
-    const volumes = owned.reduce((sum, item) => {
-      const count = Number(item.volumesOwned);
-      return sum + (count > 0 ? count : 1);
-    }, 0);
+    const volumes = owned.reduce((sum, item) => sum + Store.ownedVolumeCount(item), 0);
     const spent = owned.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
 
     const filterChips = filters.map(([id, label]) => {

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
-  "released": "2026-11-08",
-  "notes": "Mise à jour plus fiable : le service worker récupère toujours les nouveaux fichiers sans rester bloqué sur l'ancien cache."
+  "version": "1.0.3",
+  "released": "2026-11-09",
+  "notes": "Jaquettes et titres français, tomes possédés avec leurs couvertures, recherche globale en haut de page et thème sombre plus doux."
 }
