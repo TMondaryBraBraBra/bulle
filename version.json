@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "released": "2026-11-09",
-  "notes": "Jaquettes et titres français, tomes possédés avec leurs couvertures, recherche globale en haut de page et thème sombre plus doux."
+  "notes": "Correction d'accessibilité sur la grille des tomes possédés."
 }

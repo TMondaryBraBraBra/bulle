@@ -91,7 +91,7 @@
       const cover = B.volumeCover(item, number);
       const isOwned = ownedSet.has(number);
       return `<button class="volume ${isOwned ? 'is-owned' : ''}" data-action="toggle-volume" data-volume="${number}"
-        aria-pressed="${isOwned}" aria-label="Tome ${number}${isOwned ? ', possédé' : ', non possédé'}" type="button">
+        aria-pressed="${isOwned}" aria-label="T.${number}${isOwned ? ', possédé' : ', non possédé'}" type="button">
         <span class="volume__art">
           ${cover
             ? `<img src="${esc(cover)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
