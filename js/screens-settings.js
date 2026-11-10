@@ -172,7 +172,7 @@
         <div class="card">
           <div class="card__head">${icon('shield')}<h3>Confidentialité & à propos</h3></div>
           <div class="card__body">
-            <p class="card__desc"><strong>Ta collection ne quitte jamais ton téléphone.</strong> Possessions, envies, notes, prix et notes personnelles sont enregistrés dans le stockage local de l’app. Aucun compte, aucun serveur Bulle.</p>
+            <p class="card__desc"><strong>Ta collection ne quitte jamais ton téléphone.</strong> Possessions, envies, notes et notes personnelles sont enregistrés dans le stockage local de l’app. Aucun compte, aucun serveur Bulle.</p>
             <p class="card__desc">Les recherches en ligne envoient uniquement le texte que tu tapes à AniList, Open Library et Google Books, pour trouver des couvertures.</p>
             <div class="status-line"><span class="dot"></span> Données locales · ${esc(seedDate)}</div>
             <p class="credits" style="margin-top:14px">Bulle v${esc(B.APP_VERSION)} · faite pour les étagères qui débordent.<br>

@@ -7,7 +7,7 @@
   'use strict';
 
   const ANILIST_ENDPOINT = 'https://graphql.anilist.co';
-  const CACHE_PREFIX = 'bulle.search.v3:';
+  const CACHE_PREFIX = 'bulle.search.v4:';
   const CACHE_TTL = 6 * 60 * 60 * 1000;
   const CACHE_MAX = 80;
 
@@ -29,6 +29,7 @@
           averageScore
           startDate { year }
           siteUrl
+          externalLinks { site url type language }
           staff(perPage: 3) { edges { role node { name { full } } } }
         }
       }
@@ -148,6 +149,11 @@
       const title = (m.title && (m.title.english || m.title.romaji || m.title.native)) || '';
       if (!title) return;
 
+      // On ne garde que les titres réellement édités en français.
+      const frenchLinks = toArray(m.externalLinks).filter((link) => link && link.language === 'French');
+      if (!frenchLinks.length) return;
+      const frenchUrl = frenchLinks.map((link) => link.url).find(Boolean) || '';
+
       const authors = [];
       const staff = m.staff && m.staff.edges ? m.staff.edges : [];
       staff.forEach((edge) => {
@@ -178,6 +184,7 @@
         chapters: m.chapters || null,
         score: m.averageScore || null,
         siteUrl: m.siteUrl || '',
+        frUrl: frenchUrl,
         accent: (m.coverImage && m.coverImage.color) || ''
       });
     });
@@ -189,9 +196,9 @@
   const COMIC_HINT = /comic|graphic novel|bande dessin|bandes dessin|manga|roman graphique|bd\b/i;
 
   async function searchOpenLibrary(query, mode) {
-    const fields = 'key,title,author_name,cover_i,first_publish_year,subject,first_sentence';
+    const fields = 'key,title,author_name,cover_i,first_publish_year,subject,first_sentence,language';
     const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) +
-      '&limit=30&fields=' + fields;
+      '&limit=30&language=fre&fields=' + fields;
     const payload = await fetchJson(url, {}, 16000);
     const docs = Array.isArray(payload.docs) ? payload.docs : [];
 
@@ -204,6 +211,8 @@
 
     docs.forEach((doc) => {
       if (!doc || !doc.cover_i || !doc.title) return;
+      const languages = toArray(doc.language).map((language) => String(language).toLowerCase());
+      if (languages.length && !languages.includes('fre') && !languages.includes('fr')) return;
       const subjects = toArray(doc.subject);
       const comicish = COMIC_HINT.test(doc.title + ' ' + subjects.join(' '));
       const titleNorm = normalize(doc.title);
@@ -265,6 +274,7 @@
     volumes.forEach((entry) => {
       const info = entry && entry.volumeInfo;
       if (!info || !info.title) return;
+      if (info.language && String(info.language).toLowerCase() !== 'fr') return;
 
       const categories = toArray(info.categories);
       const isComic = categories.some((c) => COMIC_HINT.test(c)) ||

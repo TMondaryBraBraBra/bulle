@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Bulle — Ma mangathèque & bédéthèque",
   "short_name": "Bulle",
-  "description": "Tes mangas, BD et comics : possession, wishlist, lecture, notes, prix d'achat et valeur de revente. Ta collection reste sur ton téléphone.",
+  "description": "Tes mangas, BD et comics : possession, wishlist, lecture, notes et prochaines sorties françaises. Ta collection reste sur ton téléphone.",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "./#/",
@@ -56,9 +56,16 @@
       "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     },
     {
+      "name": "Prochaines sorties",
+      "short_name": "Sorties",
+      "description": "Les mangas et BD qui arrivent en France",
+      "url": "./#/releases",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
       "name": "Mes statistiques",
       "short_name": "Stats",
-      "description": "Budget, revente, notes et genres favoris",
+      "description": "Notes, genres favoris et répartition de ta collection",
       "url": "./#/stats",
       "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192" }]
     }

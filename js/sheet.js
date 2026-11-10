@@ -8,18 +8,7 @@
   let tracked = false;
   let notesTimer = null;
   let pendingNotes = null;
-
-  function inputNumber(value) {
-    if (value === null || value === undefined || value === '') return '';
-    return String(value).replace('.', ',');
-  }
-
-  function parseDecimal(raw) {
-    const cleaned = String(raw || '').replace(',', '.').replace(/[^\d.]/g, '');
-    const n = parseFloat(cleaned);
-    if (!Number.isFinite(n) || n < 0) return null;
-    return Math.round(n * 100) / 100;
-  }
+  let mode = 'item'; // item | series
 
   function parseVolume(raw) {
     if (String(raw).trim() === '') return null;
@@ -40,17 +29,113 @@
       item.readStatus !== 'unread' ||
       Number(item.rating) > 0 ||
       (item.notes && item.notes.trim()) ||
-      Number(item.price) > 0 ||
-      Number(item.salePrice) > 0 ||
       window.Store.ownedVolumeCount(item) > 0 ||
       item.condition
     );
   }
 
+  function seriesAlbumRow(item) {
+    const B = window.B;
+    const { esc, icon } = B;
+    const tracked = window.Store.get(item.id) || {};
+    const isRelease = Boolean(item.releaseDate);
+    const action = isRelease ? 'open-release' : 'open-item';
+    const meta = [
+      item.releaseLabel || '',
+      item.releaseDate ? 'Sortie le ' + B.releaseDateLabel(item.releaseDate) : '',
+      item.publisher || ''
+    ].filter(Boolean);
+
+    return `<button class="series-album" data-action="${action}" data-id="${esc(item.id)}" type="button">
+      <span class="series-album__cover">${B.coverHTML(item)}</span>
+      <span class="series-album__main">
+        <span class="series-album__title">${esc(item.title)}</span>
+        <span class="series-album__meta">${meta.map((part) => esc(part)).join('<span class="dot"> · </span>')}</span>
+      </span>
+      <span class="series-album__side">
+        ${tracked.owned ? `<span class="series-album__tag">${icon('check')} Possédé</span>` : ''}
+        ${tracked.wishlist ? `<span class="series-album__tag series-album__tag--wish">${icon('heart')} Wishlist</span>` : ''}
+        <span class="series-album__chev">${icon('chevron-right')}</span>
+      </span>
+    </button>`;
+  }
+
+  function seriesHtml(group) {
+    const B = window.B;
+    const { esc, icon, plural } = B;
+    const Store = window.Store;
+    const items = group.items || [];
+    const count = items.length;
+    const dated = items.map((item) => item.releaseDate).filter(Boolean).sort();
+    const nextDate = dated[0] || '';
+    const ownedCount = items.filter((item) => {
+      const trackedItem = Store.get(item.id);
+      return Boolean(trackedItem && trackedItem.owned);
+    }).length;
+    const wishCount = items.filter((item) => {
+      const trackedItem = Store.get(item.id);
+      return Boolean(trackedItem && trackedItem.wishlist);
+    }).length;
+    const cover = group.cover || (items.find((item) => item.cover) || {}).cover || '';
+    const bg = cover;
+    const meta = [
+      count + ' ' + plural(count, 'album'),
+      nextDate ? (count > 1 ? 'Dès le ' : 'Sortie le ') + B.releaseDateLabel(nextDate) : '',
+      group.author || '',
+      group.publisher || ''
+    ].filter(Boolean);
+
+    const stats = [];
+    if (ownedCount) stats.push(`<span class="badge badge--accent">${icon('check')} ${ownedCount} possédé${ownedCount > 1 ? 's' : ''}</span>`);
+    if (wishCount) stats.push(`<span class="badge" style="color:var(--violet);background:var(--violet-soft);border-color:transparent">${icon('heart')} ${wishCount} en wishlist</span>`);
+
+    return `<div class="sheet-backdrop" data-action="backdrop-close">
+      <section class="sheet sheet--series" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1">
+        <div class="sheet__scroll">
+          <div class="sheet__hero">
+            <button class="icon-btn sheet__close" data-action="close-sheet" type="button" aria-label="Fermer la fiche">${icon('x')}</button>
+            <div class="sheet__bg">${bg ? `<img src="${esc(bg)}" alt="" referrerpolicy="no-referrer">` : ''}</div>
+            <div class="sheet__head">
+              <div class="sheet__cover">${B.coverHTML({ title: group.series, cover }, { eager: true })}</div>
+              <div class="sheet__info">
+                <div class="sheet__kind">
+                  <span class="badge badge--soft">${esc(group.kind === 'bd' ? 'BD' : 'Série')}</span>
+                  ${stats.join('')}
+                </div>
+                <h2 class="sheet__title" id="sheet-title">${esc(group.series)}</h2>
+                <p class="sheet__alt">Toute la série sur une seule fiche</p>
+                ${group.author ? `<p class="sheet__author">${esc(group.author)}</p>` : ''}
+                <div class="sheet__meta">
+                  ${meta.map((part, index) => `${index ? '<span class="dot"></span>' : ''}<span>${esc(part)}</span>`).join('')}
+                </div>
+                <p class="sheet__desc">Tous les albums de cette série réunis ici. Ouvre un album pour le marquer comme possédé, l’ajouter à ta wishlist ou le noter.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet__body sheet__body--single">
+            <div class="sheet__section">
+              <div class="sheet__section-title">${icon('layers')} Les albums</div>
+              <div class="series-albums">${items.map((item) => seriesAlbumRow(item)).join('')}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet__footer">
+          <div class="sheet__footer-left"></div>
+          <div class="sheet__footer-actions">
+            <span class="sheet-note">${esc(group.publisher || 'Bulle')}</span>
+            <button class="btn btn--accent" data-action="close-sheet" type="button">Terminé</button>
+          </div>
+        </div>
+      </section>
+    </div>`;
+  }
+
   function html(item) {
     const B = window.B;
     const Store = window.Store;
-    const { esc, icon, fmtEUR, fmtRating, fmtDate, plural } = B;
+    const { esc, icon, fmtRating, fmtDate, plural } = B;
     const user = userFor(item);
     const isTracked = Store.has(item.id);
     const rating = Number(user.rating) || 0;
@@ -58,8 +143,11 @@
     const total = B.volumeTotal(item);
     const ownedVolumes = B.ownedVolumeList(user);
     const ownedSet = new Set(ownedVolumes);
+    const isRelease = Boolean(item.releaseDate);
 
     const meta = [
+      item.releaseDate ? 'Sortie le ' + B.releaseDateLabel(item.releaseDate) : '',
+      item.releaseLabel ? item.releaseLabel : '',
       item.year ? String(item.year) : '',
       total ? total + ' ' + plural(total, 'tome') : '',
       item.publisher ? item.publisher : '',
@@ -84,7 +172,11 @@
     ].map(([value, label]) => `<option value="${value}" ${user.readStatus === value ? 'selected' : ''}>${label}</option>`).join('');
 
     const sourceUrl = item.frUrl || item.siteUrl || '';
-    const source = item.frUrl ? 'Manga-News' : B.sourceLabel(item);
+    const source = item.source === 'release'
+      ? (item.kind === 'bd' ? 'BDGest' : 'Manga-News')
+      : item.frUrl
+        ? 'l’éditeur français'
+        : B.sourceLabel(item);
 
     const volumeTiles = total ? Array.from({ length: total }, (_, index) => {
       const number = index + 1;
@@ -102,7 +194,7 @@
       </button>`;
     }).join('') : '';
 
-    const volumeSection = `<div class="sheet__volumes">
+    const volumeSection = isRelease ? '' : `<div class="sheet__volumes">
       <div class="sheet__volumes-head">
         <div>
           <div class="sheet__section-title">${icon('layers')} Mes tomes</div>
@@ -184,26 +276,6 @@
 
             <div class="sheet__col">
               <div class="sheet__section">
-                <div class="sheet__section-title">${icon('euro')} Achat & revente</div>
-                <div class="price-grid">
-                  <div class="field">
-                    <label for="sheet-price">Prix d’achat</label>
-                    <div class="input-with-unit">
-                      <input class="input" id="sheet-price" data-sheet-field="price" inputmode="decimal" value="${inputNumber(user.price)}" placeholder="0,00">
-                      <span class="input-with-unit__unit">€</span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label for="sheet-sale">Revente estimée</label>
-                    <div class="input-with-unit">
-                      <input class="input" id="sheet-sale" data-sheet-field="salePrice" inputmode="decimal" value="${inputNumber(user.salePrice)}" placeholder="0,00">
-                      <span class="input-with-unit__unit">€</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="sheet__section">
                 <div class="sheet__section-title">${icon('layers')} Mon exemplaire</div>
                 <div class="field">
                   <label for="sheet-condition">État</label>
@@ -215,7 +287,7 @@
 
               <div class="sheet__section">
                 <div class="sheet__section-title">${icon('shield')} En local</div>
-                <p class="sheet-note" style="line-height:1.6">Tes notes, prix et statuts restent dans le stockage de l’application. Aucune synchronisation, aucun compte. Pense à exporter ta collection de temps en temps.</p>
+                <p class="sheet-note" style="line-height:1.6">Tes notes et tes statuts restent dans le stockage de l’application. Aucune synchronisation, aucun compte. Pense à exporter ta collection de temps en temps.</p>
               </div>
             </div>
           </div>
@@ -265,6 +337,7 @@
     const overlay = B.$('#overlay-root');
     const alreadyOpen = document.body.classList.contains('sheet-open');
     const stored = window.Store.get(item.id);
+    mode = 'item';
     current = stored || item;
     tracked = Boolean(stored);
     pendingNotes = null;
@@ -278,13 +351,36 @@
     }, 40);
   }
 
+  function openSeries(group) {
+    if (!group || !group.items || !group.items.length) return;
+    const B = window.B;
+    const overlay = B.$('#overlay-root');
+    const alreadyOpen = document.body.classList.contains('sheet-open');
+    mode = 'series';
+    current = group;
+    tracked = false;
+    pendingNotes = null;
+    clearTimeout(notesTimer);
+    overlay.innerHTML = seriesHtml(group);
+    document.body.classList.add('sheet-open');
+    if (!alreadyOpen) history.pushState({ bulleSheet: true }, '');
+    setTimeout(() => {
+      const sheet = B.$('.sheet');
+      if (sheet) sheet.focus({ preventScroll: true });
+    }, 40);
+  }
+
   function refresh(focusSelector) {
     if (!current) return;
     const B = window.B;
-    flushNotes();
     const scroller = B.$('.sheet__scroll');
     const top = scroller ? scroller.scrollTop : 0;
-    B.$('#overlay-root').innerHTML = html(current);
+    if (mode === 'series') {
+      B.$('#overlay-root').innerHTML = seriesHtml(current);
+    } else {
+      flushNotes();
+      B.$('#overlay-root').innerHTML = html(current);
+    }
     const nextScroller = B.$('.sheet__scroll');
     if (nextScroller) nextScroller.scrollTop = top;
     if (focusSelector) {
@@ -299,6 +395,7 @@
     document.body.classList.remove('sheet-open');
     current = null;
     tracked = false;
+    mode = 'item';
     if (window.App && typeof window.App.renderCurrentScreen === 'function') {
       window.App.renderCurrentScreen({ preserveScroll: true });
     }
@@ -307,7 +404,7 @@
   function close(viaHistory) {
     if (!document.body.classList.contains('sheet-open')) return;
     const B = window.B;
-    if (current) {
+    if (mode === 'item' && current) {
       flushNotes();
       const stored = window.Store.get(current.id);
       if (stored && !meaningful(stored)) window.Store.remove(stored.id);
@@ -428,7 +525,6 @@
     flushNotes();
     let key = field;
     let value = rawValue;
-    if (field === 'price' || field === 'salePrice') value = parseDecimal(rawValue);
     if (field === 'volumesOwned') {
       const count = parseVolume(rawValue) || 0;
       key = 'ownedVolumes';
@@ -463,7 +559,7 @@
     const title = current.title;
     const ok = await B.confirmDialog({
       title: 'Retirer ce titre ?',
-      text: '« ' + title + ' » sera retiré de ta librairie. Tes notes, ton prix et ta note seront perdus.',
+      text: '« ' + title + ' » sera retiré de ta librairie. Tes notes et ta note seront perdus.',
       confirmLabel: 'Retirer',
       danger: true
     });
@@ -484,6 +580,7 @@
 
   window.Sheet = {
     open,
+    openSeries,
     close,
     refresh,
     toggle,
@@ -495,6 +592,6 @@
     setNotes,
     remove,
     isOpen: () => document.body.classList.contains('sheet-open'),
-    get item() { return current; }
+    get item() { return mode === 'item' ? current : null; }
   };
 })();

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.4",
-  "released": "2026-11-09",
-  "notes": "Correction d'accessibilité sur la grille des tomes possédés."
+  "version": "1.1.0",
+  "released": "2026-11-10",
+  "notes": "Nouvel accueil mobile, calendrier des sorties françaises et BD regroupées par série."
 }

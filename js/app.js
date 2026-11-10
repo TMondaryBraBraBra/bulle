@@ -48,8 +48,10 @@
     const scrollY = opts.preserveScroll ? window.scrollY : 0;
     const screen = B.ui.screen;
     let html = '';
+    document.body.dataset.screen = screen;
 
     if (screen === 'explore') html = Screens.explore();
+    else if (screen === 'releases') html = Screens.releases();
     else if (screen === 'library') html = Screens.library();
     else if (screen === 'stats') html = Screens.stats();
     else if (screen === 'settings') html = Screens.settings();
@@ -73,7 +75,7 @@
   function renderRoute() {
     if (document.body.classList.contains('sheet-open')) Sheet.close(true);
     const route = currentRoute();
-    const valid = ['home', 'explore', 'library', 'stats', 'settings'];
+    const valid = ['home', 'explore', 'releases', 'library', 'stats', 'settings'];
     if (!valid.includes(route)) {
       B.ui.screen = 'home';
       if (location.hash !== '#/') history.replaceState(null, '', '#/');
@@ -223,6 +225,59 @@
         if (item) Sheet.open(item);
         break;
       }
+
+      case 'open-release': {
+        const release = B.findRelease(target.dataset.id);
+        if (release) Sheet.open(B.releaseToItem(release));
+        break;
+      }
+
+      case 'open-series': {
+        const group = B.findSeriesGroup(target.dataset.group, target.dataset.item);
+        if (group) Sheet.openSeries(group);
+        break;
+      }
+
+      case 'home-tab': {
+        const tab = target.dataset.tab;
+        if (!['all', 'manga', 'bd', 'releases'].includes(tab)) break;
+        B.ui.home.tab = tab;
+        renderCurrentScreen({ preserveScroll: true });
+        break;
+      }
+
+      case 'goto-releases':
+        if (location.hash === '#/releases') renderCurrentScreen({ preserveScroll: true });
+        else location.hash = '#/releases';
+        break;
+
+      case 'release-kind': {
+        const kind = target.dataset.kind;
+        if (!['all', 'manga', 'bd'].includes(kind)) break;
+        B.ui.releases.kind = kind;
+        B.ui.releases.limit = 60;
+        renderCurrentScreen({ preserveScroll: true });
+        break;
+      }
+
+      case 'release-collection':
+        B.ui.releases.collectionOnly = !B.ui.releases.collectionOnly;
+        B.ui.releases.limit = 60;
+        renderCurrentScreen({ preserveScroll: true });
+        break;
+
+      case 'release-reset':
+        B.ui.releases.kind = 'all';
+        B.ui.releases.month = 'all';
+        B.ui.releases.collectionOnly = false;
+        B.ui.releases.limit = 60;
+        renderCurrentScreen({ preserveScroll: true });
+        break;
+
+      case 'load-more-releases':
+        B.ui.releases.limit += 60;
+        renderCurrentScreen({ preserveScroll: true });
+        break;
 
       case 'quick-add': {
         const item = B.findItem(target.dataset.id);
@@ -615,7 +670,7 @@
   async function resetDataFlow() {
     const ok = await B.confirmDialog({
       title: 'Tout effacer ?',
-      text: 'Ta collection, tes notes, tes prix et tes réglages seront définitivement supprimés de cet appareil. Pense à exporter avant.',
+      text: 'Ta collection, tes notes et tes réglages seront définitivement supprimés de cet appareil. Pense à exporter avant.',
       confirmLabel: 'Tout effacer',
       danger: true
     });
@@ -631,6 +686,11 @@
     B.ui.library.kind = 'all';
     B.ui.library.sort = 'recent';
     B.ui.library.view = 'grid';
+    B.ui.home.tab = 'all';
+    B.ui.releases.kind = 'all';
+    B.ui.releases.month = 'all';
+    B.ui.releases.collectionOnly = false;
+    B.ui.releases.limit = 60;
     if (location.hash !== '#/' && location.hash !== '') location.hash = '#/';
     else renderCurrentScreen();
     B.toast('Collection effacée');
@@ -692,6 +752,13 @@
       if (target.id === 'library-sort') {
         B.ui.library.sort = target.value;
         Store.setSetting('librarySort', target.value);
+        renderCurrentScreen({ preserveScroll: true });
+        return;
+      }
+
+      if (target.id === 'release-month') {
+        B.ui.releases.month = target.value || 'all';
+        B.ui.releases.limit = 60;
         renderCurrentScreen({ preserveScroll: true });
         return;
       }

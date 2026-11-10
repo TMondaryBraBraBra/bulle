@@ -12,15 +12,17 @@ Pas de compte Bulle, pas de serveur, pas d'abonnement. GitHub héberge seulement
 
 - **Une seule étagère** pour les mangas, BD franco-belges et comics.
 - **Catalogue local** de 144 titres avec vraies couvertures, prêt à explorer hors-ligne.
-- **Recherche en ligne gratuite** : AniList (mangas), Open Library (BD) et Google Books (compléments).
+- **Recherche en ligne gratuite** : AniList (mangas), Open Library (BD) et Google Books (compléments), limitée aux titres édités en français.
+- **Prochaines sorties françaises** : un calendrier précalculé de mangas et de BD, filtrable par type, par mois et par « suites de ma collection ».
+- **BD regroupées par série** : une seule carte par série, puis tous les albums sur une fiche dédiée.
 - Pour chaque titre, suivre indépendamment :
   - **Possédé** ou non
   - **Wishlist**
   - **Lu / en cours / à lire / abandonné**
   - **Note** de 0 à 5 étoiles (demi-étoiles)
-  - **Prix d'achat** et **valeur de revente estimée**
   - Nombre de tomes, état, notes personnelles
-- **Statistiques** : budget, plus-value, répartition manga/BD, genres favoris, top 5.
+- **Statistiques** : répartition manga/BD, genres favoris, notes, top 5.
+- **Accueil façon application mobile** : en-tête « Ma Bibliothèque », onglets, carrousel, collections, nouveautés et reprise de lecture.
 - **Thème sombre ou clair**, interface 100 % en français.
 - **Export / import JSON** pour sauvegarder ou changer de téléphone.
 - **Mise à jour intégrée** : l'app détecte une nouvelle version et affiche un bouton « Mettre à jour ».
@@ -147,20 +149,38 @@ sw.js                      service worker (hors-ligne + mises à jour)
 version.json               version publiée (source unique)
 css/styles.css             design system complet
 data/seed.js               catalogue local de 144 titres
+data/releases-fr.js        calendrier des sorties françaises (généré)
 js/store.js                collection locale, stats, import/export
 js/api.js                  AniList, Open Library, Google Books
 js/core.js                 helpers et composants visuels
 js/screens-home.js         accueil + explorer
+js/screens-releases.js     prochaines sorties françaises
 js/screens-library.js      librairie + statistiques
 js/screens-settings.js     réglages
-js/sheet.js                fiche détaillée d'un titre
+js/sheet.js                fiche titre + fiche série
 js/app.js                  routeur, recherche, installation, mises à jour
 icons/                     icônes PWA générées
 scripts/serve.ps1          serveur local de test
+scripts/fetch-releases.ps1 génération du calendrier des sorties
 scripts/generate-icons.ps1 génération des icônes
 scripts/stamp-version.mjs  synchronisation de version (CI)
 .github/workflows/deploy.yml déploiement GitHub Pages
+.github/workflows/refresh-releases.yml rafraîchissement du calendrier
 ```
+
+---
+
+## Calendrier des sorties
+
+`data/releases-fr.js` est généré depuis Manga-News (mangas) et BDGest (BD franco-belge). Il couvre les trois mois à venir et ne contient que des titres édités en France.
+
+Pour le régénérer à la main :
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\fetch-releases.ps1 -MonthsAhead 3
+```
+
+Le workflow **Refresh French releases** le régénère automatiquement le 1er et le 15 de chaque mois, puis relance le déploiement. Les dates restent indicatives : elles peuvent évoluer chez les éditeurs.
 
 ---
 
@@ -177,6 +197,7 @@ scripts/stamp-version.mjs  synchronisation de version (CI)
 ## Crédits
 
 - Couvertures, synopsis et métadonnées : [AniList](https://anilist.co), [Open Library](https://openlibrary.org), [Google Books](https://books.google.com).
+- Calendrier des sorties : [Manga-News](https://www.manga-news.com) et [BDGest](https://www.bdgest.com).
 - Tous les contenus restent la propriété de leurs éditeurs et ayants droit.
 - Bulle est un projet personnel, sans affiliation avec ces services.
 

@@ -8,7 +8,7 @@
   /* ============================ LIBRARY ============================ */
   S.library = function library() {
     const B = window.B;
-    const { esc, icon, fmtEUR, fmtInt, fmtRating, plural } = B;
+    const { esc, icon, fmtInt, fmtRating, plural } = B;
     const Store = window.Store;
     const items = Store.all();
     const owned = items.filter((item) => item.owned);
@@ -74,13 +74,12 @@
       recent: (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0),
       title: (a, b) => String(a.title).localeCompare(String(b.title), 'fr'),
       rating: (a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0),
-      price: (a, b) => (Number(b.price) || 0) - (Number(a.price) || 0),
       year: (a, b) => (Number(b.year) || 0) - (Number(a.year) || 0)
     };
     filtered = filtered.slice().sort(sorters[sort] || sorters.recent);
 
     const volumes = owned.reduce((sum, item) => sum + Store.ownedVolumeCount(item), 0);
-    const spent = owned.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+    const readingCount = items.filter((item) => item.readStatus === 'reading').length;
 
     const filterChips = filters.map(([id, label]) => {
       const count = counts[id] || 0;
@@ -95,9 +94,13 @@
     const viewButton = (id, iconName, label) => `<button class="segmented__btn ${view === id ? 'is-active' : ''}"
       data-action="lib-view" data-view="${id}" type="button" aria-label="${label}" title="${label}">${icon(iconName)}</button>`;
 
+    const grouped = B.groupCollectionEntries(filtered, 2);
+    B.ui.library.bdGroups = grouped.groups;
     const body = filtered.length
       ? (view === 'grid'
-        ? `<div class="grid grid--posters">${filtered.map((item) => B.posterCard(item)).join('')}</div>`
+        ? `<div class="grid grid--posters">${grouped.entries.map((entry) => entry.type === 'group'
+          ? B.seriesCard(entry.group, { inCollection: entry.group.items.some((item) => item.owned) })
+          : B.posterCard(entry.item)).join('')}</div>`
         : `<div class="liblist">${filtered.map((item) => libRow(item)).join('')}</div>`)
       : S.emptyState({
         icon: 'filter',
@@ -118,7 +121,7 @@
       <div class="library-summary">
         <span><strong>${fmtInt(volumes)}</strong> tomes</span>
         <span class="dot"></span>
-        <span><strong>${fmtEUR(spent)}</strong> investis</span>
+        <span><strong>${fmtInt(readingCount)}</strong> en cours</span>
         <span class="dot"></span>
         <span><strong>${fmtInt(items.filter((item) => item.readStatus === 'read').length)}</strong> lus</span>
         <span class="dot"></span>
@@ -137,7 +140,6 @@
           <option value="recent" ${sort === 'recent' ? 'selected' : ''}>Ajout récent</option>
           <option value="title" ${sort === 'title' ? 'selected' : ''}>Titre A → Z</option>
           <option value="rating" ${sort === 'rating' ? 'selected' : ''}>Meilleures notes</option>
-          <option value="price" ${sort === 'price' ? 'selected' : ''}>Prix d’achat</option>
           <option value="year" ${sort === 'year' ? 'selected' : ''}>Année</option>
         </select>
         <div class="segmented segmented--view" role="group" aria-label="Affichage">
@@ -151,7 +153,6 @@
 
     function libRow(item) {
       const rating = Number(item.rating) || 0;
-      const price = Number(item.price);
       const tags = [];
       if (item.owned) tags.push(`<span class="mini-tag mini-tag--owned">${icon('check')} Possédé</span>`);
       if (item.wishlist) tags.push(`<span class="mini-tag mini-tag--wish">${icon('heart')} Wishlist</span>`);
@@ -174,7 +175,6 @@
         </span>
         <span class="lib-row__side">
           ${rating > 0 ? `<span class="lib-row__rating">${icon('star')}${fmtRating(rating)}</span>` : ''}
-          ${Number.isFinite(price) && price > 0 ? `<span class="lib-row__price">${fmtEUR(price)}</span>` : ''}
           <span class="lib-row__chev">${icon('chevron-right')}</span>
         </span>
       </button>`;
@@ -184,7 +184,7 @@
   /* ============================ STATS ============================ */
   S.stats = function stats() {
     const B = window.B;
-    const { esc, icon, fmtEUR, fmtInt, fmtRating, plural } = B;
+    const { esc, icon, fmtInt, fmtRating, plural } = B;
     const Store = window.Store;
     const s = Store.stats();
 
@@ -200,7 +200,7 @@
         ${S.emptyState({
           icon: 'chart',
           title: 'Pas encore de chiffres',
-          text: 'Ajoute quelques mangas ou BD à ta librairie pour voir ta répartition, tes notes, tes genres favoris et la valeur de ta collection.',
+          text: 'Ajoute quelques mangas ou BD à ta librairie pour voir ta répartition, tes notes et tes genres favoris.',
           actions: `<button class="btn btn--accent" data-action="explore-kind" data-kind="all" type="button">${icon('compass')} Explorer</button>
             <button class="btn" data-action="load-demo" type="button">${icon('sparkles')} Charger des exemples</button>`
         })}
@@ -213,7 +213,6 @@
     const mangaPct = kindsTotal ? Math.round((s.kindSplit.manga / kindsTotal) * 100) : 50;
     const maxRating = Math.max(1, ...s.ratingDist.map((entry) => entry.count));
     const maxGenre = Math.max(1, ...s.genres.map((entry) => entry.count));
-    const delta = s.delta;
 
     const card = (label, value, hint, iconName, extraClass) => `<div class="stat-card ${extraClass || ''}">
       <div class="stat-card__label">${icon(iconName)} ${esc(label)}</div>
@@ -256,8 +255,8 @@
         ${card('Tomes', fmtInt(s.volumes), `${fmtInt(owned)} ${plural(owned, 'série')}`, 'layers')}
         ${card('Lus', fmtInt(s.ownedRead), `${readPct}% de ta librairie`, 'eye')}
         ${card('Wishlist', fmtInt(s.wishlistCount), `${fmtInt(s.droppedCount)} ${plural(s.droppedCount, 'abandon')}`, 'heart')}
-        ${card('Budget', fmtEUR(s.spent), 'prix d’achat cumulé', 'euro')}
-        ${card('Revente estimée', fmtEUR(s.resale), `${delta >= 0 ? '+' : ''}${fmtEUR(delta)} de plus-value`, 'chart', 'stat-card--accent')}
+        ${card('En cours', fmtInt(s.readingCount), 'lectures en cours', 'book')}
+        ${card('Notes', s.ratedCount ? fmtRating(s.averageRating) + '/5' : '—', `${fmtInt(s.ratedCount)} ${plural(s.ratedCount, 'titre')} noté${s.ratedCount > 1 ? 's' : ''}`, 'star', 'stat-card--accent')}
       </div>
 
       <div class="panels">

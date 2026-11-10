@@ -6,9 +6,9 @@
 
   const KEY = 'bulle.store.v1';
   const SNAPSHOT_FIELDS = [
-    'id', 'source', 'kind', 'subtype', 'title', 'altTitle', 'author', 'publisher',
+    'id', 'source', 'kind', 'subtype', 'title', 'altTitle', 'seriesTitle', 'author', 'publisher',
     'cover', 'banner', 'description', 'genres', 'year', 'volumes', 'chapters', 'score',
-    'siteUrl', 'frUrl', 'accent', 'volumeCovers'
+    'siteUrl', 'frUrl', 'accent', 'volumeCovers', 'releaseDate', 'releaseLabel'
   ];
 
   const DEFAULTS = {
@@ -16,8 +16,6 @@
     wishlist: false,
     readStatus: 'unread', // unread | reading | read | dropped
     rating: 0,            // 0 .. 5, half stars
-    price: null,          // purchase price (EUR)
-    salePrice: null,      // estimated resale value (EUR)
     volumesOwned: null,
     ownedVolumes: [],
     condition: '',
@@ -104,6 +102,7 @@
     item.subtype = source.subtype || (item.kind === 'bd' ? 'BD' : 'Manga');
     item.title = cleanText(source.title) || 'Sans titre';
     item.altTitle = cleanText(source.altTitle);
+    item.seriesTitle = cleanText(source.seriesTitle);
     item.author = cleanText(source.author);
     item.publisher = cleanText(source.publisher);
     item.cover = source.cover || '';
@@ -118,6 +117,8 @@
     item.frUrl = source.frUrl || '';
     item.accent = source.accent || '';
     item.volumeCovers = source.volumeCovers && typeof source.volumeCovers === 'object' ? { ...source.volumeCovers } : {};
+    item.releaseDate = source.releaseDate || '';
+    item.releaseLabel = cleanText(source.releaseLabel);
     return item;
   }
 
@@ -157,8 +158,6 @@
       wishlist: Boolean(item.wishlist),
       readStatus: statuses.includes(item.readStatus) ? item.readStatus : 'unread',
       rating: Math.max(0, Math.min(5, Math.round((num(item.rating) || 0) * 2) / 2)),
-      price: num(item.price),
-      salePrice: num(item.salePrice),
       volumesOwned: ownedVolumes.length,
       ownedVolumes,
       condition: CONDITIONS.includes(item.condition) ? item.condition : '',
@@ -286,9 +285,6 @@
 
     const volumes = owned.reduce((sum, i) => sum + ownedVolumeCount(i), 0);
 
-    const spent = owned.reduce((sum, i) => sum + (num(i.price) || 0), 0);
-    const resale = owned.reduce((sum, i) => sum + (num(i.salePrice) || 0), 0);
-
     const rated = items.filter((i) => i.rating > 0);
     const averageRating = rated.length
       ? rated.reduce((sum, i) => sum + i.rating, 0) / rated.length
@@ -335,9 +331,6 @@
       ownedUnread,
       ownedRead,
       volumes,
-      spent,
-      resale,
-      delta: resale - spent,
       averageRating,
       ratedCount: rated.length,
       genres,
@@ -446,8 +439,6 @@
     const reading = picks.slice(14, 17);
 
     const ratings = [5, 4.5, 4, 3.5, 5, 4, 3, 4.5, 4];
-    const prices = [6.95, 14.9, 7.8, 10.5, 12.9, 8.2, 6.5, 15.9, 9.9];
-    const sales = [8, 12, 6, 9, 11, 7, 5, 13, 8];
 
     owned.forEach((item, index) => {
       track(item, {
@@ -455,8 +446,6 @@
         wishlist: false,
         readStatus: index < 5 ? 'read' : index < 7 ? 'reading' : 'unread',
         rating: ratings[index % ratings.length],
-        price: prices[index % prices.length],
-        salePrice: sales[index % sales.length],
         volumesOwned: item.volumes ? Math.min(item.volumes, 1 + (index % 4)) : 1,
         condition: index % 3 === 0 ? 'Très bon état' : 'Bon état',
         notes: index === 0 ? 'Souvenir d’une convention, dédicace à l’intérieur.' : ''
@@ -468,7 +457,7 @@
     });
 
     reading.forEach((item) => {
-      track(item, { owned: true, readStatus: 'reading', volumesOwned: 2, price: 7.5, rating: 0 });
+      track(item, { owned: true, readStatus: 'reading', volumesOwned: 2, rating: 0 });
     });
 
     state.settings.demo = true;

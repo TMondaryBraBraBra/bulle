@@ -22,19 +22,6 @@
   const toArr = (value) => Store.toArray(value);
   const icon = (name, cls) => `<svg class="${cls || 'icon'}" aria-hidden="true" focusable="false"><use href="#i-${name}"></use></svg>`;
 
-  const euro = new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2
-  });
-
-  function fmtEUR(value) {
-    const n = Number(value);
-    if (!Number.isFinite(n)) return '—';
-    return euro.format(n);
-  }
-
   function fmtRating(value) {
     const n = Number(value) || 0;
     return n.toFixed(1).replace('.0', '').replace('.', ',');
@@ -50,6 +37,32 @@
       return new Date(ts).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
     } catch (err) {
       return '';
+    }
+  }
+
+  function isoToday() {
+    const now = new Date();
+    return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+  }
+
+  function releaseDateLabel(value, options) {
+    if (!value) return '';
+    const opts = options || {};
+    try {
+      const date = new Date(value + 'T12:00:00');
+      if (opts.short) return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+      return date.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'long' });
+    } catch (err) {
+      return String(value);
+    }
+  }
+
+  function releaseMonthLabel(value) {
+    if (!value) return '';
+    try {
+      return new Date(value + 'T12:00:00').toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    } catch (err) {
+      return String(value).slice(0, 7);
     }
   }
 
@@ -113,6 +126,17 @@
       kind: 'all',
       sort: Store.settings.librarySort || 'recent',
       view: Store.settings.libraryView || 'grid'
+    },
+    home: {
+      tab: 'all',
+      bdGroups: []
+    },
+    releases: {
+      kind: 'all',
+      month: 'all',
+      collectionOnly: false,
+      limit: 60,
+      bdGroups: []
     },
     installPrompt: null,
     swReg: null
@@ -246,6 +270,14 @@
   }
 
   function subtitleFor(item) {
+    if (!item) return '';
+    if (item.releaseDate) {
+      const bits = [];
+      if (item.releaseLabel) bits.push(item.releaseLabel);
+      bits.push('Sortie ' + releaseDateLabel(item.releaseDate, { short: true }));
+      if (item.publisher) bits.push(item.publisher);
+      return bits.join(' · ');
+    }
     const bits = [];
     if (item.author) bits.push(item.author);
     else bits.push(kindLabel(item));
@@ -308,6 +340,9 @@
     const wish = Boolean(tracked.wishlist);
     const reading = tracked.readStatus === 'reading';
     const rating = Number(tracked.rating) || 0;
+    const action = opts.action || 'open-item';
+    const title = opts.title || ((item.releaseDate && item.seriesTitle) ? item.seriesTitle : item.title);
+    const subtitle = opts.subtitle !== undefined ? opts.subtitle : subtitleFor(item);
 
     const badges = [];
     if (owned) badges.push(`<span class="poster__badge" title="Possédé">${icon('check')}</span>`);
@@ -319,29 +354,70 @@
         type="button" aria-label="${wish ? 'Retirer de la wishlist' : 'Ajouter à la wishlist'}"
         title="${wish ? 'Retirer de la wishlist' : 'Ajouter à la wishlist'}">${icon(wish ? 'check' : 'plus')}</button>`;
 
+    const dateBadge = opts.dateBadge && item.releaseDate
+      ? `<span class="poster__date">${icon('calendar')}${esc(releaseDateLabel(item.releaseDate, { short: true }))}</span>`
+      : '';
+
     return `<article class="poster">
       <div class="poster__art">
         ${coverHTML(item)}
-        <button class="poster__open" data-action="open-item" data-id="${esc(item.id)}" type="button" aria-label="Ouvrir ${esc(item.title)}"></button>
+        <button class="poster__open" data-action="${action}" data-id="${esc(item.id)}" type="button" aria-label="Ouvrir ${esc(title)}"></button>
         ${badges.length ? `<div class="poster__badges">${badges.join('')}</div>` : ''}
         ${rating > 0 ? `<span class="poster__rate">${icon('star')}${fmtRating(rating)}</span>` : ''}
+        ${dateBadge}
         ${quick}
       </div>
-      <button class="poster__body" data-action="open-item" data-id="${esc(item.id)}" type="button">
-        <span class="poster__title">${esc(item.title)}</span>
-        <span class="poster__sub">${esc(subtitleFor(item))}</span>
+      <button class="poster__body" data-action="${action}" data-id="${esc(item.id)}" type="button">
+        <span class="poster__title">${esc(title)}</span>
+        <span class="poster__sub">${esc(subtitle)}</span>
+      </button>
+    </article>`;
+  }
+
+  function releaseCard(release) {
+    if (!release) return '';
+    const item = releaseToItem(release);
+    return posterCard(item, {
+      action: 'open-release',
+      dateBadge: true,
+      title: item.seriesTitle || item.title,
+      subtitle: [release.label, release.publisher].filter(Boolean).join(' · ')
+    });
+  }
+
+  function seriesCard(group, options) {
+    if (!group || !group.items || !group.items.length) return '';
+    const opts = options || {};
+    const count = group.items.length;
+    const subtitleParts = [];
+    if (group.nextDate) subtitleParts.push((count > 1 ? 'Dès le ' : 'Sortie le ') + releaseDateLabel(group.nextDate, { short: true }));
+    subtitleParts.push(count + ' ' + plural(count, 'album'));
+    if (group.publisher) subtitleParts.push(group.publisher);
+    const coverItem = { title: group.series, cover: group.cover };
+
+    return `<article class="poster series-card">
+      <div class="poster__art">
+        ${coverHTML(coverItem)}
+        <button class="poster__open" data-action="open-series" data-group="${esc(group.key)}" data-item="${esc(group.items[0].id)}" type="button" aria-label="Ouvrir la série ${esc(group.series)}"></button>
+        <span class="series-card__count">${count} ${plural(count, 'album')}</span>
+        ${opts.inCollection ? `<span class="poster__badge series-card__badge" title="Dans ta collection">${icon('check')}</span>` : ''}
+      </div>
+      <button class="poster__body" data-action="open-series" data-group="${esc(group.key)}" data-item="${esc(group.items[0].id)}" type="button">
+        <span class="poster__title">${esc(group.series)}</span>
+        <span class="poster__sub">${esc(subtitleParts.join(' · '))}</span>
       </button>
     </article>`;
   }
 
   /* ------------------------- row ------------------------- */
   function rowHTML(row) {
-    if (!row || !row.items || !row.items.length) return '';
+    if (!row || (!row.items || !row.items.length) && !row.html) return '';
     const see = row.see
       ? `<button class="btn-link" data-action="${row.see.action}" ${row.see.kind ? `data-kind="${row.see.kind}"` : ''} ${row.see.filter ? `data-filter="${row.see.filter}"` : ''} type="button">
           Tout voir ${icon('arrow-right')}
         </button>`
       : '';
+    const cards = row.html || row.items.map((item) => posterCard(item)).join('');
 
     return `<section class="row">
       <div class="section-head">
@@ -353,7 +429,7 @@
       </div>
       <div class="rail-wrap">
         <button class="rail__arrow rail__arrow--prev" data-action="rail" data-dir="-1" type="button" aria-label="Faire défiler vers la gauche">${icon('arrow-left')}</button>
-        <div class="rail">${row.items.map((item) => posterCard(item)).join('')}</div>
+        <div class="rail">${cards}</div>
         <button class="rail__arrow rail__arrow--next" data-action="rail" data-dir="1" type="button" aria-label="Faire défiler vers la droite">${icon('arrow-right')}</button>
       </div>
     </section>`;
@@ -377,10 +453,242 @@
   /* ------------------------- data helpers ------------------------- */
   function findItem(id) {
     if (!id) return null;
-    return Store.get(id) ||
-      CATALOG_BY_ID.get(id) ||
-      (ui.explore.items || []).find((item) => item.id === id) ||
-      null;
+    const stored = Store.get(id);
+    if (stored) return stored;
+    const catalog = CATALOG_BY_ID.get(id);
+    if (catalog) return catalog;
+    const release = findRelease(id);
+    if (release) return releaseToItem(release);
+    return (ui.explore.items || []).find((item) => item.id === id) || null;
+  }
+
+  /* ------------------------- sorties ------------------------- */
+  const RELEASES = (window.RELEASES && Array.isArray(window.RELEASES.items)) ? window.RELEASES.items : [];
+  const RELEASE_BY_ID = new Map();
+  RELEASES.forEach((release) => {
+    if (release && release.id) RELEASE_BY_ID.set(release.id, release);
+  });
+
+  function releaseToItem(release) {
+    if (!release) return null;
+    const date = release.date || '';
+    const year = date ? parseInt(date.slice(0, 4), 10) : null;
+    return {
+      id: release.id,
+      source: 'release',
+      kind: release.kind === 'bd' ? 'bd' : 'manga',
+      subtype: release.kind === 'bd' ? 'BD' : 'Manga',
+      title: release.title || release.series || 'Sans titre',
+      altTitle: release.series && release.title && release.series !== release.title ? release.series : '',
+      seriesTitle: release.series || release.title || '',
+      releaseDate: date,
+      releaseLabel: release.label || '',
+      author: release.author || '',
+      publisher: release.publisher || '',
+      cover: release.cover || '',
+      banner: '',
+      description: release.summary || '',
+      genres: [],
+      year: Number.isFinite(year) ? year : null,
+      volumes: null,
+      chapters: null,
+      score: null,
+      siteUrl: release.url || '',
+      frUrl: release.url || '',
+      accent: ''
+    };
+  }
+
+  function findRelease(id) {
+    if (!id) return null;
+    return RELEASE_BY_ID.get(id) || null;
+  }
+
+  function upcomingReleases() {
+    const today = isoToday();
+    return RELEASES
+      .filter((release) => release && release.date && release.date >= today)
+      .slice()
+      .sort((a, b) => String(a.date).localeCompare(String(b.date)) ||
+        String(a.series || '').localeCompare(String(b.series || ''), 'fr') ||
+        (Number(a.volume) || 0) - (Number(b.volume) || 0));
+  }
+
+  function seriesKey(value) {
+    let raw = String(value || '');
+    raw = raw.replace(/\([^)]*\)/g, ' ');
+    raw = raw.replace(/\bint\s*\d+\b/gi, ' ');
+    raw = raw.replace(/\b(?:intégrale|integrale|coffret|deluxe|collector|édition|edition)\b.*$/i, ' ');
+    raw = raw.replace(/\b(?:tomes?|volumes?|vol\.?|t\.?)\s*\d+.*$/i, ' ');
+    raw = raw.replace(/#\s*\d+.*$/, ' ');
+    let key = norm(raw);
+    key = key.replace(/^(?:le|la|les|l|un|une|des|du|de|d)\s+/, '');
+    return key.trim();
+  }
+
+  function seriesCandidates(value) {
+    const raw = String(value || '');
+    const parts = raw.split(/\s+[-–—]\s+/);
+    const out = [seriesKey(raw)];
+    if (parts.length > 1) out.push(seriesKey(parts[0]));
+    return out.filter(Boolean);
+  }
+
+  function collectionSeriesKeys() {
+    const keys = new Set();
+    Store.all().filter((item) => item.owned).forEach((item) => {
+      [item.title, item.altTitle, item.seriesTitle].forEach((value) => {
+        seriesCandidates(value).forEach((key) => keys.add(key));
+      });
+    });
+    return keys;
+  }
+
+  function releaseMatchesCollection(release, keys) {
+    if (!release) return false;
+    const set = keys || collectionSeriesKeys();
+    if (!set.size) return false;
+    return seriesCandidates(release.series).some((key) => set.has(key)) ||
+      seriesCandidates(release.title).some((key) => set.has(key));
+  }
+
+  function bdSeriesTitle(item) {
+    if (!item) return '';
+    if (item.seriesTitle) return item.seriesTitle;
+    let title = String(item.title || '');
+    title = title.replace(/\s*[,–—-]\s*(?:tome|vol\.?|volume|t\.?)\s*\d+\b.*$/i, '');
+    title = title.replace(/\s*#\s*\d+\b.*$/, '');
+    title = title.replace(/\s*\(\s*tome\s*\d+\s*\)\s*$/i, '');
+    title = title.replace(/\s*[-–—]\s*\d+\s*$/, '');
+    return title.trim() || item.title || '';
+  }
+
+  function groupBdSeries(items) {
+    const groups = new Map();
+    (items || []).forEach((item) => {
+      if (!item || item.kind !== 'bd') return;
+      const series = bdSeriesTitle(item);
+      const key = 'bd:' + (seriesKey(series) || norm(series));
+      let group = groups.get(key);
+      if (!group) {
+        group = {
+          key,
+          series,
+          kind: 'bd',
+          items: [],
+          cover: '',
+          author: '',
+          publisher: '',
+          nextDate: '',
+          count: 0
+        };
+        groups.set(key, group);
+      }
+      group.items.push(item);
+      if (!group.cover && item.cover) group.cover = item.cover;
+      if (!group.author && item.author) group.author = item.author;
+      if (!group.publisher && item.publisher) group.publisher = item.publisher;
+    });
+
+    const list = Array.from(groups.values());
+    list.forEach((group) => {
+      group.items.sort((a, b) => {
+        const da = a.releaseDate || '';
+        const db = b.releaseDate || '';
+        if (da && db && da !== db) return da.localeCompare(db);
+        return (Number(a.volume) || 0) - (Number(b.volume) || 0) ||
+          String(a.title || '').localeCompare(String(b.title || ''), 'fr');
+      });
+      const dated = group.items.map((item) => item.releaseDate).filter(Boolean).sort();
+      group.nextDate = dated[0] || '';
+      group.count = group.items.length;
+      const withCover = group.items.find((item) => item.cover);
+      if (withCover) group.cover = withCover.cover;
+    });
+
+    list.sort((a, b) => {
+      if (a.nextDate && b.nextDate && a.nextDate !== b.nextDate) return a.nextDate.localeCompare(b.nextDate);
+      if (a.nextDate && !b.nextDate) return -1;
+      if (!a.nextDate && b.nextDate) return 1;
+      return a.series.localeCompare(b.series, 'fr');
+    });
+    return list;
+  }
+
+  function groupCollectionEntries(items, minCount) {
+    const groups = groupBdSeries((items || []).filter((item) => item && item.kind === 'bd' && !item.releaseDate))
+      .filter((group) => group.count >= (minCount || 1));
+    const byId = new Map();
+    groups.forEach((group) => group.items.forEach((item) => byId.set(item.id, group)));
+
+    const entries = [];
+    const seen = new Set();
+    (items || []).forEach((item) => {
+      if (!item) return;
+      if (item.kind === 'bd') {
+        const group = byId.get(item.id);
+        if (group) {
+          if (seen.has(group.key)) return;
+          seen.add(group.key);
+          entries.push({ type: 'group', group });
+          return;
+        }
+      }
+      entries.push({ type: 'item', item });
+    });
+
+    return { entries, groups };
+  }
+
+  function groupReleaseEntries(releases) {
+    const source = (releases || []).filter(Boolean);
+    const items = source.map((release) => releaseToItem(release)).filter(Boolean);
+    const bdGroups = groupBdSeries(items.filter((item) => item.kind === 'bd'));
+    const multiGroups = bdGroups.filter((group) => group.count > 1);
+    const byId = new Map();
+    multiGroups.forEach((group) => group.items.forEach((item) => byId.set(item.id, group)));
+
+    const entries = [];
+    const seen = new Set();
+    source.forEach((release) => {
+      if (release.kind === 'bd') {
+        const group = byId.get(release.id);
+        if (group) {
+          if (seen.has(group.key)) return;
+          seen.add(group.key);
+          entries.push({ type: 'group', date: group.nextDate || release.date, group });
+        } else {
+          entries.push({ type: 'release', date: release.date, release });
+        }
+      } else {
+        entries.push({ type: 'release', date: release.date, release });
+      }
+    });
+
+    entries.sort((a, b) => {
+      const byDate = String(a.date).localeCompare(String(b.date));
+      if (byDate) return byDate;
+      const titleA = a.type === 'group' ? a.group.series : a.release.series;
+      const titleB = b.type === 'group' ? b.group.series : b.release.series;
+      return String(titleA || '').localeCompare(String(titleB || ''), 'fr');
+    });
+
+    return { entries, bdGroups };
+  }
+
+  function findSeriesGroup(key, itemId) {
+    const pools = [ui.library.bdGroups || [], ui.explore.bdGroups || [], ui.releases.bdGroups || [], ui.home.bdGroups || []];
+    if (itemId) {
+      for (let i = 0; i < pools.length; i += 1) {
+        const found = pools[i].find((group) => group.key === key && group.items.some((item) => item.id === itemId));
+        if (found) return found;
+      }
+    }
+    for (let i = 0; i < pools.length; i += 1) {
+      const found = pools[i].find((group) => group.key === key);
+      if (found) return found;
+    }
+    return null;
   }
 
   function searchLocal(query) {
@@ -438,7 +746,6 @@
     if (sort === 'score') return list.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
     if (sort === 'year') return list.sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0));
     if (sort === 'rating') return list.sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0));
-    if (sort === 'price') return list.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
     return list;
   }
 
@@ -471,10 +778,12 @@
     esc,
     norm,
     icon,
-    fmtEUR,
     fmtRating,
     fmtInt,
     fmtDate,
+    isoToday,
+    releaseDateLabel,
+    releaseMonthLabel,
     plural,
     initials,
     hueFor,
@@ -497,9 +806,23 @@
     volumeCover,
     coverHTML,
     posterCard,
+    releaseCard,
+    seriesCard,
     rowHTML,
     starsHTML,
     findItem,
+    releaseToItem,
+    findRelease,
+    upcomingReleases,
+    seriesKey,
+    seriesCandidates,
+    collectionSeriesKeys,
+    releaseMatchesCollection,
+    bdSeriesTitle,
+    groupBdSeries,
+    groupCollectionEntries,
+    groupReleaseEntries,
+    findSeriesGroup,
     searchLocal,
     mergeResults,
     sortItems,

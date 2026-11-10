@@ -1,0 +1,55 @@
+name: Refresh French releases
+
+on:
+  schedule:
+    # Le 1er et le 15 de chaque mois, à 5 h UTC.
+    - cron: '0 5 1,15 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: refresh-releases
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Générer le calendrier des sorties
+        shell: pwsh
+        run: ./scripts/fetch-releases.ps1 -MonthsAhead 3
+
+      - name: Vérifier le fichier généré
+        shell: pwsh
+        run: |
+          if (-not (Test-Path 'data/releases-fr.js')) { throw 'data/releases-fr.js manquant' }
+          $text = [IO.File]::ReadAllText('data/releases-fr.js', [Text.Encoding]::UTF8)
+          if ($text -notmatch 'window\.RELEASES\s*=') { throw 'Calendrier invalide' }
+          Write-Host 'Calendrier valide.'
+
+      - name: Publier les changements
+        id: publish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/releases-fr.js; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Calendrier inchangé."
+            exit 0
+          fi
+          git add data/releases-fr.js
+          git commit -m "chore: rafraîchit le calendrier des sorties françaises"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Déployer la nouvelle version
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main

@@ -31,7 +31,7 @@
   /* ============================ HOME ============================ */
   S.home = function home() {
     const B = window.B;
-    const { esc, icon, fmtEUR, fmtRating, fmtInt, plural } = B;
+    const { esc, icon, fmtRating, fmtInt, plural } = B;
     const Store = window.Store;
     const stats = Store.stats();
     const items = Store.all();
@@ -39,74 +39,118 @@
     const wishlist = items.filter((item) => item.wishlist);
     const reading = items.filter((item) => item.readStatus === 'reading');
     const favorites = items.filter((item) => item.rating >= 4).sort((a, b) => b.rating - a.rating);
+    const tab = B.ui.home.tab || 'all';
+    const collectionKeys = B.collectionSeriesKeys();
+    const homeGroups = [];
 
-    const fallbackRow = B.ROWS.find((row) => row.id === 'manga-tendances') || B.ROWS[0];
-    const featured = owned
-      .slice()
-      .sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0) || (b.updatedAt || 0) - (a.updatedAt || 0))
-      .find((item) => item.banner) ||
-      owned[0] ||
-      (fallbackRow && fallbackRow.items[0]) ||
-      B.CATALOG[0];
+    const inTab = (list) => {
+      if (tab === 'manga') return list.filter((item) => item.kind !== 'bd');
+      if (tab === 'bd') return list.filter((item) => item.kind === 'bd');
+      return list;
+    };
 
-    if (!featured) {
-      return `<section class="page">${emptyState({
-        icon: 'library',
-        title: 'Ta librairie est vide',
-        text: 'Le catalogue n’a pas pu être chargé. Recharge l’application.',
-        actions: '<button class="btn btn--accent" data-action="reload-app" type="button">Recharger</button>'
-      })}</section>`;
+    function cardsFor(list) {
+      if (tab === 'bd' || tab === 'all') {
+        const grouped = B.groupCollectionEntries(list, 2);
+        if (grouped.groups.length) {
+          homeGroups.push(...grouped.groups);
+          return {
+            html: grouped.entries.map((entry) => entry.type === 'group'
+              ? B.seriesCard(entry.group, { inCollection: entry.group.items.some((item) => item.owned) })
+              : B.posterCard(entry.item)).join(''),
+            items: grouped.entries
+          };
+        }
+      }
+      return { html: list.map((item) => B.posterCard(item)).join(''), items: list };
     }
 
-    const tracked = Store.get(featured.id);
-    const isOwned = Boolean(tracked && tracked.owned);
-    const isWished = Boolean(tracked && tracked.wishlist);
-    const heroState = isOwned ? 'Dans ta librairie' : isWished ? 'Dans ta wishlist' : 'À découvrir';
-    const heroBadgeClass = isOwned ? 'badge--soft' : isWished ? 'badge--soft' : 'badge--accent';
-    const bg = featured.banner || featured.cover || '';
-    const heroRating = tracked ? Number(tracked.rating) || 0 : 0;
+    function row(list, title, subtitle, see) {
+      const filtered = inTab(list);
+      if (!filtered.length) return null;
+      const cards = cardsFor(filtered);
+      return { title, subtitle, items: cards.items, html: cards.html, see };
+    }
 
-    const meta = [
-      B.kindLabel(featured),
-      featured.year ? String(featured.year) : '',
-      featured.volumes ? featured.volumes + ' tomes' : '',
-      heroRating ? 'Ta note ' + fmtRating(heroRating) + '/5' : (featured.score ? featured.score + '/100' : '')
-    ].filter(Boolean);
+    function releaseCardsFromEntries(entries) {
+      return entries.map((entry) => entry.type === 'group'
+        ? B.seriesCard(entry.group, {
+          inCollection: entry.group.items.some((item) => {
+            const release = B.findRelease(item.id);
+            return release ? B.releaseMatchesCollection(release, collectionKeys) : false;
+          })
+        })
+        : B.releaseCard(entry.release)).join('');
+    }
 
-    const hero = `<section class="hero">
-      <div class="hero__media ${featured.banner ? '' : 'hero__media--blur'}">
-        ${bg ? `<img src="${esc(bg)}" alt="" referrerpolicy="no-referrer">` : ''}
-      </div>
-      <a class="hero__user" href="#/settings">
-        <span class="hero__avatar">${esc(B.initials(Store.settings.name || 'Toi'))}</span>
-        <span>
-          ${esc(Store.settings.name || 'Mon profil')}
-          <small>${stats.ownedCount} possédés · ${stats.wishlistCount} envies</small>
-        </span>
-      </a>
-      <div class="hero__content">
-        <span class="badge ${heroBadgeClass} hero__badge">${icon(isOwned ? 'check' : isWished ? 'heart' : 'sparkles')} ${esc(heroState)}</span>
-        <h1 class="hero__title">${esc(featured.title)}</h1>
-        <div class="hero__meta">
-          ${meta.map((part, index) => `${index ? '<span class="dot"></span>' : ''}<span>${esc(part)}</span>`).join('')}
+    function releaseCards(releases) {
+      const grouped = B.groupReleaseEntries(releases);
+      homeGroups.push(...grouped.bdGroups);
+      return releaseCardsFromEntries(grouped.entries);
+    }
+
+    function entryMatches(entry) {
+      if (entry.type === 'group') {
+        return entry.group.items.some((item) => {
+          const release = B.findRelease(item.id);
+          return release ? B.releaseMatchesCollection(release, collectionKeys) : false;
+        });
+      }
+      return B.releaseMatchesCollection(entry.release, collectionKeys);
+    }
+
+    /* ----- héros carrousel ----- */
+    const heroPool = [];
+    const seenHeroes = new Set();
+    const addHero = (item, kicker, cta, action) => {
+      if (!item || !item.id || seenHeroes.has(item.id)) return;
+      seenHeroes.add(item.id);
+      heroPool.push({ item, kicker, cta, action });
+    };
+
+    reading.slice(0, 2).forEach((item) => addHero(item, 'Reprendre la lecture', 'Continuer', 'open-item'));
+    const bannerOwned = owned.slice().sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0) || (b.updatedAt || 0) - (a.updatedAt || 0));
+    if (bannerOwned[0]) addHero(bannerOwned[0], 'Dans ta bibliothèque', 'Ouvrir ma fiche', 'open-item');
+    if (wishlist[0]) addHero(wishlist[0], 'Dans ta wishlist', 'Voir la fiche', 'open-item');
+
+    const upcoming = B.upcomingReleases();
+    const nextRelease = upcoming.find((release) => B.releaseMatchesCollection(release, collectionKeys)) || upcoming[0];
+    if (nextRelease) addHero(B.releaseToItem(nextRelease), 'Prochaine sortie', 'Voir la sortie', 'open-release');
+    B.CATALOG.slice(0, 3).forEach((item) => addHero(item, 'À découvrir', 'Découvrir', 'open-item'));
+
+    const heroSlides = heroPool.slice(0, 5).map((entry, index) => {
+      const item = entry.item;
+      const isRelease = entry.action === 'open-release';
+      const bg = item.banner || item.cover || '';
+      const title = isRelease ? (item.seriesTitle || item.title) : item.title;
+      const meta = isRelease
+        ? [item.releaseDate ? 'Sortie le ' + B.releaseDateLabel(item.releaseDate) : '', item.releaseLabel, item.publisher]
+        : [B.kindLabel(item), item.author, item.year ? String(item.year) : ''];
+      const badgeClass = isRelease ? 'badge--accent' : index === 0 && reading.length ? 'badge--gold' : 'badge--soft';
+      return `<article class="hero-slide" aria-label="${esc(title)}">
+        <div class="hero-slide__media ${bg ? '' : 'hero-slide__media--empty'}">
+          ${bg ? `<img src="${esc(bg)}" alt="" referrerpolicy="no-referrer" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}>` : ''}
         </div>
-        <p class="hero__desc">${esc(featured.description || 'Une nouvelle histoire à ajouter à ta collection. Ouvre la fiche pour la découvrir, la noter, ou la mettre de côté.')}</p>
-        <div class="hero__actions">
-          <button class="btn btn--accent" data-action="open-item" data-id="${esc(featured.id)}" type="button">
-            ${icon('book')} ${isOwned ? 'Ouvrir ma fiche' : 'Découvrir'}
-          </button>
-          <button class="btn btn--ghost" data-action="explore-kind" data-kind="${featured.kind}" type="button">
-            ${icon('compass')} Explorer
-          </button>
+        <div class="hero-slide__shade"></div>
+        <div class="hero-slide__body">
+          <span class="badge ${badgeClass}">${icon(isRelease ? 'calendar' : index === 0 && reading.length ? 'book' : 'sparkles')} ${esc(entry.kicker)}</span>
+          <h2 class="hero-slide__title">${esc(title)}</h2>
+          <div class="hero-slide__meta">${meta.filter(Boolean).map((part, i) => `${i ? '<span class="dot"></span>' : ''}<span>${esc(part)}</span>`).join('')}</div>
+          <p class="hero-slide__desc">${esc(item.description || 'Une nouvelle histoire à ajouter à ta collection. Ouvre la fiche pour la découvrir, la noter ou la mettre de côté.')}</p>
+          <div class="hero-slide__actions">
+            <button class="btn btn--accent" data-action="${entry.action}" data-id="${esc(item.id)}" type="button">${icon(isRelease ? 'calendar' : 'book')} ${esc(entry.cta)}</button>
+            ${isRelease ? '' : `<button class="btn btn--ghost" data-action="quick-add" data-id="${esc(item.id)}" type="button">${icon('heart')} Wishlist</button>`}
+          </div>
         </div>
-      </div>
-    </section>`;
+      </article>`;
+    }).join('');
 
-    const welcome = stats.series === 0 ? `<section class="welcome">
+    /* ----- accueil vierge ----- */
+    const welcome = !items.length ? `<section class="welcome">
       <div class="welcome__copy">
         <span class="eyebrow">Bienvenue dans Bulle</span>
         <h2>Ta collection, enfin à ton image.</h2>
-        <p>Un manga possédé, une BD empruntée, un tome que tu veux absolument ? Dis-le en un tap, note ce que tu aimes, garde une trace de tes achats.</p>
+        <p>Un manga possédé, une BD empruntée, un tome que tu veux absolument ? Dis-le en un tap, note ce que tu aimes et garde une trace de tes lectures.</p>
         <div class="welcome__actions">
           <button class="btn btn--accent" data-action="explore-kind" data-kind="all" type="button">${icon('compass')} Explorer le catalogue</button>
           <button class="btn" data-action="load-demo" type="button">${icon('sparkles')} Charger des exemples</button>
@@ -124,70 +168,173 @@
           <span>À lire, en cours, lu, abandonné. Et une note sur 5, aux demi-étoiles.</span>
         </div>
         <div class="welcome__step">
-          <span class="welcome__step-icon">${icon('euro')}</span>
-          <strong>Suis la valeur</strong>
-          <span>Prix d’achat, tome possédé, valeur de revente estimée.</span>
+          <span class="welcome__step-icon">${icon('calendar')}</span>
+          <strong>Anticipe les sorties</strong>
+          <span>Les prochains mangas et BD en français, et les suites de ta collection.</span>
         </div>
       </div>
     </section>` : '';
 
+    /* ----- mes collections ----- */
+    const collections = `<section class="home-collections">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Mes collections</h2>
+          <p class="section-sub">Ta bibliothèque en un coup d’œil</p>
+        </div>
+        <button class="btn-link" data-action="goto-library" data-filter="all" type="button">Tout voir ${icon('arrow-right')}</button>
+      </div>
+      <div class="collection-grid">
+        <button class="collection-card collection-card--owned" data-action="goto-library" data-filter="owned" type="button">
+          <span class="collection-card__icon">${icon('library')}</span>
+          <span class="collection-card__count">${fmtInt(owned.length)}</span>
+          <span class="collection-card__label">Possédés</span>
+          <span class="collection-card__hint">${fmtInt(stats.volumes)} ${plural(stats.volumes, 'tome')}</span>
+        </button>
+        <button class="collection-card collection-card--wish" data-action="goto-library" data-filter="wishlist" type="button">
+          <span class="collection-card__icon">${icon('heart')}</span>
+          <span class="collection-card__count">${fmtInt(wishlist.length)}</span>
+          <span class="collection-card__label">Wishlist</span>
+          <span class="collection-card__hint">${wishlist.length ? 'Envie de les lire' : 'Ajoute tes envies'}</span>
+        </button>
+        <button class="collection-card collection-card--reading" data-action="goto-library" data-filter="reading" type="button">
+          <span class="collection-card__icon">${icon('book')}</span>
+          <span class="collection-card__count">${fmtInt(reading.length)}</span>
+          <span class="collection-card__label">En cours</span>
+          <span class="collection-card__hint">${reading.length ? 'Reprendre la lecture' : 'Rien en cours'}</span>
+        </button>
+        <button class="collection-card collection-card--read" data-action="goto-library" data-filter="read" type="button">
+          <span class="collection-card__icon">${icon('eye')}</span>
+          <span class="collection-card__count">${fmtInt(items.filter((item) => item.readStatus === 'read').length)}</span>
+          <span class="collection-card__label">Lus</span>
+          <span class="collection-card__hint">${stats.averageRating ? fmtRating(stats.averageRating) + '/5 de moyenne' : 'Note tes lectures'}</span>
+        </button>
+      </div>
+    </section>`;
+
+    /* ----- rangées ----- */
     const rows = [];
+    if (tab === 'releases') {
+      if (upcoming.length) {
+        rows.push({
+          title: 'Toutes les prochaines sorties',
+          subtitle: `${fmtInt(upcoming.length)} sorties françaises à venir`,
+          items: upcoming.slice(0, 24),
+          html: releaseCards(upcoming.slice(0, 24)),
+          see: { action: 'goto-releases' }
+        });
+      }
+    } else {
+      rows.push(row(reading, 'Reprendre la lecture', 'Là où tu t’es arrêté', { action: 'goto-library', filter: 'reading' }));
+      rows.push(row(owned, 'Ma librairie', `${fmtInt(owned.length)} ${plural(owned.length, 'titre')} · ${fmtInt(stats.volumes)} ${plural(stats.volumes, 'tome')}`, { action: 'goto-library', filter: 'owned' }));
 
-    if (reading.length) {
-      rows.push({
-        title: 'Reprendre la lecture',
-        subtitle: 'Là où tu t’es arrêté',
-        items: reading.slice(0, 14),
-        see: { action: 'goto-library', filter: 'reading' }
-      });
+      if (upcoming.length) {
+        const filteredReleases = tab === 'manga'
+          ? upcoming.filter((release) => release.kind === 'manga')
+          : tab === 'bd'
+            ? upcoming.filter((release) => release.kind === 'bd')
+            : upcoming;
+        const prioritized = B.groupReleaseEntries(filteredReleases).entries.slice().sort((a, b) => {
+          const am = entryMatches(a);
+          const bm = entryMatches(b);
+          if (am !== bm) return am ? -1 : 1;
+          return String(a.date).localeCompare(String(b.date));
+        });
+        if (prioritized.length) {
+          rows.push({
+            title: 'Nouveautés',
+            subtitle: collectionKeys.size ? 'Les prochaines sorties, dont les suites de ta collection' : 'Les prochaines sorties françaises',
+            items: prioritized.slice(0, 14),
+            html: releaseCardsFromEntries(prioritized.slice(0, 14)),
+            see: { action: 'goto-releases' }
+          });
+        }
+      }
+
+      if (wishlist.length) {
+        rows.push(row(wishlist, 'Continuer ma liste', 'Tes envies, prêtes à rejoindre la librairie', { action: 'goto-library', filter: 'wishlist' }));
+      } else {
+        const suggestions = B.CATALOG.filter((item) => {
+          const tracked = Store.get(item.id);
+          return !tracked || (!tracked.owned && !tracked.wishlist);
+        });
+        const suggestionRow = row(suggestions, 'Continuer ma liste', 'Quelques idées pour commencer ta collection', {
+          action: 'explore-kind',
+          kind: tab === 'manga' ? 'manga' : tab === 'bd' ? 'bd' : 'all'
+        });
+        if (suggestionRow) rows.push(suggestionRow);
+      }
+
+      rows.push(row(favorites, 'Tes coups de cœur', 'Ta crème de la crème, notée 4 étoiles et plus', { action: 'goto-library', filter: 'read' }));
     }
 
-    if (owned.length) {
-      rows.push({
-        title: 'Ma librairie',
-        subtitle: `${fmtInt(owned.length)} ${plural(owned.length, 'série')} · ${fmtInt(stats.volumes)} ${plural(stats.volumes, 'tome')}`,
-        items: owned
-          .slice()
-          .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
-          .slice(0, 16),
-        see: { action: 'goto-library', filter: 'owned' }
-      });
-    }
-
-    if (wishlist.length) {
-      rows.push({
-        title: 'Ma wishlist',
-        subtitle: 'Les titres qui te font de l’œil',
-        items: wishlist.slice(0, 14),
-        see: { action: 'goto-library', filter: 'wishlist' }
-      });
-    }
-
-    if (favorites.length) {
-      rows.push({
-        title: 'Tes coups de cœur',
-        subtitle: 'Ta crème de la crème, notée 4 étoiles et plus',
-        items: favorites.slice(0, 14),
-        see: { action: 'goto-library', filter: 'read' }
-      });
-    }
-
-    const seedIds = ['manga-tendances', 'bd-franco', 'manga-fantasy', 'bd-comics', 'bd-graphic', 'manga-romance'];
+    const seedIds = tab === 'manga'
+      ? ['manga-tendances', 'manga-fantasy', 'manga-romance']
+      : tab === 'bd'
+        ? ['bd-franco', 'bd-comics', 'bd-graphic']
+        : ['manga-tendances', 'bd-franco', 'manga-fantasy', 'bd-comics', 'bd-graphic', 'manga-romance'];
     seedIds.forEach((id) => {
-      const row = B.ROWS.find((entry) => entry.id === id);
-      if (!row || !row.items.length) return;
+      const seedRow = B.ROWS.find((entry) => entry.id === id);
+      if (!seedRow || !seedRow.items.length) return;
+      const filtered = inTab(seedRow.items);
+      if (!filtered.length) return;
+      const cards = cardsFor(filtered);
       rows.push({
-        title: row.title,
-        subtitle: row.subtitle,
-        items: row.items.slice(0, 18),
-        see: { action: 'explore-kind', kind: row.kind }
+        title: seedRow.title,
+        subtitle: seedRow.subtitle,
+        items: cards.items,
+        html: cards.html,
+        see: { action: 'explore-kind', kind: tab === 'all' ? seedRow.kind : tab }
       });
     });
 
+    B.ui.home.bdGroups = homeGroups;
+
+    const activeRows = rows.filter(Boolean);
+    const displayName = Store.settings.name || 'Mon profil';
+    const subtitle = Store.settings.name
+      ? `Bonjour ${Store.settings.name} · ${fmtInt(stats.ownedCount)} ${plural(stats.ownedCount, 'titre')} possédé${stats.ownedCount > 1 ? 's' : ''}`
+      : 'Ta collection, tes envies, tes prochaines lectures.';
+
+    const tabButton = (id, label, iconName) => `<button class="home-tab ${tab === id ? 'is-active' : ''}" data-action="home-tab" data-tab="${id}" type="button" aria-pressed="${tab === id}">${icon(iconName)} ${esc(label)}</button>`;
+
     return `<section class="home">
-      ${hero}
+      <header class="home-head">
+        <a class="home-user" href="#/settings" aria-label="Ouvrir mes réglages">
+          <span class="home-user__avatar">${esc(B.initials(Store.settings.name || 'Bulle'))}</span>
+          <span class="home-user__text">
+            <strong>${esc(displayName)}</strong>
+            <small>${fmtInt(stats.ownedCount)} possédés · ${fmtInt(stats.wishlistCount)} envies</small>
+          </span>
+        </a>
+        <div class="home-head__actions">
+          <button class="icon-btn" data-action="focus-search" type="button" aria-label="Rechercher">${icon('search')}</button>
+          <button class="icon-btn" data-action="toggle-theme" type="button" aria-label="Changer de thème">${icon(Store.settings.theme === 'light' ? 'sun' : 'moon', 'icon icon-theme')}</button>
+        </div>
+      </header>
+
+      <div class="home-title">
+        <span class="eyebrow">Bulle</span>
+        <h1>Ma Bibliothèque</h1>
+        <p>${esc(subtitle)}</p>
+      </div>
+
+      <nav class="home-tabs" aria-label="Filtrer l’accueil">
+        ${tabButton('all', 'Pour toi', 'sparkles')}
+        ${tabButton('manga', 'Mangas', 'book')}
+        ${tabButton('bd', 'BD', 'layers')}
+        ${tabButton('releases', 'Sorties', 'calendar')}
+      </nav>
+
+      ${heroSlides ? `<div class="rail-wrap hero-carousel">
+        <button class="rail__arrow rail__arrow--prev" data-action="rail" data-dir="-1" type="button" aria-label="Sortie précédente">${icon('arrow-left')}</button>
+        <div class="rail hero-rail">${heroSlides}</div>
+        <button class="rail__arrow rail__arrow--next" data-action="rail" data-dir="1" type="button" aria-label="Sortie suivante">${icon('arrow-right')}</button>
+      </div>` : ''}
+
       ${welcome}
-      <div class="rows">${rows.map((row) => B.rowHTML(row)).join('')}</div>
+      ${collections}
+      <div class="rows">${activeRows.map((entry) => B.rowHTML(entry)).join('')}</div>
       <footer class="home-foot">
         <span>${icon('shield')} Ta collection est stockée sur ton téléphone, pas sur un serveur.</span>
         <a href="#/settings">Gérer mes données</a>
@@ -238,6 +385,18 @@
     const e = B.ui.explore;
     const query = e.q.trim();
 
+    function cardsGrid(list) {
+      const grouped = B.groupCollectionEntries(list, 2);
+      B.ui.explore.bdGroups = grouped.groups;
+      const isOwned = (item) => {
+        const trackedItem = Store.get(item.id);
+        return Boolean((trackedItem && trackedItem.owned) || item.owned);
+      };
+      return `<div class="grid grid--posters">${grouped.entries.map((entry) => entry.type === 'group'
+        ? B.seriesCard(entry.group, { inCollection: entry.group.items.some(isOwned) })
+        : B.posterCard(entry.item)).join('')}</div>`;
+    }
+
     if (!query) {
       const genres = B.galleryGenres();
       const all = B.galleryCatalog();
@@ -260,7 +419,7 @@
           </div>
           <span class="result-note">${icon('globe')} Catalogue local, dispo hors-ligne</span>
         </div>
-        ${shown.length ? `<div class="grid grid--posters">${shown.map((item) => B.posterCard(item)).join('')}</div>` : emptyState({
+        ${shown.length ? cardsGrid(shown) : emptyState({
           icon: 'compass',
           title: 'Aucun titre dans ce genre',
           text: 'Essaie un autre genre ou affiche tout le catalogue.',
@@ -307,7 +466,7 @@
 
     let content = '';
     if (shown.length) {
-      content = `<div class="grid grid--posters">${shown.map((item) => B.posterCard(item)).join('')}</div>`;
+      content = cardsGrid(shown);
     } else if (loading || waiting) {
       content = skeletonGrid(12);
     } else {
