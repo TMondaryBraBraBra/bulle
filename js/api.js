@@ -7,7 +7,7 @@
   'use strict';
 
   const ANILIST_ENDPOINT = 'https://graphql.anilist.co';
-  const CACHE_PREFIX = 'bulle.search.v10:';
+  const CACHE_PREFIX = 'bulle.search.v12:';
   const CACHE_TTL = 6 * 60 * 60 * 1000;
   const CACHE_MAX = 80;
 
@@ -62,8 +62,8 @@
   ];
 
   const NON_BOOK = /(?:coloriage|coloring|agenda|calendrier|calendar|quiz|quizz|carnet|journal|poster|artbook|fanbook|guide|encyclop|illustration|recipe|cuisine|stickers?|cahier|bloc|puzzle)/i;
-  const FOREIGN_TITLE = /\b(?:van|het|een|der|die|das|und|mit|von|swiat|specjalny|ksiega|opowiesci|tom|tomek)\b/i;
   const NON_VOLUME = /^(?:box|coffret|pack|lot)\b/i;
+  const FOREIGN_TITLE = /\b(?:de|het|een)\s+[a-zà-ÿ'’-]+\s+van\b|\b(?:swiat|specjalny|ksiega|opowiesci)\b/i;
 
   function isFrenchPublisher(doc) {
     const publishers = normalize(toArray(doc.publisher).join(' '));
