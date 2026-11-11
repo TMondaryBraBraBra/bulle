@@ -616,8 +616,9 @@
   }
 
   function groupCollectionEntries(items, minCount) {
-    const groups = groupBdSeries((items || []).filter((item) => item && item.kind === 'bd' && !item.releaseDate))
+    const groups = groupBdSeries((items || []).filter((item) => item && item.kind === 'bd'))
       .filter((group) => group.count >= (minCount || 1));
+    groups.forEach((group) => { group.nextDate = ''; });
     const byId = new Map();
     groups.forEach((group) => group.items.forEach((item) => byId.set(item.id, group)));
 

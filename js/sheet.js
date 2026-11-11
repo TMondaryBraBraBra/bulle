@@ -173,7 +173,7 @@
 
     const sourceUrl = item.frUrl || item.siteUrl || '';
     const source = item.source === 'release'
-      ? (item.kind === 'bd' ? 'BDGest' : 'Manga-News')
+      ? (item.kind === 'bd' ? 'Bédé.fr' : 'Manga-News')
       : item.frUrl
         ? 'l’éditeur français'
         : B.sourceLabel(item);

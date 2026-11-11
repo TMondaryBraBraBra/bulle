@@ -172,7 +172,7 @@ scripts/stamp-version.mjs  synchronisation de version (CI)
 
 ## Calendrier des sorties
 
-`data/releases-fr.js` est généré depuis Manga-News (mangas) et BDGest (BD franco-belge). Il couvre les trois mois à venir et ne contient que des titres édités en France.
+`data/releases-fr.js` est généré depuis Manga-News (mangas) et Bédé.fr (BD franco-belge). Il couvre les trois mois à venir et ne contient que des titres édités en France.
 
 Pour le régénérer à la main :
 
@@ -197,7 +197,7 @@ Le workflow **Refresh French releases** le régénère automatiquement le 1er et
 ## Crédits
 
 - Couvertures, synopsis et métadonnées : [AniList](https://anilist.co), [Open Library](https://openlibrary.org), [Google Books](https://books.google.com).
-- Calendrier des sorties : [Manga-News](https://www.manga-news.com) et [BDGest](https://www.bdgest.com).
+- Calendrier des sorties : [Manga-News](https://www.manga-news.com) et [Bédé.fr](https://www.bede.fr).
 - Tous les contenus restent la propriété de leurs éditeurs et ayants droit.
 - Bulle est un projet personnel, sans affiliation avec ces services.
 

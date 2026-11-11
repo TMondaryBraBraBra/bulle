@@ -1,6 +1,6 @@
 ﻿# =========================================================
 # BULLE — calendrier des sorties françaises
-# Sources : Manga-News (mangas) · BDGest (BD franco-belge)
+# Sources : Manga-News (mangas) · Bédé.fr (BD franco-belge)
 # Génère data/releases-fr.js, utilisé par l'onglet Sorties.
 # Fonctionne sous Windows PowerShell et PowerShell 7 (GitHub Actions).
 # =========================================================
@@ -43,39 +43,48 @@ function Clean-Html {
 function Get-VolumeInfo {
   param([string]$Title)
   $result = [ordered]@{ volume = 0; label = ''; series = $Title.Trim() }
+  $value = $Title.Trim()
 
-  # Coffrets : « Coffret T01 à T06 », « Coffret Starter »…
-  $box = [regex]::Match($Title, '(?i)Coffret[^0-9]*T\s*(\d+)\s*(?:à|a|-|–|—)\s*T\s*(\d+)')
+  # Coffrets : « Coffret T01 à T06 », « Coffret Tomes 04 à 06 »…
+  $box = [regex]::Match($value, '(?i)Coffret\s*(?:Tomes?|T\.?)\s*(\d+)\s*(?:à|a|-|–|—)\s*(?:Tomes?|T\.?)\s*(\d+)')
   if ($box.Success) {
-    $result.label = 'Coffret T' + $box.Groups[1].Value + ' à T' + $box.Groups[2].Value
-    $result.series = [regex]::Replace($Title, '(?i)\s*-\s*Coffret.*$', '').Trim(' ', '-', '–', '—')
+    $result.label = 'Coffret T' + [int]$box.Groups[1].Value + ' à T' + [int]$box.Groups[2].Value
+    $result.series = [regex]::Replace($value, '(?i)\s*[-:]?\s*Coffret.*$', '').Trim(' ', '-', ':', ',', '–', '—')
     return $result
   }
-  if ($Title -match '(?i)Coffret') {
+  if ($value -match '(?i)Coffret') {
     $result.label = 'Coffret'
-    $result.series = [regex]::Replace($Title, '(?i)\s*-\s*Coffret.*$', '').Trim(' ', '-', '–', '—')
+    $result.series = [regex]::Replace($value, '(?i)\s*[-:]?\s*Coffret.*$', '').Trim(' ', '-', ':', ',', '–', '—')
     return $result
   }
 
-  # Numéro de tome : Vol.12, Tome 12, T12, T.12
-  $volumeMatch = [regex]::Match($Title, '(?i)\bVol\.?\s*(\d+)\s*$')
-  if (-not $volumeMatch.Success) { $volumeMatch = [regex]::Match($Title, '(?i)\bTome\s*(\d+)\s*$') }
-  if (-not $volumeMatch.Success) { $volumeMatch = [regex]::Match($Title, '(?i)\bT\.?\s*(\d+)\s*$') }
+  # Intégrales : « Intégrale », « la petite intégrale », « intégrale T5 + T6 »…
+  if ($value -match '(?i)int[ée]grale') {
+    $result.label = 'Intégrale'
+    $result.series = [regex]::Replace($value, '(?i)\s*[-:,]?\s*(?:la\s+petite\s+|nouvelle\s+|l''\s*)?int[ée]grale.*$', '').Trim(' ', '-', ':', ',', '–', '—', '(')
+    return $result
+  }
+
+  # Numéro de tome : Tome 12, T12, T.12, Vol.12, Volume 12, Livre 2
+  $volumeMatch = [regex]::Match($value, '(?i)\b(?:Tome|T|Vol\.?|Volume|Livre)\s*\.?\s*(\d{1,4})\b')
   if ($volumeMatch.Success) {
     $result.volume = [int]$volumeMatch.Groups[1].Value
     $result.label = 'Tome ' + $result.volume
-    $series = [regex]::Replace($Title, '(?i)\s*(?:\bVol\.?|\bTome|\bT\.?)\s*\d+\s*$', '')
-    $result.series = $series.Trim(' ', '-', '–', '—')
+    $series = $value.Substring(0, $volumeMatch.Index)
+    $result.series = $series.Trim(' ', '-', ':', ',', '–', '—')
     return $result
   }
 
-  if ($Title -match '(?i)Intégrale') {
-    $result.label = 'Intégrale'
-    $result.series = [regex]::Replace($Title, '(?i)\s*-\s*Intégrale.*$', '').Trim(' ', '-', '–', '—')
+  # « Série - 12 : sous-titre »
+  $numberMatch = [regex]::Match($value, '^(.+?)\s*[-–—]\s*(\d{1,3})\s*(?::|[-–—]|$)')
+  if ($numberMatch.Success -and [int]$numberMatch.Groups[2].Value -le 300) {
+    $result.volume = [int]$numberMatch.Groups[2].Value
+    $result.label = 'Tome ' + $result.volume
+    $result.series = $numberMatch.Groups[1].Value.Trim(' ', '-', ':', ',', '–', '—')
     return $result
   }
 
-  $result.series = $Title.Trim()
+  $result.series = $value
   return $result
 }
 
@@ -83,8 +92,13 @@ function Normalize-Series {
   param([string]$Series)
   $editionTail = '(?i)\s*-\s*(?:Deluxe|Perfect Edition|Star Edition|Black Edition|Final Edition|Edition Perfect|Edition Prestige|Edition Immortelle|Edition Monarque|Smash édition|Édition double|Édition paillettes|Édition Collector|Edition Collector|Full Color.*|Gallery Edition.*|Nouvelle édition.*|Coffret.*|Intégrale.*|(?:Édition|Edition)\s+[^\-]+)$'
   $value = [regex]::Replace($Series, $editionTail, '')
+  $value = [regex]::Replace($value, '(?i)\s+nouvelle\s+édition.*$', '')
+  $value = [regex]::Replace($value, '\s+luxes?$', '')
+  $value = [regex]::Replace($value, '\s*-\s*\((?:collector|deluxe|intégrale)\)\s*$', '')
+  $value = [regex]::Replace($value, '(?i)\s*\([^)]*int[ée]grale[^)]*\)\s*$', '')
   $value = [regex]::Replace($value, '\s*\([^)]*/[^)]*\)\s*', ' ')
-  $value = [regex]::Replace($value, '\s+', ' ').Trim(' ', '-', '–', '—')
+  $value = [regex]::Replace($value, '\s+', ' ').Trim(' ', '-', ':', ',', '–', '—', '.', ';')
+  $value = [regex]::Replace($value, '\s*\($', '')
   return $value
 }
 
@@ -100,11 +114,12 @@ function New-Release {
     [string]$Publisher,
     [string]$Cover,
     [string]$Url,
-    [string]$Summary
+    [string]$Summary,
+    [string]$ExternalId = ""
   )
   $seriesClean = Normalize-Series $Series
   if (-not $seriesClean) { $seriesClean = $Title }
-  $idBase = ($Kind + '|' + $seriesClean + '|' + $Volume + '|' + $Date + '|' + $Title).ToLowerInvariant()
+  $idBase = ($Kind + '|' + $seriesClean + '|' + $Volume + '|' + $Date + '|' + $Title + '|' + $ExternalId).ToLowerInvariant()
   $hash = 0
   foreach ($ch in $idBase.ToCharArray()) { $hash = (($hash * 31) + [int][char]$ch) -band 0x7fffffff }
   return [ordered]@{
@@ -183,79 +198,43 @@ function Get-MangaNewsReleases {
 }
 
 # ---------------------------------------------------------
-# BDGest — calendrier franco-belge
+# Bédé.fr — calendrier franco-belge
 # ---------------------------------------------------------
-function Get-BdgestReleases {
+function Get-BedeReleases {
   param([datetime]$Month)
   $items = New-Object System.Collections.Generic.List[object]
-  $year = $Month.Year
-  $monthNumber = $Month.Month
-  $url = 'https://www.bdgest.com/sorties_bd?DL=' + $monthNumber.ToString('00') + '%2F' + $year
-  $html = Get-Html $url
+  $monthNames = @('janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre')
+  $pageUrl = 'https://www.bede.fr/sorties-bd-' + $monthNames[$Month.Month - 1] + '-' + $Month.Year
+  $html = Get-Html $pageUrl
 
-  $sections = [regex]::Matches($html, '(?s)<section class="bdg-cal-day".*?</section>')
-  foreach ($section in $sections) {
-    $s = $section.Value
-    $idMatch = [regex]::Match($s, 'id="([^"]+)"')
-    if (-not $idMatch.Success) { continue }
-    $id = $idMatch.Groups[1].Value
-    $date = $null
+  $articles = [regex]::Matches($html, '(?s)<article[^>]*itemtype="https://schema\.org/Book".*?</article>')
+  foreach ($article in $articles) {
+    $a = $article.Value
+    $titleMatch = [regex]::Match($a, 'data-title="([^"]+)"')
+    if (-not $titleMatch.Success) { continue }
+    $title = [System.Net.WebUtility]::HtmlDecode($titleMatch.Groups[1].Value).Trim()
+    if (-not $title) { continue }
 
-    if ($id -match '^j(\d{2})(\d{2})$') {
-      $day = [int]$Matches[1]
-      $sectionMonth = [int]$Matches[2]
-      $sectionYear = $year
-      if ($sectionMonth -lt ($monthNumber - 6)) { $sectionYear += 1 }
-      elseif ($sectionMonth -gt ($monthNumber + 6)) { $sectionYear -= 1 }
-      try { $date = [datetime]::new($sectionYear, $sectionMonth, $day) } catch { $date = $null }
-    } elseif ($id -match '^m(\d{2})(\d{4})$') {
-      $sectionMonth = [int]$Matches[1]
-      $sectionYear = [int]$Matches[2]
-      try { $date = [datetime]::new($sectionYear, $sectionMonth, 1) } catch { $date = $null }
-    }
+    $dateMatch = [regex]::Match($a, 'itemprop="datePublished"\s+content="([^"]+)"')
+    if (-not $dateMatch.Success) { continue }
+    $date = $dateMatch.Groups[1].Value
+    if ($date -notmatch '^\d{4}-\d{2}-\d{2}$') { continue }
 
-    if (-not $date) { continue }
-    if ($date.Year -ge 2090) { continue }
-    $dateText = $date.ToString('yyyy-MM-dd')
+    $albumMatch = [regex]::Match($a, 'data-album="([^"]+)"')
+    $albumId = if ($albumMatch.Success) { $albumMatch.Groups[1].Value.ToLowerInvariant() } else { '' }
+    $url = if ($albumId) { $pageUrl + '#' + $albumId } else { $pageUrl }
 
-    $albums = [regex]::Matches($s, '(?s)<li>\s*<a class="cv bdt-img" href="([^"]+)" title="([^"]+)".*?<img src="([^"]+)"')
-    foreach ($album in $albums) {
-      $albumUrl = [System.Net.WebUtility]::HtmlDecode($album.Groups[1].Value)
-      $rawTitle = [System.Net.WebUtility]::HtmlDecode($album.Groups[2].Value)
-      $cover = [System.Net.WebUtility]::HtmlDecode($album.Groups[3].Value)
-      if (-not $rawTitle) { continue }
+    $publisherMatch = [regex]::Match($a, '(?s)itemprop="publisher"[^>]*>(.*?)</div>')
+    $publisher = if ($publisherMatch.Success) { Clean-Html $publisherMatch.Groups[1].Value } else { '' }
 
-      $tail = $s.Substring($album.Index)
-      $editorMatch = [regex]::Match($tail, '(?s)<span class="ed">(.*?)</span>')
-      $publisher = if ($editorMatch.Success) { Clean-Html $editorMatch.Groups[1].Value } else { '' }
+    $coverMatch = [regex]::Match($a, '<img[^>]*src="(https://cdn\.bede\.fr/[^"]+)"')
+    $cover = if ($coverMatch.Success) { [System.Net.WebUtility]::HtmlDecode($coverMatch.Groups[1].Value) } else { '' }
 
-      $volume = 0
-      $label = ''
-      $series = $rawTitle
+    $volumeInfo = Get-VolumeInfo $title
+    $series = $volumeInfo.series
+    if (-not $series) { $series = $title }
 
-      $hashMatch = [regex]::Match($rawTitle, '^(.*?)\s+#(\d+)\b(?:\s*-\s*.*)?$')
-      if ($hashMatch.Success) {
-        $series = $hashMatch.Groups[1].Value
-        $volume = [int]$hashMatch.Groups[2].Value
-        $label = 'Tome ' + $volume
-      } else {
-        $tomeMatch = [regex]::Match($rawTitle, '^(.*?)\s*[-–—]\s*Tome\s*(\d+)\b(?:\s*[-–—].*)?$')
-        if ($tomeMatch.Success) {
-          $series = $tomeMatch.Groups[1].Value
-          $volume = [int]$tomeMatch.Groups[2].Value
-          $label = 'Tome ' + $volume
-        } elseif ($rawTitle -match '(?i)Intégrale') {
-          $label = 'Intégrale'
-          $series = [regex]::Replace($rawTitle, '(?i)\s*Intégrale.*$', '')
-        }
-      }
-
-      $series = [regex]::Replace($series, '\s*\([^)]*/[^)]*\)\s*', ' ')
-      $series = [regex]::Replace($series, '\s+', ' ').Trim(' ', '-', '–', '—')
-      if (-not $series) { $series = $rawTitle }
-
-      $items.Add((New-Release -Kind 'bd' -Series $series -Title $rawTitle -Volume $volume -Label $label -Date $dateText -Author '' -Publisher $publisher -Cover $cover -Url $albumUrl -Summary ''))
-    }
+    $items.Add((New-Release -Kind 'bd' -Series $series -Title $title -Volume $volumeInfo.volume -Label $volumeInfo.label -Date $date -Author '' -Publisher $publisher -Cover $cover -Url $url -Summary '' -ExternalId $albumId))
   }
 
   return $items
@@ -278,9 +257,7 @@ foreach ($month in $months) {
   try {
     $manga = Get-MangaNewsReleases -Month $month
     foreach ($item in $manga) {
-      $key = $item.kind + '|' + $item.series.ToLowerInvariant() + '|' + $item.volume + '|' + $item.date
-      if ($item.volume -eq 0) { $key += '|' + $item.title.ToLowerInvariant() }
-      if ($seen.Add($key)) { $all.Add($item) }
+      if ($seen.Add($item.id)) { $all.Add($item) }
     }
     Write-Host ("Manga-News {0:yyyy-MM} : {1} sorties" -f $month, $manga.Count)
   } catch {
@@ -289,25 +266,38 @@ foreach ($month in $months) {
   }
 
   try {
-    $bd = Get-BdgestReleases -Month $month
+    $bd = Get-BedeReleases -Month $month
     foreach ($item in $bd) {
-      $key = $item.kind + '|' + $item.series.ToLowerInvariant() + '|' + $item.volume + '|' + $item.date
-      if ($item.volume -eq 0) { $key += '|' + $item.title.ToLowerInvariant() }
-      if ($seen.Add($key)) { $all.Add($item) }
+      if ($seen.Add($item.id)) { $all.Add($item) }
     }
-    Write-Host ("BDGest {0:yyyy-MM} : {1} sorties" -f $month, $bd.Count)
+    Write-Host ("Bédé.fr {0:yyyy-MM} : {1} sorties" -f $month, $bd.Count)
   } catch {
-    $errors += ('BDGest ' + $month.ToString('yyyy-MM') + ' : ' + $_.Exception.Message)
+    $errors += ('Bédé.fr ' + $month.ToString('yyyy-MM') + ' : ' + $_.Exception.Message)
     Write-Warning $errors[-1]
   }
 }
 
 $sorted = @($all | Sort-Object { $_.date }, { $_.kind }, { $_.series }, { $_.volume })
+$mangaCount = @($sorted | Where-Object { $_.kind -eq 'manga' }).Count
+$bdCount = @($sorted | Where-Object { $_.kind -eq 'bd' }).Count
+
+# Garde-fou : ne jamais remplacer un calendrier complet par un calendrier vide.
+if (Test-Path -LiteralPath $OutputPath) {
+  $oldText = [IO.File]::ReadAllText($OutputPath, [Text.Encoding]::UTF8)
+  $oldManga = ([regex]::Matches($oldText, '"kind"\s*:\s*"manga"')).Count
+  $oldBd = ([regex]::Matches($oldText, '"kind"\s*:\s*"bd"')).Count
+  if ($mangaCount -eq 0 -and $oldManga -gt 0) {
+    throw ("Garde-fou : aucune sortie manga récupérée, alors que le calendrier existant en contient {0}. Fichier conservé." -f $oldManga)
+  }
+  if ($bdCount -eq 0 -and $oldBd -gt 0) {
+    throw ("Garde-fou : aucune sortie BD récupérée, alors que le calendrier existant en contient {0}. Fichier conservé." -f $oldBd)
+  }
+}
 
 $payload = [ordered]@{
   generated = $now.ToString('yyyy-MM-dd')
   updatedAt = $now.ToUniversalTime().ToString('o')
-  sources   = @('Manga-News', 'BDGest')
+  sources   = @('Manga-News', 'Bédé.fr')
   months    = @($months | ForEach-Object { $_.ToString('yyyy-MM') })
   errors    = @($errors)
   items     = $sorted
@@ -317,8 +307,8 @@ $json = $payload | ConvertTo-Json -Depth 6 -Compress
 $js = @"
 /* =========================================================
    BULLE — calendrier des sorties françaises
-   Généré automatiquement le $($now.ToString('yyyy-MM-dd HH:mm')) UTC.
-   Sources : Manga-News (mangas) · BDGest (BD franco-belge).
+   Généré automatiquement le $($now.ToUniversalTime().ToString('yyyy-MM-dd HH:mm')) UTC.
+   Sources : Manga-News (mangas) · Bédé.fr (BD franco-belge).
    Ne pas modifier à la main : relancer scripts/fetch-releases.ps1
    ========================================================= */
 window.RELEASES = $json;
@@ -328,8 +318,6 @@ $directory = Split-Path -Parent $OutputPath
 if (-not (Test-Path -LiteralPath $directory)) { New-Item -ItemType Directory -Path $directory -Force | Out-Null }
 [IO.File]::WriteAllText($OutputPath, $js, (New-Object Text.UTF8Encoding($false)))
 
-$mangaCount = @($sorted | Where-Object { $_.kind -eq 'manga' }).Count
-$bdCount = @($sorted | Where-Object { $_.kind -eq 'bd' }).Count
 Write-Host ""
 Write-Host ("Calendrier écrit : {0}" -f $OutputPath)
 Write-Host ("{0} sorties : {1} mangas, {2} BD" -f $sorted.Count, $mangaCount, $bdCount)

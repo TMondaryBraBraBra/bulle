@@ -41,7 +41,8 @@ const COVER_HOSTS = [
   'books.google.com',
   'books.googleusercontent.com',
   'lh3.googleusercontent.com',
-  'www.manga-news.com'
+  'www.manga-news.com',
+  'cdn.bede.fr'
 ];
 
 self.addEventListener('install', (event) => {

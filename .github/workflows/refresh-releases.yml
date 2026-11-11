@@ -30,8 +30,14 @@ jobs:
         run: |
           if (-not (Test-Path 'data/releases-fr.js')) { throw 'data/releases-fr.js manquant' }
           $text = [IO.File]::ReadAllText('data/releases-fr.js', [Text.Encoding]::UTF8)
-          if ($text -notmatch 'window\.RELEASES\s*=') { throw 'Calendrier invalide' }
-          Write-Host 'Calendrier valide.'
+          $match = [regex]::Match($text, '(?s)window\.RELEASES\s*=\s*(\{.*\});')
+          if (-not $match.Success) { throw 'Calendrier invalide' }
+          $data = $match.Groups[1].Value | ConvertFrom-Json
+          $manga = @($data.items | Where-Object { $_.kind -eq 'manga' }).Count
+          $bd = @($data.items | Where-Object { $_.kind -eq 'bd' }).Count
+          if ($manga -lt 10) { throw "Trop peu de mangas : $manga" }
+          if ($bd -lt 1) { throw 'Aucune sortie BD dans le calendrier' }
+          Write-Host "Calendrier valide : $($data.items.Count) sorties, $manga mangas, $bd BD."
 
       - name: Publier les changements
         id: publish
