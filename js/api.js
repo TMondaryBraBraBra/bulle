@@ -7,13 +7,13 @@
   'use strict';
 
   const ANILIST_ENDPOINT = 'https://graphql.anilist.co';
-  const CACHE_PREFIX = 'bulle.search.v4:';
+  const CACHE_PREFIX = 'bulle.search.v10:';
   const CACHE_TTL = 6 * 60 * 60 * 1000;
   const CACHE_MAX = 80;
 
   const ANILIST_QUERY = `
     query ($search: String) {
-      Page(page: 1, perPage: 24) {
+      Page(page: 1, perPage: 50) {
         media(search: $search, type: MANGA, isAdult: false, sort: SEARCH_MATCH,
               format_in: [MANGA, ONE_SHOT]) {
           id
@@ -49,6 +49,100 @@
     if (Array.isArray(value)) return value.filter(Boolean);
     if (typeof value === 'string' && value.trim()) return [value.trim()];
     return [];
+  }
+
+  /* ------------------------- détection des éditions françaises ------------------------- */
+
+  const FRENCH_PUBLISHERS = [
+    'le lombard', 'casterman', 'dupuis', 'dargaud', 'glenat', 'kana', 'pika', 'ki-oon',
+    'kurokawa', 'kaze', 'panini', 'soleil', 'akata', 'delcourt', 'bamboo', 'fluide glacial',
+    'les humanoides', 'urban comics', 'tonkam', 'taifu', 'ototo', 'noeve', 'na ban',
+    'mangetsu', 'chatto', 'sarbacane', 'futuropolis', 'cornelius', 'steinkis', 'ca et la',
+    'glenat manga', 'pika edition', 'kurokawa manga'
+  ];
+
+  const NON_BOOK = /(?:coloriage|coloring|agenda|calendrier|calendar|quiz|quizz|carnet|journal|poster|artbook|fanbook|guide|encyclop|illustration|recipe|cuisine|stickers?|cahier|bloc|puzzle)/i;
+  const FOREIGN_TITLE = /\b(?:van|het|een|der|die|das|und|mit|von|swiat|specjalny|ksiega|opowiesci|tom|tomek)\b/i;
+  const NON_VOLUME = /^(?:box|coffret|pack|lot)\b/i;
+
+  function isFrenchPublisher(doc) {
+    const publishers = normalize(toArray(doc.publisher).join(' '));
+    return FRENCH_PUBLISHERS.some((name) => publishers.includes(name));
+  }
+
+  function isFrenchDoc(doc) {
+    const langs = toArray(doc.language).map((lang) => String(lang).toLowerCase());
+    if (langs.includes('fre') || langs.includes('fr')) return true;
+    if (langs.length) return false;
+    const title = String(doc.title || '');
+    if (FOREIGN_TITLE.test(title)) return false;
+    if (isFrenchPublisher(doc)) return true;
+    return /(?:tome|tomes|int[ée]grale|integrale|[ée]dition|edition|coffret)\b/i.test(title) ||
+      /[àâäçéèêëîïôöùûüÿœæ]/i.test(title);
+  }
+
+  function volumeNumber(title) {
+    const value = normalize(title);
+    let match = value.match(/\b(?:tome|tomes|volume|vol)\b\.?\s*0*(\d{1,3})\b/);
+    if (!match) match = value.match(/\bt\.?\s*0*(\d{1,3})\b/);
+    if (!match) match = value.match(/\bt0*(\d{1,3})\b/);
+    if (match) return parseInt(match[1], 10);
+    match = value.match(/\s0*(\d{1,3})$/);
+    if (match) {
+      const volume = parseInt(match[1], 10);
+      if (volume >= 1 && volume <= 200) return volume;
+    }
+    return null;
+  }
+
+  function seriesKeyFromTitle(title) {
+    let value = normalize(title);
+    value = value.replace(/\b(?:tome|tomes|volume|vol)\b\.?\s*0*\d{1,3}.*$/, '');
+    value = value.replace(/\bt\.?\s*0*\d{1,3}.*$/, '');
+    value = value.replace(/\bt0*\d{1,3}.*$/, '');
+    value = value.replace(/\s0*\d{1,3}$/, '');
+    return value.replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function openLibraryKey(doc) {
+    const volume = volumeNumber(doc.title);
+    if (volume !== null) {
+      const series = seriesKeyFromTitle(doc.title);
+      if (series) return 'v:' + series + ':' + volume;
+    }
+    return 't:' + normalize(doc.title).replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function docScore(doc) {
+    const langs = toArray(doc.language).map((lang) => String(lang).toLowerCase());
+    let score = 0;
+    if (langs.includes('fre') || langs.includes('fr')) score += 4;
+    if (isFrenchPublisher(doc)) score += 3;
+    if (doc.cover_i) score += 2;
+    if (/(?:tome|tomes|int[ée]grale|integrale)/i.test(String(doc.title || ''))) score += 1;
+    if (toArray(doc.author_name).some((name) => latinTitle(name))) score += 1;
+    return score;
+  }
+
+  function latinTitle(title) {
+    return (String(title || '').match(/[a-z]/gi) || []).length >= 3;
+  }
+
+  function titleCase(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/(^|[\s'’/-])([a-zà-ÿ])/g, (match, separator, letter) => separator + letter.toUpperCase());
+  }
+
+  function frenchVolumeTitle(title) {
+    const raw = String(title || '').trim();
+    if (/\b(?:tome|tomes|volume|vol)\b/i.test(raw)) return raw;
+    const match = raw.match(/^(.*?)\s*[-–—]?\s*0*(\d{1,3})$/);
+    if (!match) return raw;
+    const series = match[1].replace(/[\s,;:–—-]+$/, '').trim();
+    const volume = parseInt(match[2], 10);
+    if (!series || volume < 1 || volume > 200) return raw;
+    return titleCase(series) + ', tome ' + volume;
   }
 
   function cleanText(value) {
@@ -196,50 +290,81 @@
   const COMIC_HINT = /comic|graphic novel|bande dessin|bandes dessin|manga|roman graphique|bd\b/i;
 
   async function searchOpenLibrary(query, mode) {
-    const fields = 'key,title,author_name,cover_i,first_publish_year,subject,first_sentence,language';
-    const url = 'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) +
-      '&limit=30&language=fre&fields=' + fields;
-    const payload = await fetchJson(url, {}, 16000);
-    const docs = Array.isArray(payload.docs) ? payload.docs : [];
+    const fields = 'key,title,author_name,cover_i,first_publish_year,subject,first_sentence,language,publisher';
+    const pageUrls = [1, 2].map((page) =>
+      'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) +
+      '&limit=100&page=' + page +
+      (mode === 'manga' ? '&language=fre' : '') +
+      '&fields=' + fields
+    );
 
-    const strict = mode !== 'bd';
+    const pages = await Promise.allSettled(pageUrls.map((url) => fetchJson(url, {}, 16000)));
+    const fulfilled = pages.filter((result) => result.status === 'fulfilled');
+    if (!fulfilled.length) throw pages[0].reason || new Error('Open Library indisponible');
+
+    const docs = fulfilled.flatMap((result) =>
+      Array.isArray(result.value.docs) ? result.value.docs : []
+    );
+
     const qNorm = normalize(query);
     const tokens = qNorm.split(' ').filter((token) => token.length >= 3);
-
     const output = [];
     const seen = new Set();
+    const candidates = [];
 
     docs.forEach((doc) => {
-      if (!doc || !doc.cover_i || !doc.title) return;
-      const languages = toArray(doc.language).map((language) => String(language).toLowerCase());
-      if (languages.length && !languages.includes('fre') && !languages.includes('fr')) return;
+      if (!doc || !doc.title || !doc.key) return;
+      if (!latinTitle(doc.title) || NON_BOOK.test(String(doc.title)) || NON_VOLUME.test(String(doc.title))) return;
+      if (!isFrenchDoc(doc)) return;
+
       const subjects = toArray(doc.subject);
-      const comicish = COMIC_HINT.test(doc.title + ' ' + subjects.join(' '));
+      const subjectText = subjects.join(' ');
       const titleNorm = normalize(doc.title);
+      const authorText = normalize(toArray(doc.author_name).join(' '));
+      const comicish = COMIC_HINT.test(doc.title + ' ' + subjectText);
       const titleMatch = Boolean(qNorm) && (
         titleNorm.includes(qNorm) ||
         (tokens.length > 0 && tokens.every((token) => titleNorm.includes(token)))
       );
-      const seriesish = subjects.some((subject) => /^series:/i.test(String(subject)));
+      const authorMatch = tokens.length > 0 && tokens.every((token) => authorText.includes(token));
+      const isManga = /manga/i.test(subjectText);
 
-      if (strict && !comicish && !(titleMatch && seriesish)) return;
-      if (!strict && !comicish && !titleMatch) return;
+      if (mode === 'manga') {
+        if (!isManga) return;
+      } else if (mode === 'bd') {
+        if (isManga) return;
+        if (!comicish && !titleMatch && !authorMatch) return;
+      } else {
+        if (!comicish && !titleMatch && !authorMatch) return;
+      }
 
-      const dedupe = titleNorm;
-      if (!dedupe || seen.has(dedupe)) return;
-      seen.add(dedupe);
+      candidates.push({
+        doc,
+        kind: isManga ? 'manga' : 'bd',
+        score: docScore(doc)
+      });
+    });
 
-      const key = String(doc.key || '').replace('/works/', '');
-      if (!key) return;
+    candidates.sort((a, b) => b.score - a.score);
+    candidates.forEach(({ doc, kind }) => {
+      const key = openLibraryKey(doc);
+      if (!key || seen.has(key)) return;
+      seen.add(key);
 
+      const workKey = String(doc.key || '').replace('/works/', '');
+      if (!workKey) return;
+
+      const subjects = toArray(doc.subject);
+      const displayTitle = frenchVolumeTitle(doc.title);
       output.push({
-        id: 'ol:' + key,
+        id: 'ol:' + workKey,
         source: 'openlibrary',
-        kind: 'bd',
-        subtype: /manga/i.test(subjects.join(' ')) ? 'Manga' : 'BD',
-        title: doc.title,
-        author: toArray(doc.author_name).slice(0, 2).join(', '),
-        cover: 'https://covers.openlibrary.org/b/id/' + doc.cover_i + '-L.jpg',
+        kind,
+        subtype: kind === 'manga' ? 'Manga' : 'BD',
+        title: displayTitle,
+        altTitle: displayTitle !== doc.title ? doc.title : '',
+        author: toArray(doc.author_name).filter((name) => latinTitle(name)).slice(0, 2).join(', '),
+        cover: doc.cover_i ? 'https://covers.openlibrary.org/b/id/' + doc.cover_i + '-L.jpg' : '',
         banner: '',
         description: cleanText(toArray(doc.first_sentence).join(' ')),
         genres: subjects.slice(0, 4).map((s) => cleanText(s).slice(0, 32)),
@@ -256,30 +381,40 @@
   }
 
   /* ---------------- Google Books ---------------- */
-  async function searchGoogleBooks(query) {
-    const url = 'https://www.googleapis.com/books/v1/volumes?q=' +
+  async function searchGoogleBooks(query, mode) {
+    const urls = [0, 40].map((startIndex) =>
+      'https://www.googleapis.com/books/v1/volumes?q=' +
       encodeURIComponent(query) +
-      '&maxResults=24&printType=books&orderBy=relevance&langRestrict=fr';
+      '&maxResults=40&startIndex=' + startIndex +
+      '&printType=books&orderBy=relevance&langRestrict=fr'
+    );
 
-    let payload;
-    try {
-      payload = await fetchJson(url, {}, 12000);
-    } catch (err) {
-      return [];
-    }
+    const pages = await Promise.allSettled(urls.map((url) => fetchJson(url, {}, 12000)));
+    const fulfilled = pages.filter((result) => result.status === 'fulfilled');
+    if (!fulfilled.length) return [];
 
-    const volumes = Array.isArray(payload.items) ? payload.items : [];
+    const volumes = fulfilled.flatMap((result) =>
+      Array.isArray(result.value.items) ? result.value.items : []
+    );
     const output = [];
+    const seen = new Set();
 
     volumes.forEach((entry) => {
       const info = entry && entry.volumeInfo;
-      if (!info || !info.title) return;
+      if (!info || !info.title || !entry.id) return;
       if (info.language && String(info.language).toLowerCase() !== 'fr') return;
 
       const categories = toArray(info.categories);
-      const isComic = categories.some((c) => COMIC_HINT.test(c)) ||
-        COMIC_HINT.test(info.title + ' ' + (info.subtitle || '') + ' ' + (info.description || '').slice(0, 200));
+      const text = info.title + ' ' + (info.subtitle || '') + ' ' + (info.description || '').slice(0, 200);
+      const isManga = categories.some((c) => /manga/i.test(c)) || /\bmanga\b/i.test(text);
+      const isComic = categories.some((c) => COMIC_HINT.test(c)) || COMIC_HINT.test(text);
       if (!isComic) return;
+      if (mode === 'manga' && !isManga) return;
+      if (mode === 'bd' && isManga) return;
+
+      const key = normalize(info.title).replace(/[^a-z0-9]+/g, ' ').trim();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
 
       const links = info.imageLinks || {};
       let cover = links.extraLarge || links.large || links.medium || links.thumbnail || links.smallThumbnail || '';
@@ -289,8 +424,8 @@
       output.push({
         id: 'gb:' + entry.id,
         source: 'googlebooks',
-        kind: 'bd',
-        subtype: categories.some((c) => /manga/i.test(c)) ? 'Manga' : 'BD / Comics',
+        kind: isManga ? 'manga' : 'bd',
+        subtype: isManga ? 'Manga' : 'BD / Comics',
         title: info.title + (info.subtitle ? ' — ' + info.subtitle : ''),
         author: toArray(info.authors).slice(0, 2).join(', '),
         cover,
@@ -315,7 +450,10 @@
     const out = [];
     items.forEach((item) => {
       if (!item || !item.title) return;
-      const key = normalize(item.title).slice(0, 110) + '|' + item.kind;
+      const volume = volumeNumber(item.title);
+      const key = volume !== null
+        ? 'v:' + seriesKeyFromTitle(item.title) + ':' + volume + '|' + item.kind
+        : 't:' + normalize(item.title).replace(/[^a-z0-9]+/g, ' ').trim() + '|' + item.kind;
       if (seen.has(key)) return;
       seen.add(key);
       out.push(item);
@@ -334,9 +472,7 @@
 
     const jobs = [];
     if (mode !== 'bd') jobs.push({ name: 'AniList', run: searchAniList(q) });
-    if (mode !== 'manga') {
-      jobs.push({ name: 'Open Library', run: searchOpenLibrary(q, mode) });
-    }
+    jobs.push({ name: 'Open Library', run: searchOpenLibrary(q, mode) });
 
     const settled = await Promise.allSettled(jobs.map((j) => j.run));
     const items = [];
@@ -354,16 +490,25 @@
       }
     });
 
+    let googleTried = false;
     if (mode !== 'manga') {
       const bdCount = items.filter((i) => i.kind === 'bd').length;
-      if (bdCount < 6) {
-        const extra = await searchGoogleBooks(q);
+      if (bdCount < 20) {
+        const extra = await searchGoogleBooks(q, mode);
+        items.push(...extra);
+        googleTried = true;
+      }
+    }
+    if (mode !== 'bd' && !googleTried) {
+      const mangaCount = items.filter((i) => i.kind === 'manga').length;
+      if (mangaCount < 20) {
+        const extra = await searchGoogleBooks(q, mode);
         items.push(...extra);
       }
     }
 
     const merged = dedupe(items)
-      .slice(0, 42)
+      .slice(0, 160)
       .map((item) => (window.Store && window.Store.applyFrCover ? window.Store.applyFrCover(item) : item));
     if (merged.length) cacheSet(key, merged);
 

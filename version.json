@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "released": "2026-11-11",
-  "notes": "Calendrier des sorties : les BD françaises reviennent via Bédé.fr, avec un garde-fou contre les calendriers vides."
+  "notes": "Recherche élargie : Open Library et Google Books paginés, mangas inclus, résultats dédupliqués par série et tome."
 }

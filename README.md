@@ -12,7 +12,7 @@ Pas de compte Bulle, pas de serveur, pas d'abonnement. GitHub héberge seulement
 
 - **Une seule étagère** pour les mangas, BD franco-belges et comics.
 - **Catalogue local** de 144 titres avec vraies couvertures, prêt à explorer hors-ligne.
-- **Recherche en ligne gratuite** : AniList (mangas), Open Library (BD) et Google Books (compléments), limitée aux titres édités en français.
+- **Recherche en ligne gratuite et élargie** : AniList (mangas), Open Library (mangas et BD, deux pages de 100 résultats) et Google Books (compléments paginés), limitée aux éditions françaises et dédupliquée par série et tome.
 - **Prochaines sorties françaises** : un calendrier précalculé de mangas et de BD, filtrable par type, par mois et par « suites de ma collection ».
 - **BD regroupées par série** : une seule carte par série, puis tous les albums sur une fiche dédiée.
 - Pour chaque titre, suivre indépendamment :

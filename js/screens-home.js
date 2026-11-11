@@ -385,23 +385,28 @@
     const e = B.ui.explore;
     const query = e.q.trim();
 
-    function cardsGrid(list) {
+    function cardsGrid(list, limit) {
       const grouped = B.groupCollectionEntries(list, 2);
       B.ui.explore.bdGroups = grouped.groups;
       const isOwned = (item) => {
         const trackedItem = Store.get(item.id);
         return Boolean((trackedItem && trackedItem.owned) || item.owned);
       };
-      return `<div class="grid grid--posters">${grouped.entries.map((entry) => entry.type === 'group'
-        ? B.seriesCard(entry.group, { inCollection: entry.group.items.some(isOwned) })
-        : B.posterCard(entry.item)).join('')}</div>`;
+      const entries = grouped.entries.slice(0, typeof limit === 'number' ? limit : grouped.entries.length);
+      return {
+        html: `<div class="grid grid--posters">${entries.map((entry) => entry.type === 'group'
+          ? B.seriesCard(entry.group, { inCollection: entry.group.items.some(isOwned) })
+          : B.posterCard(entry.item)).join('')}</div>`,
+        total: grouped.entries.length,
+        shown: entries
+      };
     }
 
     if (!query) {
       const genres = B.galleryGenres();
       const all = B.galleryCatalog();
       const sorted = B.sortItems(all, e.sort);
-      const shown = sorted.slice(0, e.limit);
+      const grid = cardsGrid(sorted, e.limit);
       const seedDate = window.SEED && window.SEED.generated
         ? new Date(window.SEED.generated + 'T12:00:00').toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
         : '';
@@ -419,13 +424,13 @@
           </div>
           <span class="result-note">${icon('globe')} Catalogue local, dispo hors-ligne</span>
         </div>
-        ${shown.length ? cardsGrid(shown) : emptyState({
+        ${grid.shown.length ? grid.html : emptyState({
           icon: 'compass',
           title: 'Aucun titre dans ce genre',
           text: 'Essaie un autre genre ou affiche tout le catalogue.',
           actions: '<button class="btn" data-action="explore-genre" data-genre="" type="button">Tout afficher</button>'
         })}
-        ${sorted.length > e.limit ? `<div class="load-more-wrap"><button class="btn" data-action="load-more" type="button">Afficher ${Math.min(28, sorted.length - e.limit)} titres de plus</button></div>` : ''}`;
+        ${grid.total > e.limit ? `<div class="load-more-wrap"><button class="btn" data-action="load-more" type="button">Afficher ${Math.min(28, grid.total - e.limit)} titres de plus</button></div>` : ''}`;
     }
 
     const local = B.searchLocal(query);
@@ -433,13 +438,13 @@
     let merged = B.mergeResults(remote, local);
     if (e.kind !== 'all') merged = merged.filter((item) => item.kind === e.kind);
     const sorted = B.sortItems(merged, e.sort);
-    const shown = sorted.slice(0, e.limit);
+    const grid = cardsGrid(sorted, e.limit);
     const waiting = query.length >= 2 && e.searchedFor !== query && !e.loading;
     const loading = e.loading;
     const errors = e.errors || [];
     const offline = navigator.onLine === false;
 
-    const errorBox = errors.length && !shown.length ? `<div class="error-box">
+    const errorBox = errors.length && !grid.shown.length ? `<div class="error-box">
       ${icon('info')}
       <div>
         <strong>La recherche en ligne n’a pas répondu.</strong><br>
@@ -451,13 +456,13 @@
     const resultHeader = `<div class="section-head">
       <div>
         <h2 class="section-title">Résultats pour « ${esc(query)} »</h2>
-        <p class="section-sub">${shown.length ? fmtInt(sorted.length) + ' ' + (sorted.length > 1 ? 'titres trouvés' : 'titre trouvé') : (loading ? 'Recherche en cours…' : 'Aucun titre pour le moment')}${e.kind !== 'all' ? ' · ' + (e.kind === 'manga' ? 'mangas' : 'BD & comics') : ''}</p>
+        <p class="section-sub">${sorted.length ? fmtInt(sorted.length) + ' ' + (sorted.length > 1 ? 'titres trouvés' : 'titre trouvé') : (loading ? 'Recherche en cours…' : 'Aucun titre pour le moment')}${e.kind !== 'all' ? ' · ' + (e.kind === 'manga' ? 'mangas' : 'BD & comics') : ''}</p>
       </div>
       ${sorted.length ? `<button class="btn-link" data-action="clear-search" type="button">${icon('x')} Effacer</button>` : ''}
     </div>`;
 
     const sourceLabel = e.kind === 'manga'
-      ? 'AniList'
+      ? 'AniList, Open Library et Google Books'
       : e.kind === 'bd'
         ? 'Open Library et Google Books'
         : 'AniList, Open Library et Google Books';
@@ -465,8 +470,8 @@
     const loader = loading ? `<div class="loader-line"><span class="spinner"></span> Recherche dans ${sourceLabel}…</div>` : '';
 
     let content = '';
-    if (shown.length) {
-      content = cardsGrid(shown);
+    if (grid.shown.length) {
+      content = grid.html;
     } else if (loading || waiting) {
       content = skeletonGrid(12);
     } else {
@@ -481,11 +486,11 @@
       });
     }
 
-    const more = sorted.length > e.limit
+    const more = grid.total > e.limit
       ? `<div class="load-more-wrap"><button class="btn" data-action="load-more" type="button">Afficher plus de résultats</button></div>`
       : '';
 
-    const onlineNote = (shown.length && (remote.length || errors.length))
+    const onlineNote = (grid.shown.length && (remote.length || errors.length))
       ? `<p class="result-note">${icon('globe')} Résultats issus d’${sourceLabel} · ajoute un titre pour le garder hors-ligne.</p>`
       : '';
 
